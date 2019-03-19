@@ -128,6 +128,19 @@ user_groups = ["Researchers", "Visitors"]
 
 +++
 
+<style>
+.column-left{
+  float: left;
+  width: 66%;
+  text-align: left;
+}
+.column-right{
+  float: right;
+  width: 33%;
+  text-align: right;
+}
+</style>
+
 I am an Experimental Psychologist specialising in cognitive and social psychology. I have worked with a diverse range of research techniques, and I have applied experience in the development of new methods and materials. The main focus of my research to date has been on morality and moral judgement. My interests extend beyond the moral domain to include learning and knowledge acquisition, categorisation, skill/expertise, meaning, motivation, and memory. My theoretical interests include Ecological Psychology, Embodiment, and Dynamical Systems.
 
 I graduated with a Ph.D. in October 2018. My thesis examined the phenomenon of moral dumbfounding; when a person defends a moral judgement in the absence of reasons. The dumbfounding paradigm has been influential in moral psychology; however, there is limited empirical work investigating it. This has meant that the main focus of my work to date has been testing, and attempting to understand the phenomenon.

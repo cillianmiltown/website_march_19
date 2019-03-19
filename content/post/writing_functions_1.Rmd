@@ -1,0 +1,90 @@
+---
+title: "Writing functions - Part one"
+author: "Cillian McHugh"
+date: "27 July 2017"
+slug: writing-functions-part-one
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+
+---
+
+(This post originally appeared on my [R blog](https://cillianmacaodh.blogspot.com/2017/07/writing-functions-part-one-codewhite.html))
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = NA, eval = FALSE)
+
+# load packages
+packages <- c("bookdown", "blogdown", "knitr")
+lapply(packages, function(x) {
+  if (!requireNamespace(x)) install.packages(x)
+  library(x, character.only = TRUE)
+})
+```
+
+## Writing functions
+This post outlines the writing of a basic function.  Writing functions in R [@R-base] is fairly simple, and the usefulness of function writing cannot be conveyed in a single post.  I have included "Part one" in the title, and I will add follow-up posts in time.
+
+The basic code to write a function looks like this:
+```
+function_name <- function(){}
+```
+The code for the task you want your function to perform goes inside the curly brackets `{}`, and the object you wish the function to work on goes inside the parenthesis`()`.
+
+### The problem
+I have often found myself using a number of different functions together for multiple variables.  For each variable, I need re-type each function.  For example, when looking at a variable, I would often run the functions `mean()`, `sd()`, `min()`, `max()`, and `length()` together.  Each time I wanted to inspect a new variable, I had to type all five functions for the variable in question.  For example, looking at the `Temp` variable, from the `airquality` dataset in the `datasets` package, would require typing the following: `mean(airquality$Temp)`, `sd(airquality$Temp)`, `min(airquality$Temp)`, `max(airquality$Temp)`, `length(airquality$Temp)`.  This can get very tedious and repetitive.
+
+### The solution
+In response to repeatedly typing these functions together, I created the `descriptives()` function which combines these frequently used functions into a single function.
+
+[^1]: Most of what `descriptives()` does can also be achieved by the `summary()` function, however `sd()` and `length()` are missing.
+
+#### The `descriptives()` function
+The `descriptives()` function combines the functions `mean()`, `sd()`, `min()`, `max()`, and `length()` to return a table displaying the mean, standard deviation, minimum, maximum, and length of a vector.[^1]  The code for creating this function is below, each line of code within the function is explained in the comment above (denoted with the `#` symbol).  The code below can be copied and pasted into your R session to create the `descriptives()` function.
+```
+descriptives <- function(x){
+
+      # create an object "mean" which contains the mean of x
+  mean <- mean(x, na.rm = TRUE)
+
+      # create an object "sd" which contains the sd of x
+  sd <- sd(x, na.rm = TRUE)
+
+      # create an object "min" which contains the min of x
+  min <- min(x, na.rm = TRUE)
+
+      # create an object "max" which contains the max of x
+  max <- max(x, na.rm = TRUE)
+
+      # create an object "len" which contains the length of x
+  len <- length(x)
+
+      # combine the objects created into a table
+  data.frame(mean, sd, min, max, len)
+}
+```
+
+
+When you pass a vector `x` through the function `descriptives()`, it creates 5 objects which are then combined into a table.  Running the function returns the table:
+```
+descriptives(airquality$Temp)
+```
+
+
+```
+##       mean      sd min max len
+## 1 77.88235 9.46527  56  97 153
+```
+
+### Things to bear in mind when writing functions
+1. Try to give your function a name that is short and easy to remember.
+2. If you are writing a longer more complex function, it may be useful to test it line-by-line, before seeing if it "works"; this will help to identify any errors before they cause your function to fail.
+3. If the function returns an error, testing the code line by line will help you find the source of the error.
+4. The final line of code in a function will be the "output" of the function.
+5. Objects created within the function are not saved in the global environment: in the `descriptives()` function, all that is returned is a table containing the variables specified.  The individual objects that were created disappear when the function has finished running.
+6. The disappearing of objects created within a function described above can be very useful for keeping a tidy working environment.
+
+### Conclusion
+I find myself writing functions regularly, for various tasks.  Often a function may be specific to a particular task, or even to a particular dataset.  One example of such a function builds on the previous post, in which I described how to create a dataframe from multiple files.  In practice, I rarely create data frames exactly as described.  I usually nest the "read.csv" function within a larger function that also sorts the data, creating a more manageable dataframe, better suited to my purposes; e.g., removing variables that are of no interest or computing/recoding variables.  I can then run this function to build my dataframe at the start of a session.
+
+### References
+

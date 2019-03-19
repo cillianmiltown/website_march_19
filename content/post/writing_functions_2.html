@@ -1,0 +1,137 @@
+---
+title: "Writing functions - Part two"
+author: "Cillian McHugh"
+date: "27 August 2017"
+slug: writing-functions-part-two
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+
+---
+
+
+
+<p>(This post originally appeared on my <a href="https://cillianmacaodh.blogspot.com/2017/08/writing-functions-part-two.html">R blog</a>)</p>
+<p>The current post will follow on from the previous post and describe another use for writing functions.</p>
+<div id="r-markdown-and-reporting-p-values-in-apa-format" class="section level2">
+<h2>R Markdown and reporting <em>p</em> values in APA format</h2>
+<p>The function described here is designed for use with R Markdown. I would write a post about how great R Markdown is, and how to use it, but there is already a wealth of information out there; see <a href="http://rmarkdown.rstudio.com/authoring_basics.html">here</a>, <a href="https://shiny.rstudio.com/articles/rmarkdown.html">here</a>, and <a href="http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html">here</a> for a sample. This post relates to producing an APA formatted pdf using the <a href="https://github.com/crsh/papaja">papaja</a> package <span class="citation">(Aust <a href="#ref-aust_papaja_2017">2017</a>)</span>. Specifically, I describe a function that can be used to report <em>p</em> values correctly according to APA guidelines.</p>
+<div id="the-problem" class="section level3">
+<h3>The problem</h3>
+<p>One of the great things about R Markdown is the “in-line code” option, whereby, instead of typing numbers, you can insert the code for the value you wish to report, and when the document is compiled, the correct number is reported.</p>
+<p>However, the reporting of a <em>p</em> value in APA format varies depending on what the <em>p</em> value actually is. It is consistently reported to three decimal places, with no “zero” preceding the decimal point. Values less than “.001” are reported as: “<em>p</em> &lt; .001.” For example, a <em>p</em> value of “.8368621” would be reported as “<em>p</em> = .837”; while a <em>p</em> value of “.0000725” would be reported as “<em>p</em> &lt; .001”.</p>
+<p>The specific formatting requirements, and the variation in the reporting of the <em>p</em> value depending on the value being reported means that simply including in-line code to generate the <em>p</em> value is not always sufficient.</p>
+</div>
+<div id="the-solution" class="section level3">
+<h3>The solution</h3>
+<p>In order to remove the need tweak the formatting each time I report a new <em>p</em> value, I have created a function to do it for me.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div id="the-p_report-function" class="section level4">
+<h4>The <code>p_report()</code> function</h4>
+<p>The <code>p_report()</code> function takes any number less than 1, and reports it as an APA formatted <em>p</em> value. Let’s say you run a test, and save the <em>p</em> value from that test in the object <code>p1</code>, all you need to type in your R Markdown document then is</p>
+<pre><code>*p* `r paste(p_report(p1))`</code></pre>
+<p>The <code>p_report()</code> function will remove the preceding zero, correctly identify whether “=” or “&lt;” is needed, and report <code>p1</code> to three decimal places. Nesting it within <code>paste()</code> ensures that its output is included in the compiled pdf.</p>
+<p>As in the previous post, the code for creating the function is below, and each line of code within the function is explained in the comment above (denoted with the <code>#</code> symbol). Again, this code can be copied and pasted into your R session to create the <code>p_report()</code> function.</p>
+<pre class="r"><code>p_report &lt;- function(x){
+
+      # create an object &quot;e&quot; which contains x, the p value you are reporting,
+      # rounded to 3 decimal places
+
+  e &lt;- round(x, digits = 3)
+
+      # the next two lines of code prints &quot;&lt; .001&quot; if x is indeed less than .001
+
+  if (x &lt; 0.001)
+    print(paste0(&quot;&lt;&quot;, &quot; &quot;, &quot;.001&quot;))
+
+      # if x is greater than .001, the code below prints the object &quot;e&quot;
+      # with an &quot;=&quot; sign, and with the preceeding zero removed
+
+  else
+    print(
+      paste0(&quot;=&quot;,
+                 &quot; &quot;,
+                 sub(&quot;^(-?)0.&quot;, &quot;\\1.&quot;, sprintf(&quot;%.3f&quot;,e))))
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
+<p>The best way to illustrate the usage of <code>p_report()</code> is through examples. We will use the <code>airquality</code> dataset and compare the variation in temperature (<code>Temp</code>) and wind speed (<code>Wind</code>) depending on the month.</p>
+<div id="preparing-the-dataset" class="section level3">
+<h3>Preparing the dataset</h3>
+<p>First we need to load the dataset and make it (more) usable.</p>
+<pre class="r"><code>      # create a dataframe df, containing the airquality dataset
+
+df &lt;- airquality
+
+      # change the class of df$Month from &quot;integer&quot; to &quot;factor&quot;
+
+df$Month &lt;- as.factor(df$Month)</code></pre>
+</div>
+<div id="wind" class="section level3">
+<h3><code>Wind</code></h3>
+<p>We can test for differences in wind speed depending on Month. Run an anova and save the <em>p</em> value in an object <code>b</code>.</p>
+<pre class="r"><code>    # create an object &quot;aov&quot; containing the summary of the anova
+
+aov &lt;- summary(aov(Wind~Month, data = df))
+
+    # create an object &quot;b&quot; containing the p value of aov
+
+b &lt;- aov[[1]][[&quot;Pr(&gt;F)&quot;]][1]</code></pre>
+<p>The output of <code>aov</code>is:</p>
+<pre><code>##              Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## Month         4  164.3   41.07   3.529 0.00879 **
+## Residuals   148 1722.3   11.64                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>As you can see, the <em>p</em> value is <code>0.00879</code>.</p>
+<p>Including <code>b</code> in-line returns 0.0087901, however if we pass <code>b</code> through <code>p_report()</code> by enclosing <code>paste(p_report(b))</code> in r denoted back ticks. Typing the following in an R Markdown document:</p>
+<pre><code>*p* `r paste(p_report(b))`</code></pre>
+<p>returns: <em>p</em> = .009.</p>
+</div>
+<div id="temp" class="section level3">
+<h3><code>Temp</code></h3>
+<p>Similarly, we can test for differences in temperature depending on Month. By using the same names for the objects, we can use the same in-line code to report the <em>p</em> values.</p>
+<pre class="r"><code>    # create an object &quot;aov&quot; containing the summary of the anova
+
+aov &lt;- summary(aov(Temp~Month, data = df))
+
+    # create an object &quot;b&quot; containing the p value of aov
+
+b &lt;- aov[[1]][[&quot;Pr(&gt;F)&quot;]][1]</code></pre>
+<p>The output of <code>aov</code>is:</p>
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## Month         4   7061  1765.3   39.85 &lt;2e-16 ***
+## Residuals   148   6557    44.3                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>As you can see, the <em>p</em> value is <code>&lt;2e-16</code>.</p>
+<p>When this is run through <code>p_report()</code> using:</p>
+<pre><code>*p* `r paste(p_report(b))`</code></pre>
+<p>which will return: “<em>p</em> &lt; .001”.</p>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>The <code>p_report()</code> function is an example of using R to make your workflow easier. R Markdown replaces the need to type the numbers you report with the option of including in-line code to generate these numbers. <code>p_report()</code> means that you do not have to worry about formatting issues when these numbers are reported. Depending on how you structure your code chunks around your writing, and how name your objects, it may be possible to recycle sections of in-line code, speeding up the writing process. Furthermore, the principle behind <code>p_report()</code> can be applied to the writing of other functions (e.g., reporting <em>F</em> values or <span class="math inline">\(\chi\)</span><sup>2</sup>).</p>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-aust_papaja_2017">
+<p>Aust, Frederik. 2017. “Papaja (Preparing APA Journal Articles) Is an R Package That Provides Document Formats and Helper Functions to Produce Complete APA Manscripts from RMarkdown-Files (PDF and Word Documents).” <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
+</div>
+<div id="ref-R-desnum">
+<p>McHugh, Cillian. 2017. “Desnum: Creates Some Useful Functions.” <a href="https://github.com/cillianmiltown/R_desnum" class="uri">https://github.com/cillianmiltown/R_desnum</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The function described here, along with the <code>descriptives()</code> function described in the previous post, are part of a package I created called <code>desnum</code> <span class="citation">(McHugh <a href="#ref-R-desnum">2017</a>)</span>. Writing functions as part of a package means that instead of writing the function anew for each session, you can just load the package. Follow up posts will probably describe more functions in the <code>desnum</code> package. If you wish to install the <code>desnum</code> package run the following code:</p>
+<pre><code>devtools::install_github(&quot;cillianmiltown/R_desnum&quot;)</code></pre>
+<a href="#fnref1" class="footnote-back">↩</a></li>
+</ol>
+</div>

@@ -2,7 +2,7 @@
 title: Lyrics
 author: Cillian McHugh
 date: '2019-03-18'
-slug: music/lyrics
+slug: lyrics
 categories: []
 tags: []
 image:

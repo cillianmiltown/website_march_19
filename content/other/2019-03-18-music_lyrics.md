@@ -1,0 +1,182 @@
+---
+title: Lyrics
+author: Cillian McHugh
+date: '2019-03-18'
+slug: music
+categories: []
+tags: []
+image:
+  caption: ''
+  focal_point: ''
+---
+
+# Cillian Mc Hugh
+
+Cillian Mc Hugh singer-songwriter based in the West of Ireland. Influences range from heavy, multi-instrumental Prog (Yes, Rush, Pink Floyd and Genesis) to more traditional acoustic folk and blues (Neil Young, Eric Bibb and Tom Waits) and everything in between.
+
+He has 2 albums to date: *Back to the Drawing Board* was released in 2012, and *It Will Pass...* was released in 2019. Both albums are available online (itunes/Spotify/Google Play Music etc.), and can be listened to below.
+
+# It Will Pass...
+
+This 11 track album was released in February 2019 and the offical launch is on the 12th of April 2019 in Limerick.
+
+<div style="max-width:600px;max-height:785px;min-width:300px;"><div style="position: relative;height: 0;overflow: hidden;padding-bottom:100%; padding-top:200px;"><iframe name="album" style="position:absolute;top:0px;left:0px;width:100%;height:100%;border:0px;" src="//widget.cdbaby.com/50ff368a-5ac1-41ab-b9eb-997924a3fae1/album/dark/transparent"></iframe></div></div>
+
+## 1. The Race
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh
+
+## 2. Another Goodbye
+**Vocals**: Maggie McHugh<br>
+**Backing Vocals**: Donal McHugh, Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Simon O'Donnell
+
+## 3. There are no Words
+**Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+
+## 4. Unknown Arms
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Organ**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh<br>
+**Harmonica**: Cillian McHugh
+
+## 5. Summer Rain
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh
+
+## 6. Counting the Days
+**Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+
+## 7. If I Care
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh
+
+
+## 8. It Will Pass
+**Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+
+## 9. The Last Flight Home
+**Vocals**: Cillian McHugh<br>
+**Backing Vocals**: Maggie McHugh<br>
+**Acoustic Guitar**: Cillian McHugh<br>
+**Electric Guitar** *(solo and slide)*: David Park<br>
+**Electric Guitar** *(rhythm and harmonies)*: Cillian McHugh<br>
+**Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Simon O'Donnell
+
+## 10. Three Cars Back
+**Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh<br>
+**Harmonica**: Cillian McHugh
+
+## 11. Writer's Block
+**Vocals**: Cillian McHugh<br>
+*Everything Else*: Lobster Johnson<br>
+**Electric Guitars** *(rhythm and clean lead)*: Andrew (Duke) Park<br>
+**Electric Guitars** *(lead)*: David Park<br>
+**Bass**: Simon O'Donnell<br>
+**Drums**: Donal McHugh<br>
+**Organ**: Donal McHugh
+
+
+# Back to the Drawing Board
+
+Back to the Drawing Board is a 13 track album released in 2012. The offical launch was in September 2012.
+
+<div style="max-width:600px;max-height:785px;min-width:300px;"><div style="position: relative;height: 0;overflow: hidden;padding-bottom:100%; padding-top:200px;"><iframe name="album" style="position:absolute;top:0px;left:0px;width:100%;height:100%;border:0px;" src="//widget.cdbaby.com/3c6d1c79-768d-4cb0-80f4-a91523aa49aa/album/dark/transparent"></iframe></div></div>
+
+## 1. Rain
+**Vocals**: Ciara McHugh<br>
+**Backing Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+
+## 2. Bigness
+**Vocals**: Cillian McHugh<br>
+**Backing Vocals**: Ciara McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Organ**: Ciara McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh
+
+## 3. Stars
+**Vocals**: Ciara McHugh, Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Electric Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh
+
+## 4. Faith
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Electric Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh
+
+## 5. 24
+**Vocals**: Ciara McHugh, Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh
+
+## 6. Chasing Rainbows
+**Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+
+## 7. Passing Days
+**Vocals**: Ciara McHugh<br>
+**Backing Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+
+## 8. Back to the Drawing Board
+**Vocals**: Ciara McHugh<br>
+**Backing Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh
+
+## 9. The Price of Love
+**Vocals**: Cillian McHugh<br>
+**Acoustic Guitar**: Cillian McHugh<br>
+**Electric Guitar**: Maurice McHugh<br>
+**Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh<br>
+**Harmonica**: Cillian McHugh
+
+## 10. Broken Words
+**Vocals**: Ciara McHugh, Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh
+
+## 11. The Happy Song
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh<br>
+**Harmonica**: Cillian McHugh
+
+## 12. Too Close
+**Vocals**: Cillian McHugh<br>
+**Guitars**: Cillian McHugh<br>
+**Piano**: Donal McHugh<br>
+**Drums**: Donal McHugh<br>
+**Bass**: Cillian McHugh<br>
+**Harmonica**: Cillian McHugh
+
+## 13. Sun
+**Vocals**: Ciara McHugh<br>
+**Backing Vocals**: Cillian McHugh<br>
+**Guitar**: Cillian McHugh
+

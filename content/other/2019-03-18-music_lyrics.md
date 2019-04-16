@@ -10,21 +10,32 @@ image:
   focal_point: ''
 ---
 
-# Cillian Mc Hugh
-
-Cillian Mc Hugh singer-songwriter based in the West of Ireland. Influences range from heavy, multi-instrumental Prog (Yes, Rush, Pink Floyd and Genesis) to more traditional acoustic folk and blues (Neil Young, Eric Bibb and Tom Waits) and everything in between.
-
-He has 2 albums to date: *Back to the Drawing Board* was released in 2012, and *It Will Pass...* was released in 2019. Both albums are available online (itunes/Spotify/Google Play Music etc.), and can be listened to below.
-
 # It Will Pass...
 
-This 11 track album was released in February 2019 and the offical launch is on the 12th of April 2019 in Limerick.
-
-<div style="max-width:600px;max-height:785px;min-width:300px;"><div style="position: relative;height: 0;overflow: hidden;padding-bottom:100%; padding-top:200px;"><iframe name="album" style="position:absolute;top:0px;left:0px;width:100%;height:100%;border:0px;" src="//widget.cdbaby.com/50ff368a-5ac1-41ab-b9eb-997924a3fae1/album/dark/transparent"></iframe></div></div>
 
 ## 1. The Race
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
+
+What if you, if you were in my shoes?
+Would they fit? And would they keep you warm?
+What if you, if you were in my shoes?
+What have I missed?
+
+Time...
+Time...
+Time...
+Goes on, moves fast
+
+Stealing words of green tinted blue
+Shadows of what we thought we knew
+No more...
+
+... time
+... time
+... time
+is caught up, is made up
+
 
 ## 2. Another Goodbye
 **Vocals**: Maggie McHugh<br>
@@ -86,6 +97,9 @@ This 11 track album was released in February 2019 and the offical launch is on t
 **Bass**: Simon O'Donnell<br>
 **Drums**: Donal McHugh<br>
 **Organ**: Donal McHugh
+
+
+<div style="max-width:600px;max-height:785px;min-width:300px;"><div style="position: relative;height: 0;overflow: hidden;padding-bottom:100%; padding-top:200px;"><iframe name="album" style="position:absolute;top:0px;left:0px;width:100%;height:100%;border:0px;" src="//widget.cdbaby.com/50ff368a-5ac1-41ab-b9eb-997924a3fae1/album/dark/transparent"></iframe></div></div>
 
 
 # Back to the Drawing Board

@@ -17,24 +17,24 @@ image:
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
 
-What if you, if you were in my shoes?
-Would they fit? And would they keep you warm?
-What if you, if you were in my shoes?
-What have I missed?
+What if you, if you were in my shoes?<br>
+Would they fit? And would they keep you warm?<br>
+What if you, if you were in my shoes?<br>
+What have I missed?<br>
 
-Time...
-Time...
-Time...
-Goes on, moves fast
+Time...<br>
+Time...<br>
+Time...<br>
+Goes on, moves fast<br>
 
-Stealing words of green tinted blue
-Shadows of what we thought we knew
-No more...
+Stealing words of green tinted blue<br>
+Shadows of what we thought we knew<br>
+No more...<br>
 
-... time
-... time
-... time
-is caught up, is made up
+... time<br>
+... time<br>
+... time<br>
+is caught up, is made up<br>
 
 
 ## 2. Another Goodbye

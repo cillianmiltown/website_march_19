@@ -13,7 +13,7 @@ image:
 # It Will Pass...
 
 
-## 1. The Race
+## The Race
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
 
@@ -37,13 +37,40 @@ No more...<br>
 is caught up, is made up<br>
 
 
-## 2. Another Goodbye
+## Another Goodbye
 **Vocals**: Maggie McHugh<br>
 **Backing Vocals**: Donal McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Piano**: Donal McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Simon O'Donnell
+
+All good things come to an end<br>
+All good things come to an end<br>
+
+You don’t want them to<br>
+You don’t want them to<br>
+
+And all you’ve lived and all you own,<br>
+and all you’ve learned an all you’ve known<br>
+And all you’ve worked and all you’ve done<br>
+And everything you’ve become<br>
+
+And you don’t even know<br>
+And you don’t even know<br>
+And you don’t even know<br>
+And you don’t even know<br>
+
+And those you’ve loved and those you’ve known<br>
+And those you’ve seen and those you’ve shown<br>
+The ones who knew and understood<br>
+The ones you thought would stay for good<br>
+
+And you have to say goodbye<br>
+And you have to say goodbye<br>
+And you have to say goodbye<br>
+And you have to say goodbye<br>
+
 
 ## 3. There are no Words
 **Vocals**: Cillian McHugh<br>

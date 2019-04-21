@@ -160,6 +160,26 @@ Like you count the days each time
 **Drums**: Donal McHugh<br>
 **Bass**: Simon O'Donnell
 
+
+And you know it’s done, and you know it’s too late to talk<br>
+‘cause nothing you can say, and nothing you can do will change what’s come<br>
+And you always knew this day could come,<br>
+But your heart still believed<br>
+
+Believed you could overcome, believed she was the one,<br>
+You tried to make it work, you thought you could make it work,<br>
+And even when the cracks began to show,<br>
+You never gave up hope<br>
+
+The four leaf charm, to hang on her arm,<br>
+The phone call in the sun, remembering as one, one last time<br>
+Back to how it used to be<br>
+and what we had.<br>
+
+Two months on, the time you bought is gone,<br>
+Today’s flight home, the last flight home<br>
+
+
 ## Three Cars Back 
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh<br>

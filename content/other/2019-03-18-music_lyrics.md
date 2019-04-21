@@ -26,7 +26,7 @@ image:
 })</script>
 
 
-# It Will Pass...
+# <font color="#333333">It Will Pass... 
 
 
 ## The Race 
@@ -53,7 +53,7 @@ No more...<br>
 is caught up, is made up<br>
 
 
-## Another Goodbye
+## Another Goodbye 
 **Vocals**: Maggie McHugh<br>
 **Backing Vocals**: Donal McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -88,7 +88,7 @@ And you have to say goodbye<br>
 And you have to say goodbye<br>
 
 
-## There are no Words
+## There are No Words 
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
@@ -105,7 +105,7 @@ And every time, and every time, no matter what you try<br>
 Will come again, will come again...<br>
 
 
-## Unknown Arms
+## Unknown Arms 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Organ**: Donal McHugh<br>
@@ -113,11 +113,11 @@ Will come again, will come again...<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
-## 5. Summer Rain
+## Summer Rain 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
 
-## 6. Counting the Days
+## Counting the Days 
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
@@ -141,16 +141,16 @@ You're almost home, just the drive and in your mind<br>
 You count the days till the next time<br>
 Like you count the days each time
 
-## 7. If I Care
+## If I Care 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
 
 
-## 8. It Will Pass
+## It Will Pass 
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
-## 9. The Last Flight Home
+## The Last Flight Home 
 **Vocals**: Cillian McHugh<br>
 **Backing Vocals**: Maggie McHugh<br>
 **Acoustic Guitar**: Cillian McHugh<br>
@@ -160,12 +160,12 @@ Like you count the days each time
 **Drums**: Donal McHugh<br>
 **Bass**: Simon O'Donnell
 
-## 10. Three Cars Back
+## Three Cars Back 
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
-## 11. Writer's Block
+## Writer's Block 
 **Vocals**: Cillian McHugh<br>
 *Everything Else*: Lobster Johnson<br>
 **Electric Guitars** *(rhythm and clean lead)*: Andrew (Duke) Park<br>
@@ -178,18 +178,18 @@ Like you count the days each time
 <div style="max-width:600px;max-height:785px;min-width:300px;"><div style="position: relative;height: 0;overflow: hidden;padding-bottom:100%; padding-top:200px;"><iframe name="album" style="position:absolute;top:0px;left:0px;width:100%;height:100%;border:0px;" src="//widget.cdbaby.com/50ff368a-5ac1-41ab-b9eb-997924a3fae1/album/dark/transparent"></iframe></div></div>
 
 
-# Back to the Drawing Board
+# Back to the Drawing Board 
 
 Back to the Drawing Board is a 13 track album released in 2012. The offical launch was in September 2012.
 
 <div style="max-width:600px;max-height:785px;min-width:300px;"><div style="position: relative;height: 0;overflow: hidden;padding-bottom:100%; padding-top:200px;"><iframe name="album" style="position:absolute;top:0px;left:0px;width:100%;height:100%;border:0px;" src="//widget.cdbaby.com/3c6d1c79-768d-4cb0-80f4-a91523aa49aa/album/dark/transparent"></iframe></div></div>
 
-## 1. Rain
+## Rain 
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
-## 2. Bigness
+## Bigness 
 **Vocals**: Cillian McHugh<br>
 **Backing Vocals**: Ciara McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -218,36 +218,36 @@ the big bang blew it all away<br>
 far and wide past the milky way<br>
 
 
-## 3. Stars
+## Stars 
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Electric Piano**: Donal McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
-## 4. Faith
+## Faith 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Electric Piano**: Donal McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
-## 5. 24
+## 24 
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
-## 6. Chasing Rainbows
+## Chasing Rainbows 
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
-## 7. Passing Days
+## Passing Days 
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
-## 8. Back to the Drawing Board
+## Back to the Drawing Board 
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -255,7 +255,7 @@ far and wide past the milky way<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
-## 9. The Price of Love
+## The Price of Love 
 **Vocals**: Cillian McHugh<br>
 **Acoustic Guitar**: Cillian McHugh<br>
 **Electric Guitar**: Maurice McHugh<br>
@@ -264,13 +264,13 @@ far and wide past the milky way<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
-## 10. Broken Words
+## Broken Words 
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
-## 11. The Happy Song
+## The Happy Song 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Piano**: Donal McHugh<br>
@@ -278,7 +278,7 @@ far and wide past the milky way<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
-## 12. Too Close
+## Too Close 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Piano**: Donal McHugh<br>
@@ -286,7 +286,7 @@ far and wide past the milky way<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
-## 13. Sun
+## Sun 
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh

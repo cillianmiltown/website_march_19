@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 1rem;
   margin-bottom: .5rem;
   line-height: 1.25;
-  color: #313131;
+  color: #3f51b5;
   text-rendering: optimizeLegibility;
 
   /* Ensure long words do not overflow into content. */
@@ -1351,7 +1351,7 @@ article .article-metadata {
 /*************************************************
  *  Accomplishments
  **************************************************/
- 
+
 .course {
   margin-bottom: -0.5rem;
 }
@@ -2310,7 +2310,7 @@ body.dark,
 .dark h4,
 .dark h5,
 .dark h6 {
-  color: rgb(152, 166, 173);
+  color: rgb( 63, 81, 181);
 }
 
 .dark pre,

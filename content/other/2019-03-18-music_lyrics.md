@@ -18,6 +18,13 @@ image:
 ``` 
 
 
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.0/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(255, 82, 82)',
+  textColor: '#fff'
+})</script>
+
 
 # It Will Pass...
 
@@ -84,6 +91,19 @@ And you have to say goodbye<br>
 ## 3. There are no Words
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+There are no words, there are no words, there's just hanging on <br>
+And holding out, and holding on, until it's gone<br>
+Your broken heart, your broken heart, you thought had healed<br>
+
+You check the screen, you check the screen for any sign<br>
+For her reply, for her reply, but you know inside<br>
+The empty screen and what that means, it's all you feel<br>
+
+You came too close, you got too close, like you did before<br>
+And every time, and every time, no matter what you try<br>
+Will come again, will come again...<br>
+
 
 ## 4. Unknown Arms
 **Vocals**: Cillian McHugh<br>

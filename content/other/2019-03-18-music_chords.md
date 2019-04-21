@@ -135,7 +135,7 @@ Will come again, will come again...<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
-## 5. Summer Rain
+## Summer Rain
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
 
@@ -180,7 +180,7 @@ Will come again, will come again...<br>
 ```
 
 
-## 6. Counting the Days
+## Counting the Days
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 

@@ -88,7 +88,7 @@ And you have to say goodbye<br>
 And you have to say goodbye<br>
 
 
-## 3. There are no Words
+## There are no Words
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
@@ -105,7 +105,7 @@ And every time, and every time, no matter what you try<br>
 Will come again, will come again...<br>
 
 
-## 4. Unknown Arms
+## Unknown Arms
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Organ**: Donal McHugh<br>
@@ -120,6 +120,26 @@ Will come again, will come again...<br>
 ## 6. Counting the Days
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+Walking home across the city from the train to the plane<br>
+You're on your own, there's no pity there's no pain in vain<br>
+When you said good-bye on the platform this time<br>
+Like you said good-bye the first time<br>
+
+You know this place by day but it's night this time<br>
+Cold breeze on your face, night air and the city lights shine<br>
+Across the water reflect the sights<br>
+Across the water you'll trek tonight<br>
+
+Growing apart, time and distance will take their toll<br>
+But in your heart you know it's wort it to make you whole<br>
+The signs are there but hope remains<br>
+'Cause love is to share, it's worth the strain<br>
+
+Back on land back to normal doubt left behind<br>
+You're almost home, just the drive and in your mind<br>
+You count the days till the next time<br>
+Like you count the days each time
 
 ## 7. If I Care
 **Vocals**: Cillian McHugh<br>

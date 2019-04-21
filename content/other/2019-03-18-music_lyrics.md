@@ -197,6 +197,27 @@ Back to the Drawing Board is a 13 track album released in 2012. The offical laun
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
+Look up to see, to see how high<br>
+can we ever reach the sky<br>
+what'll i be before i die<br>
+and should i wonder why<br>
+
+start with one, another makes two<br>
+are the numbers really true<br>
+it can't be done, if we only knew<br>
+to count them all: impossible to do<br>
+
+time goes on and on, every day we're here<br>
+adds up to pass the year<br>
+when it's done and gone you can't go back<br>
+to change the past it doesn't work like that<br>
+
+the universe expands that's what they say<br>
+getting bigger every day<br>
+the big bang blew it all away<br>
+far and wide past the milky way<br>
+
+
 ## 3. Stars
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>

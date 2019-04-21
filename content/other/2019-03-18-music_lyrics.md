@@ -26,7 +26,7 @@ image:
 })</script>
 
 
-# <font color="#333333">It Will Pass... 
+# It Will Pass... 
 
 
 ## The Race 

@@ -8,6 +8,10 @@ tags: []
 image:
   caption: ''
   focal_point: ''
+output:
+  blogdown::html_page:
+    toc: true
+
 
 ---
 

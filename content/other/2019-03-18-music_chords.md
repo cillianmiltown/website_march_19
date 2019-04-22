@@ -114,7 +114,7 @@ And you have to say goodbye<br>
 And you have to say goodbye<br>
 
 
-## There are no Words
+## There Are No Words
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
@@ -426,7 +426,7 @@ far and wide past the milky way<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
-## The Price of Love
+## The Price Of Love
 **Vocals**: Cillian McHugh<br>
 **Acoustic Guitar**: Cillian McHugh<br>
 **Electric Guitar**: Maurice McHugh<br>

@@ -438,6 +438,25 @@ far and wide past the milky way<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
+
+What if I told you that everyone was wrong?<br>
+wrong in what they believe...<br>
+And what if I told you that everyone was right<br>
+right in what they believe ... but wrong...?...<br>
+
+Would you call me mad if I told you right was wrong and wrong was right?<br>
+
+Good and Evil invented by men trying to explain what we cannot comprehend.<br>
+Don't search for the answer 'cause it's right there to be found... and not there... and right there.<br>
+
+Would you call me mad if I told you there's no point? and that's the point... so what's the point?<br>
+
+Follow your heart and believe in what you believe... let it's music reach you, just listen.<br>
+And live your life 'cause it's all that you can know... take good with bad and let the balance flow.<br>
+
+Would you call me mad if I told you that I knew...?...and didn't know...because I know...?..<br>
+
+
 ## 24
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -614,6 +633,32 @@ is tosaigh arís, tosaigh arís<br>
   E||--3-------0--|-----------------|--3-------0------|--------0--|-------------|
 
 ```
+
+If i’ve got somethin’ to say i say it<br>
+If i’ve got something to do i do it<br>
+And i feel so good<br>
+
+Doesn’t even matter if the rains fall<br>
+And i Don’t care if there’s no sun at all<br>
+Coz i feel good<br>
+
+Some things that happen you cannot change<br>
+What reason why?<br>
+But if i’m ever feelin down<br>
+I know<br>
+
+Nothing can be thrown at me i cannot catch<br>
+all obstacles can be overcome<br>
+and even if i feel alone<br>
+i know<br>
+
+i’ve got my friends<br>
+there’ll always be someone to call on<br>
+someone to cheer me up<br>
+
+when i’m happy i’m with friends<br>
+and when i’m with friends i’m happyv
+and i believe<br>
 
 ## Too Close
 **Vocals**: Cillian McHugh<br>

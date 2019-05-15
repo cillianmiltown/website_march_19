@@ -24,13 +24,12 @@
   weight = 40
 
 [[main]]
-  name = "Tutorials"
-  url = "/tutorial/"
+  name = "Music"
+  url = "/music/"
   weight = 50
 
-
 [[main]]
-  name = "Music"
+  name = "Other"
   url = "/other/"
   weight = 50
 

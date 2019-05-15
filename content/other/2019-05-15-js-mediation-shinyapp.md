@@ -14,4 +14,6 @@ In response to [this](https://perso.uclouvain.be/vincent.yzerbyt/Yzerbyt%20et%20
 
 <iframe width="800" height="1500" scrolling="no" frameborder="no"  src="https://cillianmacaodh.shinyapps.io/JS_mediation/"> </iframe>
 
+(see [https://cillianmacaodh.shinyapps.io/JS_mediation/"](https://cillianmacaodh.shinyapps.io/JS_mediation/"))
+
 Yzerbyt, V., Muller, D., Batailler, C., & Judd, C. M. (2018). New Recommendations for Testing Indirect Effects in Mediational Models: The Need to Report and Test Component Paths. *Journal of Personality and Social Psychology: Attitudes and Social Cognition*, 115(6), 929–943. http://dx.doi.org/10.1037/pspa0000132

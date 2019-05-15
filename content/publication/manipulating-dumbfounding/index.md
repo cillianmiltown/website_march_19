@@ -19,7 +19,7 @@ publication_types = ["2"]
 
 shorttitle = "Manipulating Moral Dumbfounding"
 
-url_source = "hhttp://ceur-ws.org/Vol-2259/"
+url_source = "http://ceur-ws.org/Vol-2259/"
 #url = "http://www.collabra.org/article/10.1525/collabra.79/"
 #doi = "10.1525/collabra.79"
 url_slides = "https://osf.io/9hcmz/?show=view"

@@ -5,20 +5,18 @@ date: '2019-03-18'
 slug: lyrics
 categories: []
 tags: []
-image:
-  caption: ''
-  focal_point: ''
-
+featured_image: /img/album_just_sky.jpg
+output:
+  blogdown::html_page:
+    toc: true
+    number_sections: true
+    toc_depth: 2
 ---
 
 
-```
-{{% toc %}}
 
-``` 
-
-
-
+![test image](/img/album_just_sky.jpg)
+ 
 
 # It Will Pass... 
 

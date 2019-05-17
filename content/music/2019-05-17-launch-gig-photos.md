@@ -8,6 +8,8 @@ tags: []
 image:
   caption: ''
   focal_point: ''
+featuredImage: "/img/choir2.jpg"  
+
 ---
 
 A collection of photos from the official launch of *It will pass...* in The Commercial on the 12th of April. Many thanks to Mags (and others) for her photography skills.

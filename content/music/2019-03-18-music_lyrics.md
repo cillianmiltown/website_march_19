@@ -14,10 +14,6 @@ output:
 ---
 
 
-
-![test image](/img/album_just_sky.jpg)
- 
-
 # It Will Pass... 
 
 

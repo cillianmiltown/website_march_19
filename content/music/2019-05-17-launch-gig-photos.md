@@ -13,10 +13,10 @@ image:
 A collection of photos from the official launch of *It will pass...* in The Commercial on the 12th of April. Many thanks to Mags (and others) for her photography skills.
 
 
-<iframe width="720" height="405" src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ![album cover](/img/album_just_sky.jpg)
- 
+
+
+<iframe width="720" height="405" src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ![choir](/img/choir2.jpg)
 

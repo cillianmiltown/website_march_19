@@ -10,7 +10,10 @@ image:
   focal_point: ''
 ---
 
-A collection of photos from the official launch of *It will pass...* in The Commercial on the 12th of April.
+A collection of photos from the official launch of *It will pass...* in The Commercial on the 12th of April. Many thanks to Mags (and others) for her photography skills.
+
+
+<iframe width="720" height="405" src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ![album cover](/img/album_just_sky.jpg)
  
@@ -26,15 +29,22 @@ A collection of photos from the official launch of *It will pass...* in The Comm
 
 ![maggie and cillian](/img/m_and_c2.jpg.jpg)
 
+![cillian](/img/c3.jpg)
+
 ![maggie and cillian](/img/c_and_m2.jpg)
 
-![maggie and cillian](/img/c1.jpg)
+![maggie and cillian](/img/c_and_m3.jpg)
 
+![maggie and cillian](/img/c_and_m4.jpg)
 
+![cillian](/img/c1.jpg)
 
 ![choir](/img/choir.jpg)
 
-<iframe width="720" height="405" src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+![cillian](/img/c2.jpg)
+
+
+![paul's photo](/img/pob.jpg)
 
 
 

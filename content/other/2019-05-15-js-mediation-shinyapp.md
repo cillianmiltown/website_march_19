@@ -3,6 +3,7 @@ title: JS Mediation
 author: Cillian
 date: '2019-05-15'
 slug: js-mediation-shinyapp
+summary: "A Shiny App for running JS Mediation"
 categories: []
 tags: []
 image:

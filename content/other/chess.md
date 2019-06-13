@@ -5,6 +5,7 @@ date: '2019-03-18'
 slug: chess
 categories: []
 tags: []
+summary: "In my spare time I also enjoy playing chess..."
 image:
   caption: ''
   focal_point: ''

@@ -3,6 +3,7 @@ title: Chords & Tabs
 author: Cillian McHugh
 date: '2019-03-18'
 slug: chords
+summary: 'Chords and tabs for released songs (not yet complete)'
 categories: []
 tags: []
 image:

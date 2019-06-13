@@ -3,6 +3,7 @@ title: Lyrics
 author: Cillian McHugh
 date: '2019-03-18'
 slug: lyrics
+summary: 'Lyrics of released songs (not yet complete)'
 categories: []
 tags: []
 featured_image: /img/album_just_sky.jpg

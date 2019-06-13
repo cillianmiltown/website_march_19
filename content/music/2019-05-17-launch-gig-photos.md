@@ -3,12 +3,13 @@ title: Launch Gig Photos
 author: Cillian
 date: '2019-05-17'
 slug: launch-gig-photos
+summary: 'A collection of photos from the official launch of "It will pass..." in The Commercial on the 12th of April.'
 categories: []
 tags: []
 image:
   caption: ''
   focal_point: ''
-featuredImage: "/img/choir2.jpg"  
+  featuredImage: "/img/choir2.jpg"  
 
 ---
 

@@ -29,6 +29,11 @@
   weight = 50
 
 [[main]]
+  name = "R Blog"
+  url = "/rblog/"
+  weight = 50
+
+[[main]]
   name = "Other"
   url = "/other/"
   weight = 50

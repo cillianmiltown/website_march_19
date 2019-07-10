@@ -1,0 +1,85 @@
+---
+title: "Writing functions - Part one"
+author: "Cillian McHugh"
+date: "27 July 2017"
+slug: writing-functions-part-one
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+
+---
+
+
+
+<p>(This post originally appeared on my <a href="https://cillianmacaodh.blogspot.com/2017/07/writing-functions-part-one-codewhite.html">R blog</a>)</p>
+<div id="writing-functions" class="section level2">
+<h2>Writing functions</h2>
+<p>This post outlines the writing of a basic function. Writing functions in R <span class="citation">(R Core Team <a href="#ref-R-base">2017</a>)</span> is fairly simple, and the usefulness of function writing cannot be conveyed in a single post. I have included “Part one” in the title, and I will add follow-up posts in time.</p>
+<p>The basic code to write a function looks like this:</p>
+<pre><code>function_name &lt;- function(){}</code></pre>
+<p>The code for the task you want your function to perform goes inside the curly brackets <code>{}</code>, and the object you wish the function to work on goes inside the parenthesis<code>()</code>.</p>
+<div id="the-problem" class="section level3">
+<h3>The problem</h3>
+<p>I have often found myself using a number of different functions together for multiple variables. For each variable, I need re-type each function. For example, when looking at a variable, I would often run the functions <code>mean()</code>, <code>sd()</code>, <code>min()</code>, <code>max()</code>, and <code>length()</code> together. Each time I wanted to inspect a new variable, I had to type all five functions for the variable in question. For example, looking at the <code>Temp</code> variable, from the <code>airquality</code> dataset in the <code>datasets</code> package, would require typing the following: <code>mean(airquality$Temp)</code>, <code>sd(airquality$Temp)</code>, <code>min(airquality$Temp)</code>, <code>max(airquality$Temp)</code>, <code>length(airquality$Temp)</code>. This can get very tedious and repetitive.</p>
+</div>
+<div id="the-solution" class="section level3">
+<h3>The solution</h3>
+<p>In response to repeatedly typing these functions together, I created the <code>descriptives()</code> function which combines these frequently used functions into a single function.</p>
+<div id="the-descriptives-function" class="section level4">
+<h4>The <code>descriptives()</code> function</h4>
+<p>The <code>descriptives()</code> function combines the functions <code>mean()</code>, <code>sd()</code>, <code>min()</code>, <code>max()</code>, and <code>length()</code> to return a table displaying the mean, standard deviation, minimum, maximum, and length of a vector.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The code for creating this function is below, each line of code within the function is explained in the comment above (denoted with the <code>#</code> symbol). The code below can be copied and pasted into your R session to create the <code>descriptives()</code> function.</p>
+<pre><code>descriptives &lt;- function(x){
+
+      # create an object &quot;mean&quot; which contains the mean of x
+  mean &lt;- mean(x, na.rm = TRUE)
+
+      # create an object &quot;sd&quot; which contains the sd of x
+  sd &lt;- sd(x, na.rm = TRUE)
+
+      # create an object &quot;min&quot; which contains the min of x
+  min &lt;- min(x, na.rm = TRUE)
+
+      # create an object &quot;max&quot; which contains the max of x
+  max &lt;- max(x, na.rm = TRUE)
+
+      # create an object &quot;len&quot; which contains the length of x
+  len &lt;- length(x)
+
+      # combine the objects created into a table
+  data.frame(mean, sd, min, max, len)
+}</code></pre>
+<p>When you pass a vector <code>x</code> through the function <code>descriptives()</code>, it creates 5 objects which are then combined into a table. Running the function returns the table:</p>
+<pre><code>descriptives(airquality$Temp)</code></pre>
+<pre><code>##       mean      sd min max len
+## 1 77.88235 9.46527  56  97 153</code></pre>
+</div>
+</div>
+<div id="things-to-bear-in-mind-when-writing-functions" class="section level3">
+<h3>Things to bear in mind when writing functions</h3>
+<ol style="list-style-type: decimal">
+<li>Try to give your function a name that is short and easy to remember.</li>
+<li>If you are writing a longer more complex function, it may be useful to test it line-by-line, before seeing if it “works”; this will help to identify any errors before they cause your function to fail.</li>
+<li>If the function returns an error, testing the code line by line will help you find the source of the error.</li>
+<li>The final line of code in a function will be the “output” of the function.</li>
+<li>Objects created within the function are not saved in the global environment: in the <code>descriptives()</code> function, all that is returned is a table containing the variables specified. The individual objects that were created disappear when the function has finished running.</li>
+<li>The disappearing of objects created within a function described above can be very useful for keeping a tidy working environment.</li>
+</ol>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>I find myself writing functions regularly, for various tasks. Often a function may be specific to a particular task, or even to a particular dataset. One example of such a function builds on the previous post, in which I described how to create a dataframe from multiple files. In practice, I rarely create data frames exactly as described. I usually nest the “read.csv” function within a larger function that also sorts the data, creating a more manageable dataframe, better suited to my purposes; e.g., removing variables that are of no interest or computing/recoding variables. I can then run this function to build my dataframe at the start of a session.</p>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-base">
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Most of what <code>descriptives()</code> does can also be achieved by the <code>summary()</code> function, however <code>sd()</code> and <code>length()</code> are missing.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

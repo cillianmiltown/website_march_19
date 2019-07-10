@@ -1,0 +1,186 @@
+---
+title: "Writing functions - Part two"
+author: "Cillian McHugh"
+date: "27 August 2017"
+slug: writing-functions-part-two
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+
+---
+
+
+(This post originally appeared on my [R blog](https://cillianmacaodh.blogspot.com/2017/08/writing-functions-part-two.html))
+
+```{r setup1, include = FALSE}
+#knitr::opts_chunk$set(comment = NA, eval = FALSE)
+
+# load packages
+packages <- c("bookdown", "blogdown", "knitr")
+lapply(packages, function(x) {
+  if (!requireNamespace(x)) install.packages(x)
+  library(x, character.only = TRUE)
+})
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The current post will follow on from the previous post and describe another use for writing functions.
+
+## R Markdown and reporting *p* values in APA format
+The function described here is designed for use with R Markdown.  I would write a post about how great R Markdown is, and how to use it, but there is already a wealth of information out there; see [here](http://rmarkdown.rstudio.com/authoring_basics.html), [here](https://shiny.rstudio.com/articles/rmarkdown.html), and [here](http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html) for a sample.  This post relates to producing an APA formatted pdf using the [papaja](https://github.com/crsh/papaja) package [@aust_papaja_2017].  Specifically, I describe a function that can be used to report *p* values correctly according to APA guidelines.
+
+### The problem
+One of the great things about R Markdown is the "in-line code" option, whereby, instead of typing numbers, you can insert the code for the value you wish to report, and when the document is compiled, the correct number is reported.
+
+However, the reporting of a *p* value in APA format varies depending on what the *p* value actually is.  It is consistently reported to three decimal places, with no "zero" preceding the decimal point.  Values less than ".001" are reported as: "*p* < .001."  For example, a *p* value of ".8368621" would be reported as "*p* = .837"; while a *p* value of ".0000725" would be reported as "*p* < .001".
+
+The specific formatting requirements, and the variation in the reporting of the *p* value depending on the value being reported means that simply including in-line code to generate the *p* value is not always sufficient.
+
+### The solution
+In order to remove the need tweak the formatting each time I report a new *p* value, I have created a function to do it for me.[^1]
+
+[^1]: The function described here, along with the `descriptives()` function described in the previous post, are part of a package I created called `desnum` [@R-desnum].  Writing functions as part of a package means that instead of writing the function anew for each session, you can just load the package.  Follow up posts will probably describe more functions in the `desnum` package.  If you wish to install the `desnum` package run the following code:
+```
+devtools::install_github("cillianmiltown/R_desnum")
+```
+
+
+#### The `p_report()` function
+The `p_report()` function takes any number less than 1, and reports it as an APA formatted *p* value.  Let's say you run a test, and save the *p* value from that test in the object `p1`, all you need to type in your R Markdown document then is
+
+```{r include=F}
+
+c <- "`r paste(p_report(p1))`"
+
+```
+
+```{}
+*p* `r c`
+```
+
+The `p_report()` function will remove the preceding zero, correctly identify whether "=" or "<" is needed, and report `p1` to three decimal places.  Nesting it within `paste()` ensures that its output is included in the compiled pdf.
+
+As in the previous post, the code for creating the function is below, and each line of code within the function is explained in the comment above (denoted with the `#` symbol).  Again, this code can be copied and pasted into your R session to create the `p_report()` function.
+```{r, include=T}
+p_report <- function(x){
+
+      # create an object "e" which contains x, the p value you are reporting,
+      # rounded to 3 decimal places
+
+  e <- round(x, digits = 3)
+
+      # the next two lines of code prints "< .001" if x is indeed less than .001
+
+  if (x < 0.001)
+    print(paste0("<", " ", ".001"))
+
+      # if x is greater than .001, the code below prints the object "e"
+      # with an "=" sign, and with the preceeding zero removed
+
+  else
+    print(
+      paste0("=",
+                 " ",
+                 sub("^(-?)0.", "\\1.", sprintf("%.3f",e))))
+
+}
+```
+
+
+
+## Usage
+The best way to illustrate the usage of `p_report()` is through examples.  We will use the `airquality` dataset and compare the variation in temperature (`Temp`) and wind speed (`Wind`) depending on the month.
+
+### Preparing the dataset
+First we need to load the dataset and make it (more) usable.
+
+```{r loadairquality, include=T}
+
+      # create a dataframe df, containing the airquality dataset
+
+df <- airquality
+
+      # change the class of df$Month from "integer" to "factor"
+
+df$Month <- as.factor(df$Month)
+
+```
+
+### `Wind`
+We can test for differences in wind speed depending on Month.  Run an anova and save the *p* value in an object `b`.
+
+```{r aov2, include=T}
+
+    # create an object "aov" containing the summary of the anova
+
+aov <- summary(aov(Wind~Month, data = df))
+
+    # create an object "b" containing the p value of aov
+
+b <- aov[[1]][["Pr(>F)"]][1]
+
+```
+
+```{r include=F}
+
+c <- "`r paste(p_report(b))`"
+
+```
+
+The output of `aov`is:
+
+```{r aov2out, include=T, echo=F}
+aov
+```
+
+As you can see, the *p* value is `0.00879`.
+
+Including `b` in-line returns `r b`, however if we pass `b` through `p_report()` by enclosing `paste(p_report(b))` in r denoted back ticks.  Typing the following in an R Markdown document:
+
+```{}
+*p* `r c`
+```
+
+returns: *p* `r paste(p_report(b))`.
+
+### `Temp`
+Similarly, we can test for differences in temperature depending on Month.  By using the same names for the objects, we can use the same in-line code to report the *p* values.
+
+```{r aov, include=T}
+
+    # create an object "aov" containing the summary of the anova
+
+aov <- summary(aov(Temp~Month, data = df))
+
+    # create an object "b" containing the p value of aov
+
+b <- aov[[1]][["Pr(>F)"]][1]
+
+```
+
+
+The output of `aov`is:
+
+```{r aovout, include=T, echo=F}
+aov
+```
+
+As you can see, the *p* value is `<2e-16`.
+
+When this is run through `p_report()` using:
+
+```{}
+*p* `r c`
+```
+
+which will return: "*p* `r paste(p_report(b))`".
+
+
+### Conclusion
+The `p_report()` function is an example of using R to make your workflow easier.  R Markdown replaces the need to type the numbers you report with the option of including in-line code to generate these numbers.  `p_report()` means that you do not have to worry about formatting issues when these numbers are reported.  Depending on how you structure your code chunks around your writing, and how name your objects, it may be possible to recycle sections of in-line code, speeding up the writing process.  Furthermore, the principle behind `p_report()` can be applied to the writing of other functions (e.g., reporting *F* values or $\chi$^2^).
+
+### References
+

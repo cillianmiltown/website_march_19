@@ -1,14 +1,14 @@
 ---
-title: JS Mediation
-author: Cillian
+title: "JS Mediation"
+author: "Cillian"
 date: '2019-05-15'
-slug: js-mediation-shinyapp
-summary: "A Shiny App for running JS Mediation"
-categories: []
-tags: []
 image:
   caption: ''
   focal_point: ''
+slug: js-mediation-shinyapp
+summary: A Shiny App for running JS Mediation
+tags: []
+categories: []
 ---
 
 In response to [this](https://perso.uclouvain.be/vincent.yzerbyt/Yzerbyt%20et%20al.%20JPSP%202018.pdf) paper by Yzerbyt, Batailler and Judd (2018) which outined a new method of conducting mediation analyses (with less susceptability to false positives than Hayes' PROCESS) I created a ShinyApp so that their R-package could be used by SPSS users. Upload your SPSS file below and select the variables you wish to compare.

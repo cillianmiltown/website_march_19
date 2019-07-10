@@ -1,0 +1,85 @@
+---
+title: "Creating a dataframe"
+author: "CillianMacAodh"
+date: "21 July 2017"
+slug: creating-a-dataframe
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+---
+
+
+
+<div id="creating-a-dataframe-from-raw-participant-data---multiple-files" class="section level2">
+<h2>Creating a dataframe from raw participant data - Multiple files</h2>
+<p>One of the most useful functions I’ve found in R is the ability to read individual data files and combine them into a dataframe. The power of this functionality marks a massive improvement from the days of copy and paste from excel into SPSS <span class="citation">(<span class="citeproc-not-found" data-reference-id="ibm_corp_spss_2015"><strong>???</strong></span>)</span>. This post outline how to create a dataframe in R from a large number of individual data files. Ideally this dataframe will then be analysed in R. However, these instructions can also be helpful in efficiently creating a data file for analysis in SPSS.</p>
+<div id="the-problem" class="section level3">
+<h3>The problem:</h3>
+<p>Imagine you are conducting a survey or an experiment using a software package like OpenSesame <span class="citation">(<span class="citeproc-not-found" data-reference-id="mathot_opensesame:_2012"><strong>???</strong></span>)</span> or Superlab <span class="citation">(<span class="citeproc-not-found" data-reference-id="cedrus_corporation_superlab_2012"><strong>???</strong></span>)</span>. Unlike tools such as Surveymonkey or Questback <span class="citation">(Unipark <a href="#ref-unipark_questback_2013">2013</a>)</span>, which collate all participant data into a single file for analysis, OpenSesame and Superlab generally generate an individual (CSV) data file for each participant.</p>
+<p>The traditional method of analysing these data would require each participant file to be opened in Excel. The relevant cells can then be copied and pasted into an SPSS file. This process is time consuming, tedious, and may lead to errors in transfer.</p>
+</div>
+<div id="the-r-solution" class="section level3">
+<h3>The R solution</h3>
+<p>R <span class="citation">(R Core Team <a href="#ref-R-base">2017</a>)</span> provides a much simpler solution to this, using primarily the functions <code>rbind()</code> and <code>read.csv</code>.</p>
+<p><code>read.csv()</code> is a function for reading data from a csv file into the R environment.</p>
+<p><code>rbind()</code> can be used to combine similar data sets by row: r (for row) bind.</p>
+</div>
+</div>
+<div id="the-basic-still-tedious-solution" class="section level2">
+<h2>The basic (still tedious) solution</h2>
+<p>One possibility for combining all the participant data files would be to read each file to an object individually and use <code>rbind()</code> to combine the objects.</p>
+<p>Something like:</p>
+<pre><code># create an object for each participant
+
+a &lt;- read.csv(&quot;/path to participant_1_data&quot;)
+b &lt;- read.csv(&quot;/path to participant_2_data&quot;)
+c &lt;- read.csv(&quot;/path to participant_3_data&quot;)
+d &lt;- ...
+
+# combine these objects to create a data frame
+
+df &lt;- rbind(a,b,c,d...)
+# alternatively
+df &lt;- rbind.data.frame(a,b,c...)
+</code></pre>
+<p><code>df</code> is then your complete data set that you can analyse using R.</p>
+</div>
+<div id="a-more-efficient-solution" class="section level2">
+<h2>A more efficient solution</h2>
+<p>The above solution requires that you create an object for each participant file, and that each object is explicitly listed in <code>rbind()</code> in order to be included. This leads to typing a lot of repetitive code. Fortunately, there is a much more efficient solution available.</p>
+<ol style="list-style-type: decimal">
+<li>Save all the participant files into a single folder.</li>
+<li>In your R session, use <code>setwd()</code> to set your working directory as the folder containing all the participant files.</li>
+<li>Create and save a list of all the files in the working directory using <code>list.files()</code>.</li>
+<li>Finally use <code>lapply()</code> to read all the files in the list consecutively. This can be nested alongside <code>rbind()</code> within <code>do.call()</code> in order to combine and create a dataframe.</li>
+</ol>
+<pre><code># set working directory to location of data files
+
+setwd(&quot;path to directory containing all data files&quot;)
+
+
+# create list all files in an object
+
+file_list &lt;- list.files()
+
+
+# pass this object created through the code below to read all the data files into a dataframe
+
+df &lt;- do.call(&quot;rbind&quot;, lapply(file_list, read.csv))</code></pre>
+<p>The above code will read each data file in the directory, and combine them into a single dataframe: <code>df</code>. This dataframe can then now be analysed using R.</p>
+<div id="moving-forward" class="section level3">
+<h3>Moving forward</h3>
+<p>The data can now be analysed in R.</p>
+<p>Alternatively, you can use <code>write.foreign()</code> from the package <code>foreign</code> to write the data frame to an SPSS file for analysis. This can occasionally lead to errors (depending on a number of things, including the length of variable names). However, the initial solution (copy and paste from Excel into SPSS) can also be used. Create a csv file using the <code>write.csv</code>, this file can then be opened using Excel, and copied and pasted into SPSS for analysis.</p>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-base">
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-unipark_questback_2013">
+<p>Unipark, QuestBack. 2013. “QuestBack Unipark.(2013).”</p>
+</div>
+</div>
+</div>
+</div>

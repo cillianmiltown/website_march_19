@@ -1,0 +1,82 @@
+---
+title: "Creating a dataframe"
+author: "CillianMacAodh"
+date: "21 July 2017"
+slug: creating-a-dataframe
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T)
+```
+
+##  Creating a dataframe from raw participant data - Multiple files
+One of the most useful functions I've found in R is the ability to read individual data files and combine them into a dataframe.  The power of this functionality marks a massive improvement from the days of copy and paste from excel into SPSS [@ibm_corp_spss_2015].  This post outline how to create a dataframe in R from a large number of individual data files.  Ideally this dataframe will then be analysed in R.  However, these instructions can also be helpful in efficiently creating a data file for analysis in SPSS.
+
+### The problem:
+Imagine you are conducting a survey or an experiment using a software package like OpenSesame [@mathot_opensesame:_2012] or Superlab [@cedrus_corporation_superlab_2012].  Unlike tools such as Surveymonkey or Questback [@unipark_questback_2013], which collate all participant data into a single file for analysis, OpenSesame and Superlab generally generate an individual (CSV) data file for each participant.
+
+The traditional method of analysing these data would require each participant file to be opened in Excel.  The relevant cells can then be copied and pasted into an SPSS file.  This process is time consuming, tedious, and may lead to errors in transfer.
+
+### The R solution
+R [@R-base] provides a much simpler solution to this, using primarily the functions `rbind()` and `read.csv`.
+
+`read.csv()` is a function for reading data from a csv file into the R environment. 
+
+`rbind()` can be used to combine similar data sets by row: r (for row) bind.
+
+## The basic (still tedious) solution
+One possibility for combining all the participant data files would be to read each file to an object individually and use `rbind()` to combine the objects.
+
+Something like:
+```
+# create an object for each participant
+
+a <- read.csv("/path to participant_1_data")
+b <- read.csv("/path to participant_2_data")
+c <- read.csv("/path to participant_3_data")
+d <- ...
+
+# combine these objects to create a data frame
+
+df <- rbind(a,b,c,d...)
+# alternatively
+df <- rbind.data.frame(a,b,c...)
+
+```
+
+`df` is then your complete data set that you can analyse using R.
+
+## A more efficient solution
+The above solution requires that you create an object for each participant file, and that each object is explicitly listed in `rbind()` in order to be included.  This leads to typing a lot of repetitive code.  Fortunately, there is a much more efficient solution available.
+
+1. Save all the participant files into a single folder.
+2. In your R session, use `setwd()` to set your working directory as the folder containing all the participant files.
+3. Create and save a list of all the files in the working directory using `list.files()`.
+4. Finally use `lapply()` to read all the files in the list consecutively.  This can be nested alongside `rbind()` within `do.call()` in order to combine and create a dataframe. 
+
+```
+# set working directory to location of data files
+
+setwd("path to directory containing all data files")
+
+
+# create list all files in an object
+
+file_list <- list.files()
+
+
+# pass this object created through the code below to read all the data files into a dataframe
+
+df <- do.call("rbind", lapply(file_list, read.csv))
+```
+
+The above code will read each data file in the directory, and combine them into a single dataframe: `df`.  This dataframe can then now be analysed using R.
+
+### Moving forward
+The data can now be analysed in R.
+
+Alternatively, you can use `write.foreign()` from the package `foreign` to write the data frame to an SPSS file for analysis.  This can occasionally lead to errors (depending on a number of things, including the length of variable names).  However, the initial solution (copy and paste from Excel into SPSS) can also be used.  Create a csv file using the `write.csv`, this file can then be opened using Excel, and copied and pasted into SPSS for analysis.
+
+### References

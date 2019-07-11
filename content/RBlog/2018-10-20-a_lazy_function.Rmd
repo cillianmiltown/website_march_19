@@ -1,10 +1,16 @@
 ---
 title: "A Lazy Function"
 author: "CillianMacAodh (Cillian McHugh)"
-date: "20 October 2018"
+date: "2018-10-20"
 slug: a-lazy-function
 bibliography: [../../static/bib/MyLibrary.bib]
 link-citations: true
+
+reading_time: false  # Show estimated reading time?
+share: false  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+
 ---
 
 ```{r setup, include=FALSE}

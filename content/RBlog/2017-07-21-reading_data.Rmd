@@ -1,10 +1,16 @@
 ---
 title: "Creating a dataframe"
 author: "CillianMacAodh"
-date: "21 July 2017"
+date: "2017-07-21"
 slug: creating-a-dataframe
 bibliography: [../../static/bib/MyLibrary.bib]
 link-citations: true
+
+reading_time: false  # Show estimated reading time?
+share: false  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+
 ---
 
 ```{r setup, include=FALSE}
@@ -12,10 +18,10 @@ knitr::opts_chunk$set(echo = T)
 ```
 
 ##  Creating a dataframe from raw participant data - Multiple files
-One of the most useful functions I've found in R is the ability to read individual data files and combine them into a dataframe.  The power of this functionality marks a massive improvement from the days of copy and paste from excel into SPSS [@ibm_corp_spss_2015].  This post outline how to create a dataframe in R from a large number of individual data files.  Ideally this dataframe will then be analysed in R.  However, these instructions can also be helpful in efficiently creating a data file for analysis in SPSS.
+One of the most useful functions I've found in R is the ability to read individual data files and combine them into a dataframe.  The power of this functionality marks a massive improvement from the days of copy and paste from excel into SPSS [@ibmcorp_spss_2015].  This post outline how to create a dataframe in R from a large number of individual data files.  Ideally this dataframe will then be analysed in R.  However, these instructions can also be helpful in efficiently creating a data file for analysis in SPSS.
 
 ### The problem:
-Imagine you are conducting a survey or an experiment using a software package like OpenSesame [@mathot_opensesame:_2012] or Superlab [@cedrus_corporation_superlab_2012].  Unlike tools such as Surveymonkey or Questback [@unipark_questback_2013], which collate all participant data into a single file for analysis, OpenSesame and Superlab generally generate an individual (CSV) data file for each participant.
+Imagine you are conducting a survey or an experiment using a software package like OpenSesame [@mathot_opensesame_2012] or Superlab [@cedruscorporation_superlab_2012].  Unlike tools such as Surveymonkey or Questback [@unipark_questback_2013], which collate all participant data into a single file for analysis, OpenSesame and Superlab generally generate an individual (CSV) data file for each participant.
 
 The traditional method of analysing these data would require each participant file to be opened in Excel.  The relevant cells can then be copied and pasted into an SPSS file.  This process is time consuming, tedious, and may lead to errors in transfer.
 

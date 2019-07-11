@@ -5,10 +5,17 @@ title = "R Blog"
 #   1 = List
 #   2 = Compact
 #   3 = Card
-view = 1
+view = 3
 
 # Optional featured image (relative to `static/img/` folder).
 [header]
 image = ""
 caption = ""
 +++
+
+
+
+(A collection of posts that also appear on my [R blog](https://cillianmacaodh.blogspot.com))
+
+
+<br>

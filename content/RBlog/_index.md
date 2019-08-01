@@ -15,7 +15,7 @@ caption = ""
 
 
 
-(A collection of posts that also appear on my [R blog](https://cillianmacaodh.blogspot.com))
+(A collection of posts that also appear on my [R blog](https://cillianmacaodh.blogspot.com) - also on R-Bloggers)
 
 
 <br>

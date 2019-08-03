@@ -17,5 +17,10 @@ caption = ""
 
 (A collection of posts that also appear on my [R blog](https://cillianmacaodh.blogspot.com) - also on [R-Bloggers.com](https://www.r-bloggers.com/))
 
+#### Some Useful Links:
+- [Using RMarkdown](https://bookdown.org/yihui/rmarkdown/)
+- [papaja package manual](https://crsh.github.io/papaja_man/)
 
 <br>
+
+# Posts:

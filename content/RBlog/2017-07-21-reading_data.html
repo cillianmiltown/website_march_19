@@ -4,9 +4,10 @@ author: "CillianMacAodh"
 date: "2017-07-21"
 slug: creating-a-dataframe
 bibliography: [../../static/bib/MyLibrary.bib]
+csl: [../../static/bib/apa.csl]
 link-citations: true
 
-reading_time: false  # Show estimated reading time?
+reading_time: true  # Show estimated reading time?
 share: false  # Show social sharing links?
 profile: false  # Show author profile?
 comments: false  # Show comments?
@@ -17,15 +18,15 @@ comments: false  # Show comments?
 
 <div id="creating-a-dataframe-from-raw-participant-data---multiple-files" class="section level2">
 <h2>Creating a dataframe from raw participant data - Multiple files</h2>
-<p>One of the most useful functions I’ve found in R is the ability to read individual data files and combine them into a dataframe. The power of this functionality marks a massive improvement from the days of copy and paste from excel into SPSS <span class="citation">(IBM Corp <a href="#ref-ibmcorp_spss_2015">2015</a>)</span>. This post outline how to create a dataframe in R from a large number of individual data files. Ideally this dataframe will then be analysed in R. However, these instructions can also be helpful in efficiently creating a data file for analysis in SPSS.</p>
+<p>One of the most useful functions I’ve found in R is the ability to read individual data files and combine them into a dataframe. The power of this functionality marks a massive improvement from the days of copy and paste from excel into SPSS <span class="citation">(IBM Corp, <a href="#ref-ibmcorp_spss_2015">2015</a>)</span>. This post outline how to create a dataframe in R from a large number of individual data files. Ideally this dataframe will then be analysed in R. However, these instructions can also be helpful in efficiently creating a data file for analysis in SPSS.</p>
 <div id="the-problem" class="section level3">
 <h3>The problem:</h3>
-<p>Imagine you are conducting a survey or an experiment using a software package like OpenSesame <span class="citation">(Mathôt, Schreij, and Theeuwes <a href="#ref-mathot_opensesame_2012">2012</a>)</span> or Superlab <span class="citation">(Corporation <a href="#ref-cedruscorporation_superlab_2012">2012</a>)</span>. Unlike tools such as Surveymonkey or Questback <span class="citation">(Unipark <a href="#ref-unipark_questback_2013">2013</a>)</span>, which collate all participant data into a single file for analysis, OpenSesame and Superlab generally generate an individual (CSV) data file for each participant.</p>
+<p>Imagine you are conducting a survey or an experiment using a software package like OpenSesame <span class="citation">(Mathôt, Schreij, &amp; Theeuwes, <a href="#ref-mathot_opensesame_2012">2012</a>)</span> or Superlab <span class="citation">(Corporation, <a href="#ref-cedruscorporation_superlab_2012">2012</a>)</span>. Unlike tools such as Surveymonkey or Questback <span class="citation">(Unipark, <a href="#ref-unipark_questback_2013">2013</a>)</span>, which collate all participant data into a single file for analysis, OpenSesame and Superlab generally generate an individual (CSV) data file for each participant.</p>
 <p>The traditional method of analysing these data would require each participant file to be opened in Excel. The relevant cells can then be copied and pasted into an SPSS file. This process is time consuming, tedious, and may lead to errors in transfer.</p>
 </div>
 <div id="the-r-solution" class="section level3">
 <h3>The R solution</h3>
-<p>R <span class="citation">(R Core Team <a href="#ref-R-base">2017</a>)</span> provides a much simpler solution to this, using primarily the functions <code>rbind()</code> and <code>read.csv</code>.</p>
+<p>R <span class="citation">(R Core Team, <a href="#ref-R-base">2017</a>)</span> provides a much simpler solution to this, using primarily the functions <code>rbind()</code> and <code>read.csv</code>.</p>
 <p><code>read.csv()</code> is a function for reading data from a csv file into the R environment.</p>
 <p><code>rbind()</code> can be used to combine similar data sets by row: r (for row) bind.</p>
 </div>
@@ -81,19 +82,19 @@ df &lt;- do.call(&quot;rbind&quot;, lapply(file_list, read.csv))</code></pre>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-cedruscorporation_superlab_2012">
-<p>Corporation, Cedrus. 2012. SuperLab Pro (4.5.3), issued March 2012. <a href="http://www.superlab.com" class="uri">http://www.superlab.com</a>.</p>
+<p>Corporation, C. (2012, March). SuperLab Pro (4.5.3). San Pedro CA. Retrieved from <a href="http://www.superlab.com" class="uri">http://www.superlab.com</a></p>
 </div>
 <div id="ref-ibmcorp_spss_2015">
-<p>IBM Corp. 2015. “SPSS.” Armonk, NY: IBM Corp.</p>
+<p>IBM Corp. (2015). SPSS. Armonk, NY: IBM Corp.</p>
 </div>
 <div id="ref-mathot_opensesame_2012">
-<p>Mathôt, Sebastiaan, Daniel Schreij, and Jan Theeuwes. 2012. “OpenSesame: An Open-Source, Graphical Experiment Builder for the Social Sciences.” <em>Behavior Research Methods</em> 44 (2): 314–24. <a href="https://doi.org/10.3758/s13428-011-0168-7" class="uri">https://doi.org/10.3758/s13428-011-0168-7</a>.</p>
+<p>Mathôt, S., Schreij, D., &amp; Theeuwes, J. (2012). OpenSesame: An open-source, graphical experiment builder for the social sciences. <em>Behavior Research Methods</em>, <em>44</em>(2), 314–324. <a href="https://doi.org/10.3758/s13428-011-0168-7" class="uri">https://doi.org/10.3758/s13428-011-0168-7</a></p>
 </div>
 <div id="ref-R-base">
-<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+<p>R Core Team. (2017). <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a></p>
 </div>
 <div id="ref-unipark_questback_2013">
-<p>Unipark, QuestBack. 2013. “QuestBack Unipark.(2013).”</p>
+<p>Unipark, Q. (2013). QuestBack Unipark.(2013).</p>
 </div>
 </div>
 </div>

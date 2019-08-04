@@ -4,9 +4,10 @@ author: "CillianMacAodh"
 date: "2017-07-21"
 slug: creating-a-dataframe
 bibliography: [../../static/bib/MyLibrary.bib]
+csl: [../../static/bib/apa.csl]
 link-citations: true
 
-reading_time: false  # Show estimated reading time?
+reading_time: true  # Show estimated reading time?
 share: false  # Show social sharing links?
 profile: false  # Show author profile?
 comments: false  # Show comments?

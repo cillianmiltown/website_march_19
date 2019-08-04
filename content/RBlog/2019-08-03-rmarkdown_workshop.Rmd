@@ -51,6 +51,7 @@ library(extrafont)
 #library(desnum)
 ```
 
+
 # Background
 
 This is an unusual post for me, I have avoided writing about R Markdown because there are so many resources already available on the topic (e.g., [here](http://rmarkdown.rstudio.com/authoring_basics.html), [here](https://shiny.rstudio.com/articles/rmarkdown.html), and [here](http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html)).  However, recently I ran a session on using RMarkdown for my colleagues in the [Centre for Social Issues Research](http://www.ul.ie/csi-r/).  The aim of this was to demonstrate the usefulness of R Markdown (and hopefully convert a few people).  For this session I created a set of resources[^1] aimed at making the transition from SPSS to R Markdown a bit easier.  The *statistics* content of these resources is mainly just some of the simpler standard tests taught to psychology undergraduate students.

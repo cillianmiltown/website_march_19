@@ -1,0 +1,347 @@
+---
+title: "R Markdown Workshop"
+author: "CillianMacAodh (Cillian McHugh)"
+date: "2019-08-03"
+slug: rmarkdown-workshop
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+image:
+  caption: ''
+  focal_point: ''
+reading_time: false  # Show estimated reading time?
+share: false  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include = FALSE}
+#knitr::opts_chunk$set(comment = NA, eval = FALSE)
+
+# load packages
+packages <- c("bookdown", "blogdown", "knitr")
+lapply(packages, function(x) {
+  if (!requireNamespace(x)) install.packages(x)
+  library(x, character.only = TRUE)
+})
+
+knitr::opts_chunk$set(echo = FALSE)
+
+
+
+
+# this code chunk will load the packages required
+# setting up the R environment for analysis
+rm(list=ls())
+library("papaja")
+library("citr")
+library(desnum)
+library(MASS)
+library(lsr)
+library(pwr)
+library(ggplot2)
+library(scales)
+library(extrafont)
+
+
+
+
+#library(desnum)
+```
+
+
+# Background
+
+This is an unusual post for me, I have avoided writing about R Markdown because there are so many resources already available on the topic (e.g., [here](http://rmarkdown.rstudio.com/authoring_basics.html), [here](https://shiny.rstudio.com/articles/rmarkdown.html), and [here](http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html)).  However, recently I ran a session on using RMarkdown for my colleagues in the [Centre for Social Issues Research](http://www.ul.ie/csi-r/).  The aim of this was to demonstrate the usefulness of R Markdown (and hopefully convert a few people).  For this session I created a set of resources[^1] aimed at making the transition from SPSS to R Markdown a bit easier.  The *statistics* content of these resources is mainly just some of the simpler standard tests taught to psychology undergraduate students.
+
+The complete resources are available on [this project page on the OSF](https://osf.io/nyu4g/).  The main purpose of the exercise was to provide people with the tools to create [this pdf](https://mfr.osf.io/render?url=https://osf.io/z6udg/?action=download%26mode=render) using [this R Markdown template](https://mfr.osf.io/render?url=https://osf.io/5zsp8/?action=download%26mode=render). My hope is that by using this template, SPSS users might make the tranistion to R, and R Markdown (with the help of the wonderful [papaja](https://crsh.github.io/papaja_man/) package @aust_papaja_2017).
+
+[^1]: The aim of this post is to help make these resources more accessible.  As such, there will likely be a lot of duplication between this post and the resources on the OSF.
+
+
+
+# R Markdown Basics
+
+I started off the workshop by going through some of the basics of R Markdown.  When working with R Markdown, there are three types of text to be concerned with.
+
+1. **Plain text**: this is what you will use to write your manuscript.  The formatting of this plain text is fairly straight forward ([see this cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf))[^2]
+
+[^2]: Italics are achieved by placing a star either side of the text you want italicised `*italics*` = *italics*; Bold is achieved by placing a double star either side of the text you want italicised `**bold**` = **bold**
+
+2. **Code chunks**: these are denoted by three back ticks ` ``` `  at the top and the bottom of a chunk with commands in curly brackets in the title (on the same line as the firs set of back ticks). Code chunks allow you to run analyses without leaving your document. Output from code chunks can be included or omitted from your main output document.
+3. **In-line code**: this is denoted by a single back tick to begin a piece of code and a single back tick to close it `code goes here`.
+
+Each time you open a piece of code (a chunk or in-line code) you have to identify what language you want to code in. This is done by including the letter "r" in the curly brackets or immediately after the opening back tick.
+
+# Working with R
+In order to show some of the basic functionality of R, I ran some analyses using the data sets that are built into R.  This means that anyone should be able to reproduce the analyses conducted using the [template](https://mfr.osf.io/render?url=https://osf.io/5zsp8/?action=download%26mode=render) I provided (without needing to worry about loading data from other files).  I also provided another  [document](https://mfr.osf.io/render?url=https://osf.io/6vz4e/?action=download%26mode=render) with an accompanying [template](https://mfr.osf.io/render?url=https://osf.io/kub2w/?action=download%26mode=render) detailing the steps for inputting data into R. But this process is more prone to errors and if you are not familiar with R it can be a bit unintuitive. 
+
+## Working with dataframes
+
+A dataframe is structured much like an SPSS file. There are rows and columns, the columns are named and generally represent variables. The rows (can also be named) generally represent cases. You can have multiple data frames loaded with different names, although they are commonly saved as `df` (and these can be numbered `df1 df2 df3`. If your document/code is well organised, it can be useful have a generic name for dataframes that you are working with. This means that much of your code can be recycled (particularly if the variable names are the same - if you run repeated studies, or studies with only minor changes, you will find that there is massive scope for recycling code - both chunks and in-line)
+
+### Some basics:
+
+1. The entire dataframe can be printed to the console by running the name of the data frame
+2. The dollar sign can be used to call specific variables from the data frame i.e., `df$variable_name`
+3. A function has the form "function name" followed by parenthesis: `function_name()`.
+4. The object that you want to run the function on goes in the parenthesis. e.g., if our dataframe was called `df`, and age was called `age` and we wanted to get the mean age we would run `mean(df$age)`.
+5. Sometimes missing data denoted by `NA` can mess with some functions, to account for this it is helpful to include the argument `na.rm = TRUE` in the function, e.g., `mean(df$age, na.rm = TRUE)`
+
+The `mtcars` dataset comes with R.  For information on it simply type `help(mtcars)`.  The variables of interest here are `am` (transmission; 0 = automatic, 1 = manual), `mpg` (miles per gallon), `qsec` (1/4 mile time). Below we practice a few simple functions to find out information about the dataset. 
+
+#### Example code and output:
+
+- Load the `mtcars` dataset into an object called `df` using the command `df <- mtcars`
+- View the variable names associated with `df` by running `variable.names(df)`
+
+```{r practicingfunctions, echo=FALSE}
+
+df <- mtcars
+# view the variable names associated with df
+variable.names(df)
+```
+
+- The mean miles per gallon can be calculated using `mean(df$mpg)`
+
+```{r}
+
+# get the mean miles per gallon
+mean(df$mpg)
+```
+
+- The standard deviation of the same variable is calculated using `sd(df$mpg)`
+
+```{r}
+# and get the standard deviation
+sd(df$mpg)
+```
+
+- Or if you want to see basic descriptives use `descriptives(df$mpg)`[^3]
+
+[^3]: from the `desnum` package
+
+```{r}
+# Get basic descriptives for miles per gallon and 1/4 mile time
+descriptives(df$mpg)
+```
+
+- To index by a variable we use square brackets `[]` and the `which()` function.
+  - The following command gets the mean miles per gallon for all cars with manual transmission: 
+      - `mean(df$mpg[which(df$am==1)])`
+
+
+```{r}
+# to index by a variable we use square brackets and the "which()" function
+# the following line gets the mean miles per gallon
+# for all cars with manual transmission
+
+mean(df$mpg[which(df$am==1)])
+
+```
+
+# Statistical tests
+Now that we know some of the basics, we'll try running some statistical tests.
+
+# Running a t-test
+I'm going to use the `mtcars` dataset to illustrate how to run and write up a t-test, in such a way that:
+
+(a) there is no copy/paste error in reporting values; and
+(b) you can recycle code and text.
+
+In addition to `mpg` (miles per gallon), the other variable I am interested in is  `am` (transmission; 0 = automatic, 1 = manual).[^4]
+
+
+[^4]: This test, and all tests that follow are for illustration purposes only, I have not checked any assumptions to see if I can run the tests, I just want to provide sample code that you can use for your own analyses.
+
+The question I'm going to look at is:
+
+(i) Is there a difference in miles per gallon depending on transmission?
+
+## T-test: Transmission and MPG
+
+- Load mtcars and save it in your environment using `df <- mtcars`
+- Create a new dataframe with a generic name e.g., `x` using the command: `x <- df`
+- This command runs the t-test and you can see the output in the console `t.test(x$mpg~x$am)`
+
+```{r ttesta, include=TRUE,echo=FALSE}
+# load mtcars and save it in your environment
+df <- mtcars
+
+# create a new dataframe with a generic name x
+x <- df
+
+# this line runs the t-test and you can see the output in the console
+t.test(x$mpg~x$am)
+
+```
+
+- The following code runs the t-test but saves the output as a list `t` that can be called later: `t <- t.test(x$mpg~x$am)`
+```{r, include=TRUE}
+t <- t.test(x$mpg~x$am)
+```
+
+- As with dataframes, specific variables within a list can be called using the dollar sign
+- To call the p value simply type `t$p.value`
+```{r, include=TRUE}
+t$p.value
+```
+- To call the t statistic, type `t$statistic`
+```{r, include=TRUE}
+t$statistic
+```
+- And to call the degrees of freedom, type `t$parameter`
+```{r, include=TRUE}
+t$parameter
+```
+- Finally, to calculate the effect size and save it to an object type `td <- cohensD(mpg~am, data=x)`
+
+```{r ttest, include=FALSE,echo=FALSE}
+# load mtcars and save it in your environment
+df <- mtcars
+
+# create a new dataframe with a generic name x
+x <- df
+
+# this line runs the t-test and you can see the output in the console
+t.test(x$mpg~x$am)
+
+# this line runs the t-test
+# but saves the output as a list "t"
+# that can be called later
+t <- t.test(x$mpg~x$am)
+
+# as with dataframes, specific variables within a list
+# can be called using the dollar sign
+
+# to call the p value simply type
+t$p.value
+
+# to call the t statistic, type
+t$statistic
+
+# to call the degrees of freedom, type
+t$parameter
+
+# get the effect size and save it to an object
+td <- cohensD(mpg~am, data=x)
+
+x <- mtcars
+
+```
+
+From the above we can call each value we need using in-line code to write up our results section as follows
+
+##### This is what the paragraph will look like in your Rmd document:
+
+An independent samples t-test revealed a significant difference in miles per gallon between cars with automatic transmission
+(`*M*` = `` `r "\u0060r mean(x$mpg[which(x$am==0)])\u0060"` ``, `*SD*` = `` `r "\u0060r sd(x$mpg[which(x$am==0)])\u0060"` ``), and cars with manual transmission, (`*M*` = `` `r "\u0060r mean(x$mpg[which(x$am==1)])\u0060"` ``, `*SD*` = `` `r "\u0060r sd(x$mpg[which(x$am==1)])\u0060"` ``), `*t*`(`` `r "\u0060r t$parameter\u0060"` ``) = `` `r "\u0060r t$statistic\u0060"` ``, `*p*` `` `r "\u0060r paste(p_report(t$p.value))\u0060"` ``, `*d*` = `` `r "\u0060r td"` ``.
+
+##### The above syntax will return the following:
+
+An independent samples t-test revealed a significant difference in miles per gallon between cars with automatic transmission (*M* = `r round(mean(x$mpg[which(x$am==0)]),digits=2)`, *SD* = `r round(sd(x$mpg[which(x$am==0)]),digits=2)`), and cars with manual transmission, (*M* = `r round(mean(x$mpg[which(x$am==1)]),digits=2)`, *SD* = `r round(sd(x$mpg[which(x$am==0)]),digits=2)`), *t*(`r round(t$parameter,digits=2)`) = `r round(t$statistic, digits=3)`, *p* `r paste(p_report(t$p.value))`, *d* = `r round(td,digits=2)`.
+
+If you want to run another t-test later on in your document you simply run it in a code chunk and create new objects (`t` and `td`) with the same names as before and you can use the same write up as above to report it. 
+
+
+
+# Chi-square
+
+To illustrate a chi-squared test I will test if there is an association between engine type `vs`  (0 = V-shaped, 1 = straight) and transmission type  (0 = automatic, 1 = manual). Again this is to illustrate the code/write up - not a real test.
+
+- First create a table using the command `table(x$am,x$vs)`
+- Running a chi-squared test using `chisq.test(table(x$am,x$vs))` returns:
+
+```{r chisq}
+
+# then run a chi-squared test on the table
+chisq.test(table(x$am,x$vs))
+c <- chisq.test(table(x$am,x$vs))
+w <- sqrt(c$statistic/(length(x$mpg)*c$parameter))
+pw <- pwr.chisq.test(w=w,N=length(x$mpg),df=(c$parameter),sig.level = .05)
+
+
+```
+
+- As with the t-test, in order to report it using in-line code you need to save the test as an object e.g., `c` using `c <- chisq.test(table(x$am,x$vs))`
+- Save the effect size using `w <- sqrt(c$statistic/(length(x$mpg)*c$parameter))`
+- And calculate the observed power using `pw <- pwr.chisq.test(w=w,N=length(x$mpg),df=(c$parameter),sig.level = .05)`
+
+##### Report using the following
+
+A chi-squared test for independence revealed no significant association between engine type and transmission type, `&chi;^2^`(`` `r "\u0060r c$parameter\u0060"` ``, `*N*` = `` `r "\u0060r length(x$mpg)\u0060"` ``) = `` `r "\u0060r c$statistic\u0060"` ``, `*p*` `` `r "\u0060r paste(p_report(t$p.value))\u0060"` ``, `*V*` = `` `r "\u0060r w"` ``, the observed power was `` `r "\u0060r pw$power\u0060"` ``.
+
+
+##### The above returns the following:
+
+A chi-squared test for independence revealed no significant association between engine type and transmission type, &chi;^2^(`r round(c$parameter,digits=2)`, *N* = `r length(x$mpg)`) = `r round(c$statistic, digits=3)`, *p* `r paste(p_report(c$p.value))` *V* = `r round(w,digits=2)`, the observed power was `r round(pw$power,digits=2)`. ([see this resource for effect size calculations for chi-squared tests](http://www.real-statistics.com/chi-square-and-f-distributions/effect-size-chi-square/)).
+
+
+# ANOVA and Correlation
+
+For details on the ANOVA check out the [pdf](https://mfr.osf.io/render?url=https://osf.io/z6udg/?action=download%26mode=render) using the [R Markdown template](https://mfr.osf.io/render?url=https://osf.io/5zsp8/?action=download%26mode=render) on the OSF page.  
+
+
+
+# Tables
+Again using the `mtcars` dataset, I'm going to make a few tables. Bear in mind that the code for these tables is designed to be used along with the `papaja` package and rendered to pdf, so the html tables in this post will not be formatted as correctly as they should be (refer to the resources on the OSF to see what it should look like).
+
+- Firstly save `mtcars` as an object using `x <- mtcars`
+- We will make a table of engine type (V-shaped vs Straight) agains number of gears (3, 4, or 5) using `table(x$vs,x$gear)` which returns:
+
+```{r prepsimpletable}
+x <- mtcars
+
+table(x$vs,x$gear)
+test <- as.data.frame.matrix(table(x$vs,x$gear))
+test <- `rownames<-`(test, c("V-shaped","Straight"))
+test <- `colnames<-`(test, c("3 gears","4 gears","5 gears"))
+
+
+```
+
+- This table is useful to us, but it doesn't really sit well in our document
+- We can address this using the `apa_table()` function
+- Before using this function we need to create a matrix that can be passed through the function using the command `test <- as.data.frame.matrix(table(x$vs,x$gear))`
+- We can give names to the rows using `test <- `rownames<-`(test, c("V-shaped","Straight"))`
+- And we can give names to the columns using `test <- `colnames<-`(test, c("3 gears","4 gears","5 gears"))`
+- Finally we pass our object (matrix) `test` through the `apa_table()` function to render a table that will be embedded in our document
+- The code below will generate the Table\ \@ref(tab:simpletable):
+
+```{r simpletable, results = 'asis', include=TRUE, echo=TRUE}
+
+apa_table(
+   test
+   , align = c("l", "c", "c", "c")
+   , caption = "Engine type and number of gears"
+   , added_stub_head = "Engine Type"
+   #, col_spanners = makespanners()
+   
+)
+
+```
+
+For more complex tables and example figures refer to the relevant section of the [pdf](https://mfr.osf.io/render?url=https://osf.io/z6udg/?action=download%26mode=render) and [R Markdown template](https://mfr.osf.io/render?url=https://osf.io/5zsp8/?action=download%26mode=render) on the OSF page.
+
+
+# Using Citations
+
+The `citr` can be used to cite while you write much like using endnote with Word. I have exported my Zotero Library (using BetterBibTex) to a .bib "My Library.bib" file in the directory I am working in. To cite I simply use @ and the citation key e.g., `@haidt_emotional_2001` returns @haidt_emotional_2001. To enclose the entire citation in parenthesis use square brackets `[@haidt_emotional_2001]` gives: [@haidt_emotional_2001]. The full reference is automatically added to the reference list (see below).
+
+
+
+```{r reasonsR_citations, include=FALSE, echo=FALSE}
+
+r_refs(file = "r-references.bib")
+my_citation <- cite_r(file = "r-references.bib")
+my_citation
+```
+
+It is also generally good practice to cite R and the R packages you have used in your analyses. In the current post I used `r cite_r("r-references.bib")`.
+
+
+
+### References
+

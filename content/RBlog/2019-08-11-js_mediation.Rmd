@@ -354,6 +354,8 @@ Below we follow mostly the same steps to create our dataframe, and this time we 
 
 Above I have described how I went about making my first [Shiny App](https://cillianmacaodh.shinyapps.io/JS_mediation/) which makes a new method of mediation analysis accessible to SPSS users.  Feel free to try it out (although I have not paid for a premium account with Shiny, so it might time out).  Both the `mtcars` dataset and the `iris` dataset are preloaded in the app if you want to try it but you don't have any SPSS files to upload.  If you are and R user hopefully this post might help you to make your own Shiny Apps to make R functionality available to your SPSS using colleagues.  Many thanks to the examples online that helped me, particularly [this example for uploading files and working with them](https://gist.github.com/dgrapov/dfcf6ab2339b1cf19b090cfb8dadc855).
 
+(also if you have any suggestions for improving the app, or if I have left anything out, let me know)
+
 
 ```
 library(shiny)

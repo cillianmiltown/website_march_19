@@ -1,0 +1,536 @@
+---
+title: "A Shiny App for JS Mediation"
+author: "CillianMacAodh (Cillian McHugh)"
+date: "2019-08-11"
+slug: js-mediation
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+image:
+  caption: ''
+  focal_point: ''
+reading_time: false  # Show estimated reading time?
+share: false  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+editor_options: 
+  chunk_output_type: console
+draft: true  
+---
+
+
+
+<div id="background" class="section level1">
+<h1>Background</h1>
+<p>This is a brief post about making <a href="https://cillianmacaodh.shinyapps.io/JS_mediation/">my first Shiny App</a> (<a href="https://www.cillianmchugh.com/other/js-mediation-shinyapp/">see also</a>). I made this app following a meeting of the <a href="https://asclab.wordpress.com/">Advancing Social Cognition lab (ASC-Lab)</a> where we discussed <a href="https://perso.uclouvain.be/vincent.yzerbyt/Yzerbyt%20et%20al.%20JPSP%202018.pdf">this paper</a> by <span class="citation">Yzerbyt et al. (<a href="#ref-yzerbyt_new_2018">2018</a>)</span> proposing a new method for mediation analysis. Any attempt to detail the differences in methods is well beyond the scope of a blog post. The take home message is that the method proposed by <span class="citation">Yzerbyt et al. (<a href="#ref-yzerbyt_new_2018">2018</a>)</span> is less prone to Type I errors (or false positives) than the most commonly used methods <span class="citation">(e.g., Hayes <a href="#ref-hayes_introduction_2017">2017</a>)</span>. In addition to identifying a problem and proposing a solution, the authors also provide the tools to implement their solution with an R package <span class="citation">(Batailler et al. <a href="#ref-R-JSmediation">2019</a>)</span>. Unfortunately, not everyone uses R, and this is why I set about developing a simple way for SPSS users to access this new method.</p>
+</div>
+<div id="regression-and-js-mediation" class="section level1">
+<h1>Regression and JS Mediation</h1>
+<p>Before I describe the <a href="https://cillianmacaodh.shinyapps.io/JS_mediation/">Shiny App</a>, I’ll briefly demonstrate the 2 functions that are included in the <a href="https://cillianmacaodh.shinyapps.io/JS_mediation/">Shiny App</a>. I’ll use the built in dataset <code>mtcars</code> and investigate the relationship between 1/4 mile time (<code>qsec</code>), gross horsepower (<code>hp</code>) and weight (<code>wt</code>), specifically<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<ul>
+<li>does horsepower predict 1/4 mile time?</li>
+<li>and is this relationship mediated by weight?</li>
+</ul>
+<div id="set-up-the-dataframe" class="section level2">
+<h2>Set up the dataframe</h2>
+<p>For ease of reusing code (particularly later on) I’ll save <code>mtcars</code> as a dataframe <code>df</code> and rename the variables of interest as <code>iv</code> (predictor variable), <code>dv</code> (outcome variable), and <code>mediator</code>.</p>
+<pre class="r"><code>df &lt;- mtcars          # create df from mtcars
+
+# create new variables with generic names
+df$dv &lt;- df$qsec      # save 1/4 mile time as dv
+df$iv &lt;- df$hp        # save horsepower as iv
+df$mediator &lt;- df$wt  # save weight as mediator</code></pre>
+</div>
+<div id="simple-regression" class="section level2">
+<h2>Simple Regression</h2>
+<p>Before running the mediation I’ll run a quick regression to assess the nature of the relationship between the variables.</p>
+<pre class="r"><code>fit &lt;- lm(dv ~ iv + mediator, data=df)  # save the regression in an object &#39;fit&#39;
+summary(fit)                            # show the results</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = dv ~ iv + mediator, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.8283 -0.4055 -0.1464  0.3519  3.7030 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 18.825585   0.671867  28.020  &lt; 2e-16 ***
+## iv          -0.027310   0.003795  -7.197 6.36e-08 ***
+## mediator     0.941532   0.265897   3.541  0.00137 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.09 on 29 degrees of freedom
+## Multiple R-squared:  0.652,  Adjusted R-squared:  0.628 
+## F-statistic: 27.17 on 2 and 29 DF,  p-value: 2.251e-07</code></pre>
+<p>As you can see from the output, 1/4 mile time is predicted by both horsepower and by weight.</p>
+</div>
+<div id="simple-mediation" class="section level2">
+<h2>Simple Mediation</h2>
+<p>Now that we have a picture of the relationships between the variables we can run the mediation analysis. The code for this is detailed below.</p>
+<pre class="r"><code>JS_model &lt;- mdt_simple(data = df, # create an object &#39;JS_model&#39;
+                       DV = dv,
+                       IV = iv,
+                       M  = mediator)
+add_index(JS_model)               # display the results of the mediation</code></pre>
+<pre><code>## Test of mediation (simple mediation)
+## ==============================================
+## 
+## Variables:
+## 
+## - IV: iv 
+## - DV: dv 
+## - M: mediator 
+## 
+## Paths:
+## 
+## ====  ==============  =====  ======================
+## Path  Point estimate     SE  APA                   
+## ====  ==============  =====  ======================
+## a              0.009  0.002  t(30) = 4.80, p &lt; .001
+## b              0.942  0.266  t(29) = 3.54, p = .001
+## c             -0.018  0.003  t(30) = 5.49, p &lt; .001
+## c&#39;            -0.027  0.004  t(29) = 7.20, p &lt; .001
+## ====  ==============  =====  ======================
+## 
+## Indirect effect index:
+## 
+## - type: Indirect effect 
+## - point estimate: 0.00885 
+## - confidence interval:
+##   - method: Monte Carlo (5000 iterations)
+##   - level: 0.05 
+##   - CI: [0.00359; 0.0156]
+## 
+## Fitted models:
+## 
+## - X -&gt; Y 
+## - X -&gt; M 
+## - X + M -&gt; Y</code></pre>
+<ul>
+<li>Here we can see that horsepower predicts both 1/4 mile time and weight.</li>
+<li>There is also an indirect effect of horsepower on 1/4 mile time through weight.</li>
+</ul>
+</div>
+</div>
+<div id="building-a-shiny-app" class="section level1">
+<h1>Building a Shiny App</h1>
+<p>The full code for the app is below, for the next sections I’ll go through some of the key pieces of code.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<div id="the-geography-of-the-shiny-app" class="section level2">
+<h2>The Geography of the Shiny App</h2>
+<p>The <a href="https://cillianmacaodh.shinyapps.io/JS_mediation/">Shiny App</a> has two panels.</p>
+<ul>
+<li>On the left we have:
+<ul>
+<li>The data upload option</li>
+<li>A dropdown menu for selecting the data you wish to use (the uploaded file, the mtcars data set, or the iris data set)</li>
+<li>Dropdown menus for defining each of your variables,</li>
+<li>Text describing the App</li>
+</ul></li>
+<li>On the right we have:
+<ul>
+<li>The output of the regression</li>
+<li>The output from the mediation analysis</li>
+</ul></li>
+</ul>
+<p>The code for generating these panels is below (comments above relevant lines describe the purpose of the various sections):</p>
+<pre><code># UI for app
+ui&lt;-(pageWithSidebar(
+
+# We use headerPanel() to give a title to our app 
+  headerPanel(&quot;JS Mediation&quot;),
+  
+# use sidebarPanel() to create the content of the side panel (panel on the left)
+  sidebarPanel
+  (
+# use fileInput() to create a dialogue for inputting a file
+    fileInput(&quot;file1&quot;, &quot;Upload SPSS File&quot;,
+              multiple = TRUE,
+              accept = c(&quot;.sav&quot;)),
+# create a horizontal line break
+    tags$hr(),
+    
+# create a dropdown menu for selecting the dataset to be used
+    selectInput(&quot;dataset&quot;,&quot;Data:&quot;,
+                choices =list(iris = &quot;iris&quot;,
+                              mtcars = &quot;mtcars&quot;,
+                              uploaded_file = &quot;inFile&quot;), selected=NULL),
+# create a dropdown menu for selecting the dependent variable to be used
+    selectInput(&quot;dv&quot;,&quot;Dependent Variable:&quot;, choices = NULL),
+# create a dropdown menu for selecting the Independent variable to be used
+    selectInput(&quot;iv&quot;,&quot;Independent Variable:&quot;, choices = NULL),
+# create a dropdown menu for selecting the mediator to be used
+    selectInput(&quot;mediator&quot;,&quot;Mediator:&quot;, choices = NULL) #,
+    
+# use HTML() to input formatted text describing the App
+    ,HTML(&#39;In response to 
+    &lt;a href=&quot;https://perso.uclouvain.be/vincent.yzerbyt/Yzerbyt%20et%20al.%20JPSP%202018.pdf&quot;&gt;this&lt;/a&gt;
+    paper by Yzerbyt, Batailler and Judd (2018) which outined a new method of conducting mediation analyses
+    (with less susceptability to false positives than Hayes’ PROCESS) I created a ShinyApp so that their
+    R-package could be used by SPSS users. Upload your SPSS file above and select the variables you wish
+    to compare.&#39;)
+    ,br(),br(),br()
+    ,HTML(&#39;&lt;p&gt;Yzerbyt, V., Muller, D., Batailler, C., &amp;amp; Judd, C. M. (2018). New Recommendations for
+    Testing Indirect  Effects in Mediational Models: The Need to Report and Test Component Paths.
+    &lt;em&gt;Journal of Personality and Social Psychology: Attitudes and Social Cognition&lt;/em&gt;, 115(6), 
+    929–943. &lt;a href=&quot;http://dx.doi.org/10.1037/pspa0000132&quot;
+    class=&quot;uri&quot;&gt;http://dx.doi.org/10.1037/pspa0000132&lt;/a&gt;&lt;/p&gt;&#39;)
+  ),
+  
+# use mainPanel() to create the panel on the right where the output of our tests will be
+  mainPanel(
+# give a title to the the first output
+    h3(&quot;Summary of Regression Model&quot;),
+# report the result of the regression, saved in the object &#39;fit&#39;
+    verbatimTextOutput(&quot;fit&quot;),
+# give a title for the second output
+    h3(&quot;Mediation Results&quot;),
+# report the result of the mediation, saved in the object &#39;mediation&#39;
+    verbatimTextOutput(&quot;mediation&quot;)
+  )
+))
+</code></pre>
+</div>
+<div id="the-backend-of-the-shiny-app" class="section level2">
+<h2>The Backend of the Shiny App</h2>
+<p>Above we have the code for setting up and modifying the look and feel of our app. Below we go through the code for making the app do what it is supposed to do. The code in full is at the bottom of this post, however I have isolated specific sections of code to describe their function.</p>
+<div id="inputting-data-from-file" class="section level3">
+<h3>Inputting data from file</h3>
+<p>The code below runs <code>read.spss()</code> on whatever file you have uploaded using the dialogue box in the side panel and creates a dataframe called <code>inFile</code>.</p>
+<pre><code> upload_data&lt;-reactive({
+    inFile &lt;- input$file1
+    if (is.null(inFile))
+      return(NULL)
+    read.spss(input$file1$datapath, to.data.frame = TRUE)
+  })
+  
+  observeEvent(input$file1,{
+    inFile&lt;&lt;-upload_data()
+  })
+</code></pre>
+</div>
+<div id="selecting-data-and-variables" class="section level3">
+<h3>Selecting data and variables</h3>
+<p>The code below retrieves information about the dataset that is selected, and displays the variables associated with the selected dataset in the dropdown menus for each of your variables (IV, DV, &amp; mediator).</p>
+<pre><code># update variables based on the data
+  observe({
+# make sure upload exists
+    if(!exists(input$dataset)) return() 
+# retrieve names of columns (variable names) and save as &#39;var.opts&#39;
+    var.opts&lt;-colnames(get(input$dataset))
+# set var.opts as the options for the drop down menus
+    updateSelectInput(session, &quot;dv&quot;, choices = var.opts)
+    updateSelectInput(session, &quot;iv&quot;, choices = var.opts)
+    updateSelectInput(session, &quot;mediator&quot;, choices = var.opts)
+  })</code></pre>
+</div>
+<div id="setting-up-data-for-analysis" class="section level3">
+<h3>Setting up data for analysis</h3>
+<p>Below we extract the data and variables selected in the dropdown menus and save them as objects that we can use in functions. Specifically we create a list <code>obj</code> which contains the vectors <code>dv</code>, <code>iv</code>, and <code>mediator</code>.</p>
+<pre><code> 
+# get data object
+  get_data&lt;-reactive({
+    if(!exists(input$dataset)) return() # if no upload
+    check&lt;-function(x){is.null(x) || x==&quot;&quot;}
+    if(check(input$dataset)) return()
+# retrieve the selected data and create objects and     
+    obj&lt;-list(data=get(input$dataset),
+              dv=input$dv,
+              iv=input$iv,
+              mediator=input$mediator
+    )
+    
+# require all to be set to proceed
+    if(any(sapply(obj,check))) return()
+# make sure choices had a chance to update
+    check&lt;-function(obj){
+      !all(c(obj$dv,obj$iv,obj$mediator) %in% colnames(obj$data))
+    }
+    if(check(obj)) return()
+# return &#39;obj&#39; on completion     
+    obj
+  })
+  </code></pre>
+</div>
+<div id="running-the-analyses" class="section level3">
+<h3>Running the analyses</h3>
+<p>Now that we can retrieve the selected data and variables, we can turn them into a dataframe and run our analyses on them.</p>
+<div id="regression" class="section level4">
+<h4>Regression</h4>
+<p>The code below creates an object <code>output$fit</code> which contains the output of the regression.</p>
+<pre><code>  output$fit &lt;- renderPrint({
+# create an object &#39;data_list&#39;, which is a list that contains the selected data and variables
+    dataset_list &lt;- get_data()
+    
+# isloate the elements in the list as separate objects    
+    a &lt;- dataset_list$dv
+    b &lt;- dataset_list$iv
+    m &lt;- dataset_list$mediator
+    c &lt;- dataset_list$data
+   
+# create a dataframe &#39;df&#39; from the object &#39;c&#39; the selected dataset    
+    df &lt;- `colnames&lt;-`(
+      cbind.data.frame(
+# we extract and use the variables from &#39;c&#39; that have the same names as those selected
+        c[which(colnames(c)==a)],
+        c[which(colnames(c)==b)],
+        c[which(colnames(c)==m)]
+      ), c(&quot;dv&quot;,&quot;iv&quot;,&quot;mediator&quot;))
+# now we have a dataframe df with 3 variables named &#39;dv&#39;, &#39;iv&#39;, and &#39;mediator&#39;
+
+# we need to ensure data is numeric
+    df$dv &lt;- suppressWarnings(as.numeric(df$dv))
+    df$iv &lt;- suppressWarnings(as.numeric(df$iv))
+    df$mediator &lt;- suppressWarnings(as.numeric(df$mediator))
+    
+# using the same code previously discussed, we run the regression    
+    fit &lt;- lm(dv ~ iv + mediator, data=df)
+    summary(fit) # show results
+    
+  })</code></pre>
+</div>
+<div id="mediation" class="section level4">
+<h4>Mediation</h4>
+<p>Below we follow mostly the same steps to create our dataframe, and this time we run the mediation instead of the regression.</p>
+<pre><code>  output$mediation &lt;- renderPrint({
+# create an object &#39;data_list&#39;, which is a list that contains the selected data and variables
+    dataset_list &lt;- get_data()
+    
+# isloate the elements in the list as separate objects    
+    a &lt;- dataset_list$dv
+    b &lt;- dataset_list$iv
+    m &lt;- dataset_list$mediator
+    c &lt;- dataset_list$data
+    
+# create a dataframe &#39;df&#39; from the object &#39;c&#39; the selected dataset    
+    df &lt;- `colnames&lt;-`(
+      cbind.data.frame(
+# we extract and use the variables from &#39;c&#39; that have the same names as those selected
+        c[which(colnames(c)==a)],
+        c[which(colnames(c)==b)],
+        c[which(colnames(c)==m)]
+      ), c(&quot;dv&quot;,&quot;iv&quot;,&quot;mediator&quot;))
+# now we have a dataframe df with 3 variables named &#39;dv&#39;, &#39;iv&#39;, and &#39;mediator&#39;
+    
+# we need to ensure data is numeric
+    df$dv &lt;- suppressWarnings(as.numeric(df$dv))
+    df$iv &lt;- suppressWarnings(as.numeric(df$iv))
+    df$mediator &lt;- suppressWarnings(as.numeric(df$mediator))
+
+# and we run the mediation using the same code as at the beginning of this post    
+    JS_model &lt;- mdt_simple(data = df,
+                           DV = dv,
+                           IV = iv,
+                           M  = mediator)
+    add_index(JS_model)
+  })</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Above I have described how I went about making my first <a href="https://cillianmacaodh.shinyapps.io/JS_mediation/">Shiny App</a> which makes a new method of mediation analysis accessible to SPSS users. Feel free to try it out (although I have not paid for a premium account with Shiny, so it might time out). Both the <code>mtcars</code> dataset and the <code>iris</code> dataset are preloaded in the app if you want to try it but you don’t have any SPSS files to upload. If you are and R user hopefully this post might help you to make your own Shiny Apps to make R functionality available to your SPSS using colleagues. Many thanks to the examples online that helped me, particularly <a href="https://gist.github.com/dgrapov/dfcf6ab2339b1cf19b090cfb8dadc855">this example for uploading files and working with them</a>.</p>
+<pre><code>library(shiny)
+library(foreign)
+library(purrr)
+library(dplyr)
+library(&quot;devtools&quot;)
+#install.packages(&quot;JSmediation&quot;)
+library(JSmediation)
+
+
+
+# UI for app
+ui&lt;-(pageWithSidebar(
+  
+  # We use headerPanel() to give a title to our app 
+  headerPanel(&quot;JS Mediation&quot;),
+  
+  # use sidebarPanel() to create the content of the side panel (panel on the left)
+  sidebarPanel
+  (
+    # use fileInput() to create a dialogue for inputting a file
+    fileInput(&quot;file1&quot;, &quot;Upload SPSS File&quot;,
+              multiple = TRUE,
+              accept = c(&quot;.sav&quot;)),
+    # create a horizontal line break
+    tags$hr(),
+    
+    # create a dropdown menu for selecting the dataset to be used
+    selectInput(&quot;dataset&quot;,&quot;Data:&quot;,
+                choices =list(iris = &quot;iris&quot;,
+                              mtcars = &quot;mtcars&quot;,
+                              uploaded_file = &quot;inFile&quot;), selected=NULL),
+    # create a dropdown menu for selecting the dependent variable to be used
+    selectInput(&quot;dv&quot;,&quot;Dependent Variable:&quot;, choices = NULL),
+    # create a dropdown menu for selecting the Independent variable to be used
+    selectInput(&quot;iv&quot;,&quot;Independent Variable:&quot;, choices = NULL),
+    # create a dropdown menu for selecting the mediator to be used
+    selectInput(&quot;mediator&quot;,&quot;Mediator:&quot;, choices = NULL) #,
+    
+    # use HTML() to input formatted text describing the App
+    ,HTML(&#39;In response to 
+    &lt;a href=&quot;https://perso.uclouvain.be/vincent.yzerbyt/Yzerbyt%20et%20al.%20JPSP%202018.pdf&quot;&gt;this&lt;/a&gt;
+    paper by Yzerbyt, Batailler and Judd (2018) which outined a new method of conducting mediation analyses
+    (with less susceptability to false positives than Hayes’ PROCESS) I created a ShinyApp so that their
+    R-package could be used by SPSS users. Upload your SPSS file above and select the variables you wish
+    to compare.&#39;)
+    ,br(),br(),br()
+    ,HTML(&#39;&lt;p&gt;Yzerbyt, V., Muller, D., Batailler, C., &amp;amp; Judd, C. M. (2018). New Recommendations for
+    Testing Indirect  Effects in Mediational Models: The Need to Report and Test Component Paths.
+    &lt;em&gt;Journal of Personality and Social Psychology: Attitudes and Social Cognition&lt;/em&gt;, 115(6), 
+    929–943. &lt;a href=&quot;http://dx.doi.org/10.1037/pspa0000132&quot;
+    class=&quot;uri&quot;&gt;http://dx.doi.org/10.1037/pspa0000132&lt;/a&gt;&lt;/p&gt;&#39;)
+  ),
+  
+  # use mainPanel() to create the panel on the right where the output of our tests will be
+  mainPanel(
+    # give a title to the the first output
+    h3(&quot;Summary of Regression Model&quot;),
+    # report the result of the regression, saved in the object &#39;fit&#39;
+    verbatimTextOutput(&quot;fit&quot;),
+    # give a title for the second output
+    h3(&quot;Mediation Results&quot;),
+    # report the result of the mediation, saved in the object &#39;mediation&#39;
+    verbatimTextOutput(&quot;mediation&quot;)
+  )
+))
+
+
+# shiny server side code for each call
+server&lt;-(function(input, output, session){
+  
+  # update variables based on the data
+  observe({
+    #browser()
+    if(!exists(input$dataset)) return() #make sure upload exists
+    var.opts&lt;-colnames(get(input$dataset))
+    updateSelectInput(session, &quot;dv&quot;, choices = var.opts)
+    updateSelectInput(session, &quot;iv&quot;, choices = var.opts)
+    updateSelectInput(session, &quot;mediator&quot;, choices = var.opts)
+  })
+
+  # get data object
+  get_data&lt;-reactive({
+    if(!exists(input$dataset)) return() # if no upload
+    check&lt;-function(x){is.null(x) || x==&quot;&quot;}
+    if(check(input$dataset)) return()
+    
+    obj&lt;-list(data=get(input$dataset),
+              dv=input$dv,
+              iv=input$iv,
+              mediator=input$mediator
+    )
+    # require all to be set to proceed
+    if(any(sapply(obj,check))) return()
+    #make sure choices had a chance to update
+    check&lt;-function(obj){
+      !all(c(obj$dv,obj$iv,obj$mediator) %in% colnames(obj$data))
+    }
+    if(check(obj)) return()
+    obj
+  })
+  
+  upload_data&lt;-reactive({
+    inFile &lt;- input$file1
+    if (is.null(inFile))
+      return(NULL)
+    # could also store in a reactiveValues
+    read.spss(input$file1$datapath, to.data.frame = TRUE)
+  })
+  
+  observeEvent(input$file1,{
+    inFile&lt;&lt;-upload_data()
+  })
+  
+  
+  # create regression output  
+  output$fit &lt;- renderPrint({
+    
+    dataset_list &lt;- get_data()
+    
+    
+    a &lt;- dataset_list$dv
+    b &lt;- dataset_list$iv
+    m &lt;- dataset_list$mediator
+    c &lt;- dataset_list$data
+   
+    
+    df &lt;- `colnames&lt;-`(
+      cbind.data.frame(
+        c[which(colnames(c)==a)],
+        c[which(colnames(c)==b)],
+        c[which(colnames(c)==m)]
+      ), c(&quot;dv&quot;,&quot;iv&quot;,&quot;mediator&quot;))
+    
+    df$dv &lt;- suppressWarnings(as.numeric(df$dv))
+    df$iv &lt;- suppressWarnings(as.numeric(df$iv))
+    df$mediator &lt;- suppressWarnings(as.numeric(df$mediator))
+    
+    fit &lt;- lm(dv ~ iv + mediator, data=df)
+    summary(fit) # show results
+  })
+
+  # create mediation output  
+  output$mediation &lt;- renderPrint({
+    
+    dataset_list &lt;- get_data()
+    
+    a &lt;- dataset_list$dv
+    b &lt;- dataset_list$iv
+    m &lt;- dataset_list$mediator
+    c &lt;- dataset_list$data
+    
+    
+    df &lt;- `colnames&lt;-`(
+      cbind.data.frame(
+        c[which(colnames(c)==a)],
+        c[which(colnames(c)==b)],
+        c[which(colnames(c)==m)]
+      ), c(&quot;dv&quot;,&quot;iv&quot;,&quot;mediator&quot;))
+    
+    df$dv &lt;- suppressWarnings(as.numeric(df$dv))
+    df$iv &lt;- suppressWarnings(as.numeric(df$iv))
+    df$mediator &lt;- suppressWarnings(as.numeric(df$mediator))
+    
+    JS_model &lt;- mdt_simple(data = df,
+                           DV = dv,
+                           IV = iv,
+                           M  = mediator)
+    add_index(JS_model)
+  })
+  # #JS_model
+})
+
+
+# Create Shiny app ----
+shinyApp(ui, server)</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/tomorrow-night-eighties.css">
+<script src="{{ .Site.BaseURL }}/js/highlight.pack.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+<div id="refs" class="references">
+<div id="ref-R-JSmediation">
+<p>Batailler, Cédric, Dominique Muller, Vincent Yzerbyt, and Charles Judd. 2019. <em>JSmediation: Mediation Analysis Using Joint Significance</em>. <a href="https://CRAN.R-project.org/package=JSmediation" class="uri">https://CRAN.R-project.org/package=JSmediation</a>.</p>
+</div>
+<div id="ref-hayes_introduction_2017">
+<p>Hayes, Andrew F. 2017. <em>Introduction to Mediation, Moderation, and Conditional Process Analysis, Second Edition: A Regression-Based Approach</em>. Guilford Publications.</p>
+</div>
+<div id="ref-yzerbyt_new_2018">
+<p>Yzerbyt, Vincent, Dominique Muller, Cédric Batailler, and Charles M Judd. 2018. “New Recommendations for Testing Indirect Effects in Mediational Models: The Need to Report and Test Component Paths.” <em>Journal of Personality and Social Psychology: Attitudes and Social Cognition</em> 115 (6): 929–43. <a href="https://doi.org/http://dx.doi.org/10.1037/pspa0000132" class="uri">https://doi.org/http://dx.doi.org/10.1037/pspa0000132</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The purpose of this post is to demonstrate the code for these analyses, as such there may be issues with the analyses reported - I haven’t checked any assumptions or anything.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>In order to enable people to use the app for their own analysis I needed a way for them to upload their data into the app. After a bit of googling I found <a href="https://gist.github.com/dgrapov/dfcf6ab2339b1cf19b090cfb8dadc855">this example</a>, for uploading .csv files. I copied the code and modified it to include <code>read.spss()</code> from the package <code>foreign</code> instead of <code>read.csv()</code><a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

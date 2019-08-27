@@ -8,8 +8,8 @@ link-citations: true
 image:
   caption: ''
   focal_point: ''
-reading_time: false  # Show estimated reading time?
-share: false  # Show social sharing links?
+reading_time: true  # Show estimated reading time?
+share: true  # Show social sharing links?
 profile: false  # Show author profile?
 comments: false  # Show comments?
 editor_options: 
@@ -21,7 +21,7 @@ editor_options:
 <div id="background" class="section level1">
 <h1>Background</h1>
 <p>This is an unusual post for me, I have avoided writing about R Markdown because there are so many resources already available on the topic (e.g., <a href="http://rmarkdown.rstudio.com/authoring_basics.html">here</a>, <a href="https://shiny.rstudio.com/articles/rmarkdown.html">here</a>, and <a href="http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html">here</a>). However, recently I ran a session on using RMarkdown for my colleagues in the <a href="http://www.ul.ie/csi-r/">Centre for Social Issues Research</a>. The aim of this was to demonstrate the usefulness of R Markdown (and hopefully convert a few people). For this session I created a set of resources<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> aimed at making the transition from SPSS to R Markdown a bit easier. The <em>statistics</em> content of these resources is mainly just some of the simpler standard tests taught to psychology undergraduate students.</p>
-<p>The complete resources are available on <a href="https://osf.io/nyu4g/">this project page on the OSF</a>. The main purpose of the exercise was to provide people with the tools to create <a href="https://mfr.osf.io/render?url=https://osf.io/z6udg/?action=download%26mode=render">this pdf</a> using <a href="https://mfr.osf.io/render?url=https://osf.io/5zsp8/?action=download%26mode=render">this R Markdown template</a>. My hope is that by using this template, SPSS users might make the tranistion to R, and R Markdown (with the help of the wonderful <a href="https://crsh.github.io/papaja_man/">papaja</a> package <span class="citation">Aust (<a href="#ref-aust_papaja_2017">2017</a>)</span>).</p>
+<p>The complete resources are available on <a href="https://osf.io/nyu4g/">this project page on the OSF</a>. The main purpose of the exercise was to provide people with the tools to create <a href="https://mfr.osf.io/render?url=https://osf.io/z6udg/?action=download%26mode=render">this pdf</a> using <a href="https://mfr.osf.io/render?url=https://osf.io/5zsp8/?action=download%26mode=render">this R Markdown template</a>. My hope is that by using this template, SPSS users might make the tranistion to R, and R Markdown (with the help of the wonderful <a href="https://crsh.github.io/papaja_man/">papaja</a> package <span class="citation">Aust ([<a href="#ref-aust_papaja_2017">2014</a>] <a href="#ref-aust_papaja_2017">2017</a>)</span>).</p>
 </div>
 <div id="r-markdown-basics" class="section level1">
 <h1>R Markdown Basics</h1>
@@ -245,7 +245,7 @@ editor_options:
 <div id="using-citations" class="section level1">
 <h1>Using Citations</h1>
 <p>The <code>citr</code> can be used to cite while you write much like using endnote with Word. I have exported my Zotero Library (using BetterBibTex) to a .bib “My Library.bib” file in the directory I am working in. To cite I simply use @ and the citation key e.g., <code>@haidt_emotional_2001</code> returns <span class="citation">Haidt (<a href="#ref-haidt_emotional_2001">2001</a>)</span>. To enclose the entire citation in parenthesis use square brackets <code>[@haidt_emotional_2001]</code> gives: <span class="citation">(Haidt <a href="#ref-haidt_emotional_2001">2001</a>)</span>. The full reference is automatically added to the reference list (see below).</p>
-<p>It is also generally good practice to cite R and the R packages you have used in your analyses. In the current post I used R <span class="citation">(Version 3.6.1; R Core Team <a href="#ref-R-base">2017</a>)</span> and the R-packages <em>blogdown</em> <span class="citation">(Version 0.12; Xie, Hill, and Thomas <a href="#ref-R-blogdown">2017</a>)</span>, <em>bookdown</em> <span class="citation">(Version 0.10; Xie <a href="#ref-R-bookdown">2016</a>)</span>, <em>citr</em> <span class="citation">(Version 0.3.0; Aust <a href="#ref-R-citr">2016</a>)</span>, <em>desnum</em> <span class="citation">(Version 0.1.1; McHugh <a href="#ref-R-desnum">2017</a>)</span>, <em>extrafont</em> <span class="citation">(Version 0.17; Chang <a href="#ref-R-extrafont">2014</a>)</span>, <em>ggplot2</em> <span class="citation">(Version 3.2.0; Wickham <a href="#ref-R-ggplot2">2009</a>)</span>, <em>knitr</em> <span class="citation">(Version 1.23; Xie <a href="#ref-R-knitr">2015</a>)</span>, <em>lsr</em> <span class="citation">(Version 0.5; Navarro <a href="#ref-R-lsr">2015</a>)</span>, <em>MASS</em> <span class="citation">(Version 7.3.51.4; Venables and Ripley <a href="#ref-R-MASS">2002</a>)</span>, <em>papaja</em> <span class="citation">(Version 0.1.0.9842; Aust and Barth <a href="#ref-R-papaja">2017</a>)</span>, <em>pwr</em> <span class="citation">(Version 1.2.2; Champely <a href="#ref-R-pwr">2018</a>)</span>, and <em>scales</em> <span class="citation">(Version 1.0.0; Wickham <a href="#ref-R-scales">2016</a>)</span>.</p>
+<p>It is also generally good practice to cite R and the R packages you have used in your analyses. In the current post I used R <span class="citation">(Version 3.6.1; R Core Team <a href="#ref-R-base">2017</a>)</span> and the R-packages <em>blogdown</em> <span class="citation">(Version 0.12; Xie, Hill, and Thomas <a href="#ref-R-blogdown">2017</a>)</span>, <em>bookdown</em> <span class="citation">(Version 0.10; Xie <a href="#ref-R-bookdown">2016</a>)</span>, <em>citr</em> <span class="citation">(Version 0.3.0; Aust <a href="#ref-R-citr">2016</a>)</span>, <em>desnum</em> <span class="citation">(Version 0.1.1; McHugh <a href="#ref-R-desnum">2017</a>)</span>, <em>extrafont</em> <span class="citation">(Version 0.17; Chang <a href="#ref-R-extrafont">2014</a>)</span>, <em>ggplot2</em> <span class="citation">(Version 3.2.1; Wickham <a href="#ref-R-ggplot2">2009</a>)</span>, <em>JSmediation</em> <span class="citation">(Version 0.1.0; Batailler et al. <a href="#ref-R-JSmediation">2019</a>)</span>, <em>knitr</em> <span class="citation">(Version 1.23; Xie <a href="#ref-R-knitr">2015</a>)</span>, <em>lsr</em> <span class="citation">(Version 0.5; Navarro <a href="#ref-R-lsr">2015</a>)</span>, <em>MASS</em> <span class="citation">(Version 7.3.51.4; Venables and Ripley <a href="#ref-R-MASS">2002</a>)</span>, <em>papaja</em> <span class="citation">(Version 0.1.0.9842; Aust and Barth <a href="#ref-R-papaja">2018</a>)</span>, <em>pwr</em> <span class="citation">(Version 1.2.2; Champely <a href="#ref-R-pwr">2018</a>)</span>, and <em>scales</em> <span class="citation">(Version 1.0.0; Wickham <a href="#ref-R-scales">2016</a>)</span>.</p>
 <div id="references" class="section level3 unnumbered">
 <h3>References</h3>
 <div id="refs" class="references">
@@ -253,10 +253,13 @@ editor_options:
 <p>Aust, Frederik. 2016. <em>Citr: ’RStudio’ Add-in to Insert Markdown Citations</em>. <a href="https://CRAN.R-project.org/package=citr" class="uri">https://CRAN.R-project.org/package=citr</a>.</p>
 </div>
 <div id="ref-aust_papaja_2017">
-<p>———. 2017. “Papaja (Preparing APA Journal Articles) Is an R Package That Provides Document Formats and Helper Functions to Produce Complete APA Manscripts from RMarkdown-Files (PDF and Word Documents).” <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
+<p>———. (2014) 2017. <em>Papaja (Preparing APA Journal Articles) Is an R Package That Provides Document Formats and Helper Functions to Produce Complete APA Manscripts from RMarkdown-Files (PDF and Word Documents)</em>. <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
 </div>
 <div id="ref-R-papaja">
-<p>Aust, Frederik, and Marius Barth. 2017. <em>Papaja: Create APA Manuscripts with R Markdown</em>. <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
+<p>Aust, Frederik, and Marius Barth. 2018. <em>Papaja: Create APA Manuscripts with R Markdown</em>. <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
+</div>
+<div id="ref-R-JSmediation">
+<p>Batailler, Cédric, Dominique Muller, Vincent Yzerbyt, and Charles Judd. 2019. <em>JSmediation: Mediation Analysis Using Joint Significance</em>. <a href="https://CRAN.R-project.org/package=JSmediation" class="uri">https://CRAN.R-project.org/package=JSmediation</a>.</p>
 </div>
 <div id="ref-R-pwr">
 <p>Champely, Stephane. 2018. <em>Pwr: Basic Functions for Power Analysis</em>. <a href="https://CRAN.R-project.org/package=pwr" class="uri">https://CRAN.R-project.org/package=pwr</a>.</p>
@@ -268,10 +271,10 @@ editor_options:
 <p>Haidt, Jonathan. 2001. “The Emotional Dog and Its Rational Tail: A Social Intuitionist Approach to Moral Judgment.” <em>Psychological Review</em> 108 (4): 814–34. <a href="https://doi.org/10.1037/0033-295X.108.4.814" class="uri">https://doi.org/10.1037/0033-295X.108.4.814</a>.</p>
 </div>
 <div id="ref-R-desnum">
-<p>McHugh, Cillian. 2017. “Desnum: Creates Some Useful Functions.” <a href="https://github.com/cillianmiltown/R_desnum" class="uri">https://github.com/cillianmiltown/R_desnum</a>.</p>
+<p>McHugh, Cillian. 2017. <em>Desnum: Creates Some Useful Functions</em>. <a href="https://github.com/cillianmiltown/R_desnum" class="uri">https://github.com/cillianmiltown/R_desnum</a>.</p>
 </div>
 <div id="ref-R-lsr">
-<p>Navarro, Daniel. 2015. <em>Learning Statistics with R: A Tutorial for Psychology Students and Other Beginners. (Version 0.5)</em>. Adelaide, Australia. <a href="http://ua.edu.au/ccs/teaching/lsr" class="uri">http://ua.edu.au/ccs/teaching/lsr</a>.</p>
+<p>Navarro, Daniel. 2015. <em>Learning Statistics with R: A Tutorial for Psychology Students and Other Beginners. (Version 0.5)</em>. Adelaide, Australia: University of Adelaide. <a href="http://ua.edu.au/ccs/teaching/lsr" class="uri">http://ua.edu.au/ccs/teaching/lsr</a>.</p>
 </div>
 <div id="ref-R-base">
 <p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
@@ -286,13 +289,13 @@ editor_options:
 <p>———. 2016. <em>Scales: Scale Functions for Visualization</em>. <a href="https://CRAN.R-project.org/package=scales" class="uri">https://CRAN.R-project.org/package=scales</a>.</p>
 </div>
 <div id="ref-R-knitr">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman and Hall/CRC. <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>.</p>
 </div>
 <div id="ref-R-bookdown">
-<p>———. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown" class="uri">https://github.com/rstudio/bookdown</a>.</p>
+<p>———. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman and Hall/CRC. <a href="https://github.com/rstudio/bookdown" class="uri">https://github.com/rstudio/bookdown</a>.</p>
 </div>
 <div id="ref-R-blogdown">
-<p>Xie, Yihui, Alison Presmanes Hill, and Amber Thomas. 2017. <em>Blogdown: Creating Websites with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/blogdown" class="uri">https://github.com/rstudio/blogdown</a>.</p>
+<p>Xie, Yihui, Alison Presmanes Hill, and Amber Thomas. 2017. <em>Blogdown: Creating Websites with R Markdown</em>. Boca Raton, Florida: Chapman and Hall/CRC. <a href="https://github.com/rstudio/blogdown" class="uri">https://github.com/rstudio/blogdown</a>.</p>
 </div>
 </div>
 </div>

@@ -8,8 +8,8 @@ link-citations: true
 image:
   caption: ''
   focal_point: ''
-reading_time: false  # Show estimated reading time?
-share: false  # Show social sharing links?
+reading_time: true  # Show estimated reading time?
+share: true  # Show social sharing links?
 profile: false  # Show author profile?
 comments: false  # Show comments?
 editor_options: 

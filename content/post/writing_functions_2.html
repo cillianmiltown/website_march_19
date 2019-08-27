@@ -1,11 +1,16 @@
 ---
 title: "Writing functions - Part two"
 author: "Cillian McHugh"
-date: "27 August 2017"
+date: "2017-08-27"
 slug: writing-functions-part-two
 bibliography: [../../static/bib/MyLibrary.bib]
 link-citations: true
-
+reading_time: true  # Show estimated reading time?
+share: true  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -14,7 +19,7 @@ link-citations: true
 <p>The current post will follow on from the previous post and describe another use for writing functions.</p>
 <div id="r-markdown-and-reporting-p-values-in-apa-format" class="section level2">
 <h2>R Markdown and reporting <em>p</em> values in APA format</h2>
-<p>The function described here is designed for use with R Markdown. I would write a post about how great R Markdown is, and how to use it, but there is already a wealth of information out there; see <a href="http://rmarkdown.rstudio.com/authoring_basics.html">here</a>, <a href="https://shiny.rstudio.com/articles/rmarkdown.html">here</a>, and <a href="http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html">here</a> for a sample. This post relates to producing an APA formatted pdf using the <a href="https://github.com/crsh/papaja">papaja</a> package <span class="citation">(Aust <a href="#ref-aust_papaja_2017">2017</a>)</span>. Specifically, I describe a function that can be used to report <em>p</em> values correctly according to APA guidelines.</p>
+<p>The function described here is designed for use with R Markdown. I would write a post about how great R Markdown is, and how to use it, but there is already a wealth of information out there; see <a href="http://rmarkdown.rstudio.com/authoring_basics.html">here</a>, <a href="https://shiny.rstudio.com/articles/rmarkdown.html">here</a>, and <a href="http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html">here</a> for a sample. This post relates to producing an APA formatted pdf using the <a href="https://github.com/crsh/papaja">papaja</a> package <span class="citation">(Aust [<a href="#ref-aust_papaja_2017">2014</a>] <a href="#ref-aust_papaja_2017">2017</a>)</span>. Specifically, I describe a function that can be used to report <em>p</em> values correctly according to APA guidelines.</p>
 <div id="the-problem" class="section level3">
 <h3>The problem</h3>
 <p>One of the great things about R Markdown is the “in-line code” option, whereby, instead of typing numbers, you can insert the code for the value you wish to report, and when the document is compiled, the correct number is reported.</p>
@@ -119,10 +124,10 @@ b &lt;- aov[[1]][[&quot;Pr(&gt;F)&quot;]][1]</code></pre>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-aust_papaja_2017">
-<p>Aust, Frederik. 2017. “Papaja (Preparing APA Journal Articles) Is an R Package That Provides Document Formats and Helper Functions to Produce Complete APA Manscripts from RMarkdown-Files (PDF and Word Documents).” <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
+<p>Aust, Frederik. (2014) 2017. <em>Papaja (Preparing APA Journal Articles) Is an R Package That Provides Document Formats and Helper Functions to Produce Complete APA Manscripts from RMarkdown-Files (PDF and Word Documents)</em>. <a href="https://github.com/crsh/papaja" class="uri">https://github.com/crsh/papaja</a>.</p>
 </div>
 <div id="ref-R-desnum">
-<p>McHugh, Cillian. 2017. “Desnum: Creates Some Useful Functions.” <a href="https://github.com/cillianmiltown/R_desnum" class="uri">https://github.com/cillianmiltown/R_desnum</a>.</p>
+<p>McHugh, Cillian. 2017. <em>Desnum: Creates Some Useful Functions</em>. <a href="https://github.com/cillianmiltown/R_desnum" class="uri">https://github.com/cillianmiltown/R_desnum</a>.</p>
 </div>
 </div>
 </div>

@@ -1,9 +1,9 @@
 ---
-title: Launch Gig Photos
+title: Launch Gig (photos and videos)
 author: Cillian
 date: '2019-05-17'
-slug: launch-gig-photos
-summary: 'A collection of photos from the official launch of "It will pass..." in The Commercial on the 12th of April.'
+slug: launch-gig
+summary: 'A collection of photos and videos from the official launch of "It will pass..." in The Commercial on the 12th of April.'
 categories: []
 tags: []
 image:
@@ -20,6 +20,21 @@ A collection of photos from the official launch of *It will pass...* in The Comm
 
 The Artwork by *Celina Buckley* <br>
 
+<iframe width="720" height="405" src="https://www.youtube.com/embed/FeJLejjCWls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+**Full set**: Writer's Block (With CLEF Choir);
+Counting the Days;
+There are no Words;
+Summer Rain;
+Unknown Arms;
+The Race;
+24;
+The Happy Song;
+Back to the Drawing Board;
+It will pass...;
+The Last Flight Home;
+Bigness;
+Another Goodbye (With CLEF Choir)  <br>
 
 <iframe width="720" height="405" src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

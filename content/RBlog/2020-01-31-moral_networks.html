@@ -1,0 +1,1423 @@
+---
+title: "A Shiny App for Tracking Moral Networks"
+author: "CillianMacAodh (Cillian McHugh)"
+date: "2020-01-31"
+slug: moral-networks
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+image:
+  caption: ''
+  focal_point: ''
+reading_time: true  # Show estimated reading time?
+share: true  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+highlight_languages: ["r"]
+editor_options: 
+  chunk_output_type: console
+
+---
+
+
+
+<div id="background" class="section level1">
+<h1>Background</h1>
+<p>This is a post outlining a <a href="https://cillianmacaodh.shinyapps.io/moral_networks/">ShinyApp</a> that I made for visualising inter-participant agreement on quesions relating to Haidt’s Moral Foundations <span class="citation">(e.g., Haidt and Joseph <a href="#ref-haidt_moral_2008">2008</a>)</span>. This is part of a line of research on moral judgements, inspired by <a href="https://www.ul.ie/dafinet/">DAFINET</a> project, where I aim to investigate the role of <em>agreement</em> with others in the robustness of moral judgements. It is very early days and for the moment I am just playing around with the possible methods.</p>
+<p>I created a ShinyApp to look at this further. Currently the app only works with 1 specific dataset that I downloaded from the OSF (see <a href="https://osf.io/nh4ck/">here</a>), however I have plans to update it to make it possible to upload your own datasets.</p>
+</div>
+<div id="the-app" class="section level1">
+<h1>The App</h1>
+<p>The ShinyApp is located <a href="https://cillianmacaodh.shinyapps.io/moral_networks/">here</a>. It consists of a side panel with input options, and a main panel displaying the output. You can select the range of participants you wish to include, and you can select the Moral Questionnaire items you wish to look at (full list of items at the bottom of this post). The output panel displays a graph tracking the network of agreement between participants, and two tables. The first table lists the total responses for each item, and the second table displays the responses on each item for each participant. The image below displays the full ShinyApp looking at participants 26-34 on items 4 and 10 (apologies for the size).</p>
+<div class="figure">
+<img src="/img/moral_network_full.png" alt="Moral Networks ShinyApp full page view" />
+<p class="caption">Moral Networks ShinyApp full page view</p>
+</div>
+<div id="interpreting-the-output" class="section level2">
+<h2>Interpreting the output</h2>
+<p>The output contains a lot of information, but the most interesting for the current purposes is the graph. Each node (dot) represents a participant, and the edges (lines between nodes) represent agreement between participants on a particular item. The edges are colour coded according to the question and also according to the response to the question (due to the number of items, the colours are similar in some cases, so the tables may be useful in further interpreting the graph). In the graph below (and above) we can see that participants 27, 29, and 34 agree with each other on item 4; they all disagree with the statement “Respect for authority is something all children need to learn”. We can also see that participant 28 is somewhat isolated, further ivestigation reveals that they are the only participant selected who disagrees with item 10 “Men and women each have different roles to play in society”.</p>
+<div class="figure">
+<img src="/img/moral_network_graph.png" alt="Moral Networks ShinyApp Graph Only" />
+<p class="caption">Moral Networks ShinyApp Graph Only</p>
+</div>
+</div>
+</div>
+<div id="building-the-app" class="section level1">
+<h1>Building the App</h1>
+<p>The full code for the app is at the end of this post. There are some comments throughout (but these are far from comprehensive).</p>
+<p>The first thing we need to do is to load the relevant libraries with:</p>
+<pre><code>library(shiny)
+library(tidyverse)
+library(foreign)
+library(osfr)
+library(igraph)
+library(network)
+library(igraph)</code></pre>
+<p>Next we want to download the dataset from the OSF using the <code>osfr</code> package. The code below will download a copy of the data and save it in your current working directory. I find it useful to run this first and then comment out these lines for running the app (downloading fresh each time is slow and can lead to errors).</p>
+<pre><code>osf_retrieve_file(&quot;https://osf.io/nj53t/&quot;) %&gt;%
+   osf_download(overwrite = T)</code></pre>
+</div>
+<div id="the-ui" class="section level1">
+<h1>The UI</h1>
+<p>Once we have the libraries and data loaded we can begin to build the app. We’ll start with the look and feel of it using <code>ui &lt;- fluidPage()</code> (note that all the code in this section appears within this command).</p>
+<pre><code>ui &lt;- fluidPage(
+</code></pre>
+<p>We start with a title:</p>
+<pre><code>  titlePanel(&quot;Networks for Moral Foundations Part 2&quot;),</code></pre>
+<div id="side-panel" class="section level2">
+<h2>Side Panel</h2>
+<p>Then we create the sidebar for selecting our options:</p>
+<pre><code>  sidebarLayout(
+      sidebarPanel(</code></pre>
+<p>Within the sidebar, we use <code>numericInput</code> to create an input options to select our range of participants. The code below will save your choices as <code>inNumber</code> and <code>inNumber2</code> for later use in the app.</p>
+<pre><code>        numericInput(&quot;inNumber&quot;, &quot;From Participant number:&quot;, 1)
+        ,
+        numericInput(&quot;inNumber2&quot;, &quot;To Participant number:&quot;, 2)
+        ,</code></pre>
+<p>Having selected the participant range, we next need to select the Moral Foundations Items we wish to investigate. We do this using <code>checkboxGroupInput</code>. The code below creates an input item <code>MFT</code> that contains the selected choices, the values of the choices are in <code>choiceValues</code>. (In the server we can call <code>MFT</code> using <code>input$MFT</code>)</p>
+<pre><code>      checkboxGroupInput(&quot;MFT&quot;, &quot;Choose Items:&quot;,
+                         choiceNames =
+                           c(&quot;Authority&quot;,&quot;Care/Harm&quot;,&quot;Fairness&quot;,&quot;Loyalty&quot;,&quot;Purity&quot;,
+                             &quot;1. Compassion for those who are suffering is the most crucial virtue.&quot;
+                             ,&quot;2. When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.&quot;
+                             ,&quot;3. I am proud of my country’s history.&quot;
+                             ,&quot;4. Respect for authority is something all children need to learn.&quot;
+                             ,&quot;5. People should not do things that are disgusting, even if no one is harmed. &quot;
+                             ,&quot;6. It is better to do good than to do bad.&quot;
+                             ,&quot;7. One of the worst things a person could do is hurt a defenseless animal.&quot;
+                             ,&quot;8. Justice is the most important requirement for a society.&quot;
+                             ,&quot;9. People should be loyal to their family members, even when they have done something wrong.  &quot;
+                             ,&quot;10. Men and women each have different roles to play in society.&quot;
+                             ,&quot;11. I would call some acts wrong on the grounds that they are unnatural.&quot;
+                             ,&quot;12. It can never be right to kill a human being.&quot;
+                             ,&quot;13. I think it’s morally wrong that rich children inherit a lot of money while poor children inherit nothing.&quot;
+                             ,&quot;14. It is more important to be a team player than to express oneself.&quot;
+                             ,&quot;15. If I were a soldier and disagreed with my commanding officer’s orders, I would obey anyway because that is my duty.&quot;
+                             ,&quot;16. Chastity is an important and valuable virtue.&quot;),
+                         choiceValues =
+                           list(&quot;mft4 mft_10 mft_15&quot;, &quot;mft1 mft7 mft_12&quot;, &quot;mft2 mft8 mft_13&quot;, &quot;mft3 mft9 mft_14&quot;, &quot;mft5 mft_11 mft_16&quot;,
+                                &quot;mft1&quot;, &quot;mft2&quot;, &quot;mft3&quot;, &quot;mft4&quot;, &quot;mft5&quot;, &quot;mft6&quot;, &quot;mft7&quot;, &quot;mft8&quot;,
+                                &quot;mft9&quot;, &quot;mft_10&quot;, &quot;mft_11&quot;, &quot;mft_12&quot;, &quot;mft_13&quot;, &quot;mft_14&quot;, &quot;mft_15&quot;, &quot;mft_16&quot;)
+      )
+      ,</code></pre>
+<p>Below the check box input we can include feedback confirming which items have been selected with the following:</p>
+<pre><code>      verbatimTextOutput(&quot;text&quot;)</code></pre>
+<p>And underneath this I have included the colour codes for the questions and responses using <code>HTML()</code>. I won’t include this here, refer to the full code at the end for details. This completes the side panel.</p>
+</div>
+<div id="main-panel" class="section level2">
+<h2>Main Panel</h2>
+<p>The output is displayed on the main panel with the following code:</p>
+<pre><code>mainPanel(</code></pre>
+<p>Display the network plot:</p>
+<pre><code>      plotOutput(&quot;netplot&quot;,width = &quot;100%&quot;)
+      ,</code></pre>
+<p>Display the table displaying total responses for each item:</p>
+<pre><code>      h3(&quot;Total Responses for each Item&quot;),
+      DT::dataTableOutput(&quot;table2&quot;)
+      ,</code></pre>
+<p>And display the table displaying the responses of each participant for each item:</p>
+<pre><code>      h3(&quot;Responses of each Participant selected&quot;),
+      DT::dataTableOutput(&quot;df3_all&quot;) 
+    )
+    )</code></pre>
+<p>(there are other bits of html that I haven’t included in the above).</p>
+</div>
+</div>
+<div id="the-server" class="section level1">
+<h1>The Server</h1>
+<p>Now that the front end of the app has been built it’s time to build the back end.</p>
+<div id="the-backend-of-the-shiny-app" class="section level2">
+<h2>The Backend of the Shiny App</h2>
+<p>Above we have the code for setting up and modifying the look and feel of our app. Below we go through the code for making the app do what it is supposed to do. The code in full is at the bottom of this post, however I have isolated specific sections of code to describe their function. We create the back end with the following command: <code>server &lt;- function(input, output) {}</code>; everything in the section that follow is located within the curly brackets <code>{}</code>.</p>
+<pre><code>server &lt;- function(input, output) {</code></pre>
+<p>Before we begin working with the data, we can use the code below to generate the <code>text</code> object that we used to provide feedback on the items selected on the sidebar.</p>
+<pre><code>  output$text &lt;- renderText({
+    mft_boxes &lt;- paste(input$MFT, collapse = &quot;, &quot;)
+    mft_boxes
+  })</code></pre>
+<p>Use <code>read.spss()</code> to create a data frame from the data file we saved above (you can identify it’s name with <code>list.files()</code>). Then use <code>as_tibble()</code> to turn it into a tibble.</p>
+<pre><code>  mmfstudy1 &lt;- read.spss(&quot;Data.sav&quot; , to.data.frame = TRUE)
+  mmfstudy1 &lt;- as_tibble(mmfstudy1)</code></pre>
+<p>This dataframe is quite large and contains many variables we don’t need. Based on the names of the variables, we can use the code below to isolate the moral foundations variables.</p>
+<pre><code>  df1 &lt;- 
+    mmfstudy1 %&gt;% 
+    select(matches(&#39;MFT&#39;)
+           ,-matches(&#39;_DO_&#39;)
+    )</code></pre>
+<p>Following this we can select the specific variables we’re interested in with:</p>
+<pre><code>  df2 &lt;- df1[17:32]</code></pre>
+<p>These variables are scale variables ranging from 0 = <em>Strongly disagree</em> to 5 = <em>Strongly agree</em>. The code below can be used to recode this to either agree or disagree:</p>
+<pre><code>  df3 &lt;-
+    df2 %&gt;% 
+    mutate_all(
+      funs(recode(.,
+                  &quot;0. Strongly disagree&quot; = &quot;disagree&quot;,
+                  &quot;1. Moderately disagree&quot; = &quot;disagree&quot;,
+                  &quot;2. Slightly disagree&quot;  = &quot;disagree&quot;,
+                  &quot;3. Slightly agree&quot;     = &quot;agree&quot;,
+                  &quot;4. Moderately agree&quot;   = &quot;agree&quot;,  
+                  &quot;5. Strongly agree&quot;   = &quot;agree&quot;
+                  
+      ))
+    )</code></pre>
+<p>Next we create a variable <code>ID</code> for participant number, and combine this with the dataframe:</p>
+<pre><code>  ID &lt;- c(1:length(df3[[1]]))
+  df3 &lt;- cbind(ID,df3)</code></pre>
+<div id="making-networks" class="section level3">
+<h3>Making Networks</h3>
+<p>Going into detail on making networks is far beyond the scope of this post; <span class="citation">(for more information on networks see <a href="ognyanova_network_2016">this</a> resource by Ognyanova <a href="#ref-ognyanova_network_2016">2016</a>)</span>. The basic idea behind what I have done is to isolate the participants who agree with eachother on a particular item, and use the <code>make_full_graph()</code> function to create a network connecting all these participants on this item. The code below creates a custom function <code>net_two_a()</code> with arguments <code>x</code>, <code>a</code>, and <code>b</code>, where <code>x</code> is the dataframe, <code>a</code> is the location of the column containing participant ID, and <code>b</code> is the Moral Foundations Item we wish to create a network from. This function separates the participants who agree from those who disagree and creates two colour coded networks with <code>make_full_graph()</code>. These networks are then combined using <code>graph.disjoint.union()</code>.</p>
+<pre><code>
+  net_two_a &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+
+# Create a network of all participants who disagree with this item    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#ff3366&#39;           # Carmine
+    
+# Create a network of all participants who agree with this item    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#33cc33&#39;           # navy
+    # E(fg7)$color &lt;- &#39;#960018&#39;           # Carmine
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+</code></pre>
+<p>You may notice in the full code at the end of this post that I have created 16 of these functions, this is because we have 16 Moral Foundation items that we want to look at, and we want different colours for each item. As such there are 16 functions labelled <code>net_two_a()</code> to <code>net_two_p()</code>.</p>
+</div>
+<div id="selecting-participants-and-items" class="section level3">
+<h3>Selecting Participants and Items</h3>
+<p>Once we have the functions for creating networks, we need to select the participants we wish to analyse. The code below calls the numbers provided in the numeric input sidebar, and converts them into objects that we can use to generate our outputs:</p>
+<pre><code>  make_a &lt;- reactive({input$inNumber})
+  make_b &lt;- reactive({input$inNumber2})
+  </code></pre>
+<p>Similarly we can create <code>mft_boxes1()</code> which, when run, will print the MFT items that have been selected, as follows:</p>
+<pre><code>  mft_boxes1 &lt;- reactive({
+    mft_boxes &lt;- eval(parse(text = &#39;input$MFT&#39;))
+    mft_boxes
+  })</code></pre>
+</div>
+<div id="generating-outputs" class="section level3">
+<h3>Generating outputs</h3>
+<p>Now that we have a way of identifying the items and the participant range selected, we can work with this to create our outputs. The most straightforward outputs are the tables. The following code creates an output <code>df3_all</code> which is displays the responses of each selected participant for each item. We use the <code>DT::renderDataTable({})</code> command to convert a dataframe into a table that can be displayed on the main panel.</p>
+<pre><code>  output$df3_all &lt;- DT::renderDataTable({
+    a1 &lt;- make_a()
+    b1 &lt;- make_b()
+    
+    a &lt;- as.numeric(a1)
+    b &lt;- as.numeric(b1)
+    
+    df3 &lt;- df3[a:b,]
+    df3 
+    
+  }, 
+  options = list(bPaginate=FALSE, lengthChange = FALSE, info = FALSE))</code></pre>
+<p>Again we use the <code>DT::renderDataTable({})</code> command, however this time we create a table displaying the total responses for each item:</p>
+<pre><code>  output$table2 &lt;- DT::renderDataTable({ 
+    a1 &lt;- make_a()
+    b1 &lt;- make_b()
+    
+    a &lt;- as.numeric(a1)
+    b &lt;- as.numeric(b1)
+    
+    df3 &lt;- df3[a:b,]
+    
+    tab &lt;- 
+      rbind(
+        table(df3$MFT2_1),
+        table(df3$MFT2_2),
+        table(df3$MFT2_3),
+        table(df3$MFT2_4),
+        table(df3$MFT2_5),
+        table(df3$MFT2_6),
+        table(df3$MFT2_7),
+        table(df3$MFT2_8),
+        table(df3$MFT2_9),
+        table(df3$MFT2_10),
+        table(df3$MFT2_11),
+        table(df3$MFT2_12),
+        table(df3$MFT2_13),
+        table(df3$MFT2_14),
+        table(df3$MFT2_15),
+        table(df3$MFT2_16)
+      )
+    
+    tab &lt;- cbind( c( &quot;1. Compassion for those who are suffering is the most crucial virtue.&quot;
+                     ,&quot;2. When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.&quot;
+                     ,&quot;3. I am proud of my country’s history.&quot;
+                     ,&quot;4. Respect for authority is something all children need to learn.&quot;
+                     ,&quot;5. People should not do things that are disgusting, even if no one is harmed. &quot;
+                     ,&quot;6. It is better to do good than to do bad.&quot;
+                     ,&quot;7. One of the worst things a person could do is hurt a defenseless animal.&quot;
+                     ,&quot;8. Justice is the most important requirement for a society.&quot;
+                     ,&quot;9. People should be loyal to their family members, even when they have done something wrong.  &quot;
+                     ,&quot;10. Men and women each have different roles to play in society.&quot;
+                     ,&quot;11. I would call some acts wrong on the grounds that they are unnatural.&quot;
+                     ,&quot;12. It can never be right to kill a human being.&quot;
+                     ,&quot;13. I think it’s morally wrong that rich children inherit a lot of money while poor children inherit nothing.&quot;
+                     ,&quot;14. It is more important to be a team player than to express oneself.&quot;
+                     ,&quot;15. If I were a soldier and disagreed with my commanding officer’s orders, I would obey anyway because that is my duty.&quot;
+                     ,&quot;16. Chastity is an important and valuable virtue.&quot;)
+                  ,tab,
+                  c(&quot;care_harm&quot;,&quot;fairness&quot;,&quot;loyalty&quot;,&quot;authority&quot;,&quot;purity&quot;,&quot;catch&quot;,&quot;care_harm&quot;,&quot;fairness&quot;,&quot;loyalty&quot;,&quot;authority&quot;,&quot;purity&quot;,&quot;care_harm&quot;,&quot;fairness&quot;,&quot;loyalty&quot;,&quot;authority&quot;,&quot;purity&quot;)
+    )
+    
+    colnames(tab) &lt;- c(&quot;Question&quot;,&quot;Disagree&quot;, &quot;Agree&quot;,&quot;Foundation&quot;)
+    
+    
+    tab
+  }, 
+  options = list(bPaginate=FALSE, lengthChange = FALSE, info = FALSE))</code></pre>
+<div id="the-network" class="section level4">
+<h4>The Network</h4>
+<p>Finally, we can create the network graph (this is the point of the whole exercise). This code is repetitive (recall there are 16 items) so below I have omitted some of the repititions. The following code is all located within the <code>renderPlot({})</code> command.</p>
+<p>First we use <code>renderPlot({})</code> to create an output object <code>netplot</code> that can be called in the <code>ui</code> to display the plot.</p>
+<pre><code>  output$netplot &lt;- renderPlot({</code></pre>
+<p>Next we create a new dataframe that contains only the selected participants:</p>
+<pre><code>    a1 &lt;- make_a()
+    b1 &lt;- make_b()
+      
+    a &lt;- as.numeric(a1)
+    b &lt;- as.numeric(b1)
+      
+    df3 &lt;- df3[a:b,]</code></pre>
+<p>Then we run our 16 custom functions to create 16 networks (one for each moral foundation item):</p>
+<pre><code>    net_1 &lt;- net_two_a(df3,1,2)
+    net_2 &lt;- net_two_b(df3,1,3)
+    net_3 &lt;- net_two_c(df3,1,4)
+    net_4 &lt;- net_two_d(df3,1,5)
+    net_5 &lt;- net_two_e(df3,1,6)
+    net_6 &lt;- net_two_f(df3,1,7)
+    net_7 &lt;- net_two_g(df3,1,8)
+    net_8 &lt;- net_two_h(df3,1,9)
+    net_9 &lt;- net_two_i(df3,1,10)
+    net_10 &lt;- net_two_j(df3,1,11)
+    net_11 &lt;- net_two_k(df3,1,12)
+    net_12 &lt;- net_two_l(df3,1,13)
+    net_13 &lt;- net_two_m(df3,1,14)
+    net_14 &lt;- net_two_n(df3,1,15)
+    net_15 &lt;- net_two_o(df3,1,16)
+    net_16 &lt;- net_two_p(df3,1,17)</code></pre>
+<p>For each item, we can create a dataframe that includes colour attributes as a variable, and the columns are given generic names <code>V1</code>, <code>V2</code>, and <code>V3</code> (for ease of combining):</p>
+<pre><code>    df_a &lt;- cbind.data.frame(
+      get.edgelist(net_1)
+      , E(net_1)$color
+    )
+    colnames(df_a) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)</code></pre>
+<p>Repeat for each of <code>net_1</code> to <code>net_16</code> giving dataframes <code>df_a</code> to <code>df_p</code>.</p>
+<p>Next we use <code>mft_boxes1()</code> to create an object <code>mft_boxes</code> that contains the MFT items that have been selected.</p>
+<pre><code>    mft_boxes &lt;- paste(mft_boxes1(), sep = &quot; &quot; , collapse = &#39;&#39;)</code></pre>
+<p>We then create a function <code>list_df_fun()</code> that generates a list that containing the dataframes <code>df_a</code> to <code>df_p</code>. However, we only want to plot the items that have been selected. The code below uses <code>str_detect</code> on <code>mft_boxes</code> to identify which items should be included. First we create the function:</p>
+<pre><code>    list_df_fun &lt;- function(){</code></pre>
+<p>Then, within the function we create an empty list called <code>list.df</code>:</p>
+<pre><code>      list.df = &quot; &quot;</code></pre>
+<p>The code below will add <code>df_a</code> to the list if MFT item 1 (<code>mft1</code>) has been checked:</p>
+<pre><code>      if (str_detect(mft_boxes, &quot;mft1&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_a)))
+      }</code></pre>
+<p>This is repeated for each item (see full code at end of post).</p>
+<pre><code>      if (str_detect(mft_boxes, &quot;mft2&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_b)))
+      }  # ...</code></pre>
+<p>The final line of <code>list_df_fun()</code> will print the full list:</p>
+<pre><code>      list.df
+    }</code></pre>
+<p>Next we use our <code>list_df_fun()</code> function to create a list object that contains the names of the dataframes to be included in the network plot:</p>
+<pre><code>    list.df &lt;- list_df_fun()
+    list.df = list.df[2:length(list.df)] #remove first element </code></pre>
+<p>And the following code will create the object <code>df_combined</code> that contains all the networks for the items selected:</p>
+<pre><code>    expression = paste0(&quot;df_combined = rbind(&quot;,paste0( list.df, collapse = &#39;,&#39;), paste0(&quot;)&quot;))
+    
+    eval(parse(text=expression))</code></pre>
+<p>Finally we can generate our plot using the code below:</p>
+<pre><code>    g2 &lt;- df_combined
+    colnames(g2) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    g3 &lt;- graph_from_data_frame(d=g2,directed = F)
+    E(g3)$color &lt;- E(g3)$V3
+
+    plot(g3
+         , layout_with_fr(g3)
+         , vertex.label.dist=.7
+         , vertex.size=3)
+  },height = 800, width = 1200)
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Above I have described how I went about making a ShinyApp for looking at moral networks. This post contains more complex ideas than my regular posts, I have attempted to explain the various components but it may be useful to read up on both Shiny and on Network Analysis, if there are things that aren’t making sense for you.</p>
+<div id="notes" class="section level3">
+<h3>Notes</h3>
+<ul>
+<li>When it first loads it will show an error because nothing is selected;</li>
+<li>If there is no network to be built (e.g., 2 participants who disagree on the only item selected) it will also show up an error</li>
+<li>If too many participants and too many items are selected it will probably crash (I tried to create a full network of all participants and all items, and after 3 hours I gave up)</li>
+<li>Due to the amount of content in the App it doesn’t fit too well embedded below, so it might going directly to <a href="https://cillianmacaodh.shinyapps.io/moral_networks/" class="uri">https://cillianmacaodh.shinyapps.io/moral_networks/</a> to play with it.</li>
+</ul>
+<iframe width="800" height="1500" scrolling="yes" frameborder="no" src="https://cillianmacaodh.shinyapps.io/moral_networks/">
+</iframe>
+</div>
+</div>
+<div id="full-code-for-the-app" class="section level1">
+<h1>Full Code for the App</h1>
+<p>If you copy and paste the code below into your own ShinyApp in RStudio and click run it <em>should</em> work for you.</p>
+<pre><code>
+library(shiny)
+library(tidyverse)
+library(foreign)
+library(osfr)
+library(igraph)
+library(network)
+library(igraph)
+
+
+# download study 1 data
+osf_retrieve_file(&quot;https://osf.io/nj53t/&quot;) %&gt;%
+  osf_download(overwrite = T)
+
+# Define UI for application that draws a histogram
+ui &lt;- fluidPage(
+  
+  # Application title
+  titlePanel(&quot;Networks for Moral Foundations Part 2&quot;),
+  
+  # Sidebar with a slider input for number of bins 
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(&quot;inNumber&quot;, &quot;From Participant number:&quot;, 1)
+      ,
+      numericInput(&quot;inNumber2&quot;, &quot;To Participant number:&quot;, 2)
+      ,
+      checkboxGroupInput(&quot;MFT&quot;, &quot;Choose Items:&quot;,
+                         choiceNames =
+                           c(&quot;Authority&quot;,&quot;Care/Harm&quot;,&quot;Fairness&quot;,&quot;Loyalty&quot;,&quot;Purity&quot;,
+                             &quot;1. Compassion for those who are suffering is the most crucial virtue.&quot;
+                             ,&quot;2. When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.&quot;
+                             ,&quot;3. I am proud of my country’s history.&quot;
+                             ,&quot;4. Respect for authority is something all children need to learn.&quot;
+                             ,&quot;5. People should not do things that are disgusting, even if no one is harmed. &quot;
+                             ,&quot;6. It is better to do good than to do bad.&quot;
+                             ,&quot;7. One of the worst things a person could do is hurt a defenseless animal.&quot;
+                             ,&quot;8. Justice is the most important requirement for a society.&quot;
+                             ,&quot;9. People should be loyal to their family members, even when they have done something wrong.  &quot;
+                             ,&quot;10. Men and women each have different roles to play in society.&quot;
+                             ,&quot;11. I would call some acts wrong on the grounds that they are unnatural.&quot;
+                             ,&quot;12. It can never be right to kill a human being.&quot;
+                             ,&quot;13. I think it’s morally wrong that rich children inherit a lot of money while poor children inherit nothing.&quot;
+                             ,&quot;14. It is more important to be a team player than to express oneself.&quot;
+                             ,&quot;15. If I were a soldier and disagreed with my commanding officer’s orders, I would obey anyway because that is my duty.&quot;
+                             ,&quot;16. Chastity is an important and valuable virtue.&quot;),
+                         choiceValues =
+                           list(&quot;mft4 mft_10 mft_15&quot;, &quot;mft1 mft7 mft_12&quot;, &quot;mft2 mft8 mft_13&quot;, &quot;mft3 mft9 mft_14&quot;, &quot;mft5 mft_11 mft_16&quot;,
+                                &quot;mft1&quot;, &quot;mft2&quot;, &quot;mft3&quot;, &quot;mft4&quot;, &quot;mft5&quot;, &quot;mft6&quot;, &quot;mft7&quot;, &quot;mft8&quot;,
+                                &quot;mft9&quot;, &quot;mft_10&quot;, &quot;mft_11&quot;, &quot;mft_12&quot;, &quot;mft_13&quot;, &quot;mft_14&quot;, &quot;mft_15&quot;, &quot;mft_16&quot;)
+      )
+      ,
+      verbatimTextOutput(&quot;text&quot;)
+      ,
+      HTML(&quot;
+           
+           1. &lt;span style=\&quot;color: #33cc33\&quot;&gt;Compassion for those who are suffering will be the most crucial virtue.&lt;/span&gt;
+           &lt;span style=\&quot;color: #ff3366\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           2. &lt;span style=\&quot;color: #33cc00\&quot;&gt;When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.&lt;/span&gt;
+           &lt;span style=\&quot;color: #ff6699\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           3. &lt;span style=\&quot;color: #99ff66\&quot;&gt; I am be proud of my country’s history.&lt;/span&gt; 
+           &lt;span style=\&quot;color: #ff00cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt; 
+           
+           4. &lt;span style=\&quot;color: #66ff33\&quot;&gt; Respect for authority is something all children need to learn.&lt;/span&gt;
+           &lt;span style=\&quot;color: #ff0099\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           5. &lt;span style=\&quot;color: #0033ff\&quot;&gt;People should not do things that are disgusting, even if no one is harmed.&lt;/span&gt;
+           &lt;span style=\&quot;color: #fff000\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           6. &lt;span style=\&quot;color: #99ff00\&quot;&gt; It is better to do good than to do bad.&lt;/span&gt;
+           &lt;span style=\&quot;color: #cc0099\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           7. &lt;span style=\&quot;color: #66cc99\&quot;&gt; One of the worst things a person could do is hurt a defenseless animal. &lt;/span&gt;
+           &lt;span style=\&quot;color: #cc66cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           8. &lt;span style=\&quot;color: #99ffcc\&quot;&gt; Justice is the most important requirement for a society.&lt;/span&gt;
+           &lt;span style=\&quot;color: #cc33cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           9. &lt;span style=\&quot;color: #99ffff\&quot;&gt;People are expected to be loyal to their family members, even when they have done something wrong.&lt;/span&gt;
+           &lt;span style=\&quot;color: #9900cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           10.&lt;span style=\&quot;color: #33ffff\&quot;&gt;Men and women each have different roles to play in society.&lt;/span&gt;
+           &lt;span style=\&quot;color: #cc00cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           11.&lt;span style=\&quot;color: #66ff99\&quot;&gt;I would call some acts wrong on the grounds that they are unnatural.&lt;/span&gt;
+           &lt;span style=\&quot;color: #cc33ff\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           12.&lt;span style=\&quot;color: #66ffcc\&quot;&gt;It can never be right to kill a human being.&lt;/span&gt;
+           &lt;span style=\&quot;color: #cc66ff\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           13.&lt;span style=\&quot;color: #00ffcc\&quot;&gt; I think it is morally wrong that rich children inherit a lot of money while poor children inherit nothing.&lt;/span&gt;
+           &lt;span style=\&quot;color: #9933cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           14.&lt;span style=\&quot;color: #00cccc\&quot;&gt;&lt;/span&gt; 
+           &lt;span style=\&quot;color: #9966cc\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt; 
+           
+           15.&lt;span style=\&quot;color: #00ffff\&quot;&gt;If I were a soldier and disagreed with my commanding officer’s orders, I would obey anyway because that is my duty.&lt;/span&gt;
+           &lt;span style=\&quot;color: #9933ff\&quot;&gt;Disagree &lt;/span&gt;&lt;br&gt;
+           
+           16.&lt;span style=\&quot;color: #330000\&quot;&gt;Chastity is an important and valuable virtue.&lt;/span&gt;
+           &lt;span style=\&quot;color: #ffff33\&quot;&gt;Disagree &lt;/span&gt;
+           
+           &quot;)
+      ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      #,
+      plotOutput(&quot;netplot&quot;,width = &quot;100%&quot;)
+      ,
+      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br()
+      ,
+      h3(&quot;Total Responses for each Item&quot;),
+      DT::dataTableOutput(&quot;table2&quot;)
+      ,
+      h3(&quot;Responses of each Participant selected&quot;),
+      DT::dataTableOutput(&quot;df3_all&quot;) 
+      ,
+      br()
+      ,
+      HTML(&#39;(Data taken from mindset and moral foundations &lt;a href=&quot;https://osf.io/nh4ck/&quot;&gt;https://osf.io/nh4ck/&lt;/a&gt;)&#39;)
+    )
+    )
+)
+
+server &lt;- function(input, output) {
+  
+  # read spss file and save as tibble
+  mmfstudy1 &lt;- read.spss(&quot;Data.sav&quot; , to.data.frame = TRUE)
+  mmfstudy1 &lt;- as_tibble(mmfstudy1)
+  
+  # select Moral Foundations Variables
+  
+  output$text &lt;- renderText({
+    mft_boxes &lt;- paste(input$MFT, collapse = &quot;, &quot;)
+    mft_boxes
+  })
+  
+  observe({
+    x &lt;- input$MFT
+    
+    # Can use character(0) to remove all choices
+    if (is.null(x))
+      x &lt;- character(0)
+  })
+  
+  
+  
+  df1 &lt;- 
+    mmfstudy1 %&gt;% 
+    select(matches(&#39;MFT&#39;)
+           ,-matches(&#39;_DO_&#39;)
+    )
+  
+  
+  # select agree/disagree variables
+  df2 &lt;- df1[17:32]
+  
+  
+  levels(df2$MFT2_1)
+  
+  # bin the variables into agree vs disagree
+  
+  df3 &lt;-
+    df2 %&gt;% 
+    mutate_all(
+      funs(recode(.,
+                  &quot;0. Strongly disagree&quot; = &quot;disagree&quot;,
+                  &quot;1. Moderately disagree&quot; = &quot;disagree&quot;,
+                  &quot;2. Slightly disagree&quot;  = &quot;disagree&quot;,
+                  &quot;3. Slightly agree&quot;     = &quot;agree&quot;,
+                  &quot;4. Moderately agree&quot;   = &quot;agree&quot;,  
+                  &quot;5. Strongly agree&quot;   = &quot;agree&quot;
+                  
+      ))
+    )
+  
+  ID &lt;- c(1:length(df3[[1]]))
+  
+  df3 &lt;- cbind(ID,df3)
+  
+  #### make all net functions ####  
+  net_two_a &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#ff3366&#39;           # Carmine
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#33cc33&#39;           # navy
+    # E(fg7)$color &lt;- &#39;#960018&#39;           # Carmine
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  
+  net_two_b &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#ff6699&#39;           # Fandango
+    # E(fg1)$color &lt;- &#39;#00AB6B&#39;           # Jade
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#33cc00&#39;           # Sky
+    # E(fg7)$color &lt;- &#39;#00AB6B&#39;           # Jade
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_c &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#ff00cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#99ff66&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+    
+  }
+  
+  net_two_d &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#ff0099&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#66ff33&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_e &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#fff000&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#0033ff&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_f &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#cc0099&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#99ff00&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_g &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#cc66cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#66cc99&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_h &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#cc33cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#99ffcc&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_i &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#9900cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#99ffff&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_j &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#cc00cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#33ffff&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_k &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#cc33ff&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#66ff99&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_l &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#cc66ff&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#66ffcc&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_m &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#9933cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#00ffcc&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_n &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#9966cc&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#00cccc&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+    
+  }
+  
+  net_two_o &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#9933ff&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#00ffff&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_p &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    # E(fg1)$color &lt;- &#39;#9966ff&#39;           
+    E(fg1)$color &lt;- &#39;#ffff33&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    # E(fg7)$color &lt;- &#39;#33ffcc&#39;           # Prussian
+    E(fg7)$color &lt;- &#39;#330000&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  net_two_q &lt;- function(x,a,b){
+    
+    x &lt;- cbind.data.frame(x[a],x[b])
+    colnames(x) &lt;- c(&quot;a1&quot;,&quot;b1&quot;)
+    
+    
+    fg1 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;disagree&quot;)]))
+    V(fg1)$name &lt;- c(x$a1[which(x$b1==&quot;disagree&quot;)])
+    E(fg1)$Ju &lt;- &quot;Disagree&quot;
+    E(fg1)$color &lt;- &#39;#993366&#39;           # Mahogany (from reds)
+    # E(fg1)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    
+    fg7 &lt;- make_full_graph(length(x$a1[which(x$b1==&quot;agree&quot;)]))
+    V(fg7)$name &lt;- c(x$a1[which(x$b1==&quot;agree&quot;)])
+    E(fg7)$Ju &lt;- &quot;Agree&quot;
+    E(fg7)$color &lt;- &#39;#009999&#39;           # Prussian
+    # E(fg7)$color &lt;- &#39;#FFBF00&#39;           # Amber (from shades of yellow)
+    
+    
+    fg &lt;- graph.disjoint.union(fg1,fg7)
+    fg
+  }
+  
+  
+  #### select data range ####
+  
+  df4 &lt;- df3
+  
+  make_a &lt;- reactive({input$inNumber})
+  make_b &lt;- reactive({input$inNumber2})
+  
+  output$df3_all &lt;- DT::renderDataTable({
+    a1 &lt;- make_a()
+    b1 &lt;- make_b()
+    
+    a &lt;- as.numeric(a1)
+    b &lt;- as.numeric(b1)
+    
+    df3 &lt;- df3[a:b,]
+    df3 
+    
+  }, 
+  options = list(bPaginate=FALSE, lengthChange = FALSE, info = FALSE))
+  
+  
+  mft_boxes1 &lt;- reactive({
+    mft_boxes &lt;- eval(parse(text = &#39;input$MFT&#39;))
+    mft_boxes
+  })
+  
+  output$netplot &lt;- renderPlot({
+    a1 &lt;- make_a()
+    b1 &lt;- make_b()
+    
+    a &lt;- as.numeric(a1)
+    b &lt;- as.numeric(b1)
+    
+    mft_boxes &lt;- as.character(unlist(mft_boxes1()))
+    mft_boxes &lt;- paste(mft_boxes)
+    
+    df3 &lt;- df3[a:b,]
+    
+    net_two_a(df3,1,2)
+    
+    net_1 &lt;- net_two_a(df3,1,2)
+    net_2 &lt;- net_two_b(df3,1,3)
+    net_3 &lt;- net_two_c(df3,1,4)
+    net_4 &lt;- net_two_d(df3,1,5)
+    net_5 &lt;- net_two_e(df3,1,6)
+    net_6 &lt;- net_two_f(df3,1,7)
+    net_7 &lt;- net_two_g(df3,1,8)
+    net_8 &lt;- net_two_h(df3,1,9)
+    net_9 &lt;- net_two_i(df3,1,10)
+    net_10 &lt;- net_two_j(df3,1,11)
+    net_11 &lt;- net_two_k(df3,1,12)
+    net_12 &lt;- net_two_l(df3,1,13)
+    net_13 &lt;- net_two_m(df3,1,14)
+    net_14 &lt;- net_two_n(df3,1,15)
+    net_15 &lt;- net_two_o(df3,1,16)
+    net_16 &lt;- net_two_p(df3,1,17)
+    
+    
+    net_combined &lt;- rbind.data.frame(
+      cbind(
+        get.edgelist(net_1)
+        , E(net_1)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_2)
+        , E(net_2)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_3)
+        , E(net_3)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_4)
+        , E(net_4)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_5)
+        , E(net_5)$color
+      )
+      # ,
+      # cbind(
+      #   get.edgelist(net_6)
+      #   , E(net_6)$color
+      # )
+      ,
+      cbind(
+        get.edgelist(net_7)
+        , E(net_7)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_8)
+        , E(net_8)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_9)
+        , E(net_9)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_10)
+        , E(net_10)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_11)
+        , E(net_11)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_12)
+        , E(net_12)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_13)
+        , E(net_13)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_14)
+        , E(net_14)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_15)
+        , E(net_15)$color
+      )
+      ,
+      cbind(
+        get.edgelist(net_16)
+        , E(net_16)$color
+      )
+    )
+    
+    
+    ##### create a mini dataframe for each item ####
+    
+    df_a &lt;- cbind.data.frame(
+      get.edgelist(net_1)
+      , E(net_1)$color
+    )
+    colnames(df_a) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_b &lt;- cbind.data.frame(
+      get.edgelist(net_2)
+      , E(net_2)$color
+    )
+    colnames(df_b) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_c &lt;- cbind.data.frame(
+      get.edgelist(net_3)
+      , E(net_3)$color
+    )
+    colnames(df_c) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_d &lt;- cbind.data.frame(
+      get.edgelist(net_4)
+      , E(net_4)$color
+    )
+    colnames(df_d) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_e &lt;- cbind.data.frame(
+      get.edgelist(net_5)
+      , E(net_5)$color
+    )
+    colnames(df_e) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_f &lt;- cbind.data.frame(
+      get.edgelist(net_6)
+      , E(net_6)$color
+    )
+    colnames(df_f) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_g &lt;- cbind.data.frame(
+      get.edgelist(net_7)
+      , E(net_7)$color
+    )
+    colnames(df_g) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_h &lt;- cbind.data.frame(
+      get.edgelist(net_8)
+      , E(net_8)$color
+    )
+    colnames(df_h) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_i &lt;- cbind.data.frame(
+      get.edgelist(net_9)
+      , E(net_9)$color
+    )
+    colnames(df_i) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_j &lt;- cbind.data.frame(
+      get.edgelist(net_10)
+      , E(net_10)$color
+    )
+    colnames(df_j) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_k &lt;- cbind.data.frame(
+      get.edgelist(net_11)
+      , E(net_11)$color
+    )
+    colnames(df_k) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_l &lt;- cbind.data.frame(
+      get.edgelist(net_12)
+      , E(net_12)$color
+    )
+    colnames(df_l) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_m &lt;- cbind.data.frame(
+      get.edgelist(net_13)
+      , E(net_13)$color
+    )
+    colnames(df_m) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_n &lt;- cbind.data.frame(
+      get.edgelist(net_14)
+      , E(net_14)$color
+    )
+    colnames(df_n) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_o &lt;- cbind.data.frame(
+      get.edgelist(net_15)
+      , E(net_15)$color
+    )
+    colnames(df_o) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    
+    df_p &lt;- cbind.data.frame(
+      get.edgelist(net_16)
+      , E(net_16)$color
+    )
+    colnames(df_p) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;) 
+    
+    ##### include based on checkbox #####
+    
+    
+    mft_boxes &lt;- paste(mft_boxes1(), sep = &quot; &quot; , collapse = &#39;&#39;)
+    
+    #    mft_boxes &lt;- output$text
+    
+    list_df_fun &lt;- function(){
+      
+      list.df = &quot; &quot;
+      
+      
+      if (str_detect(mft_boxes, &quot;mft1&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_a)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft2&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_b)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft3&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_c)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft4&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_d)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft5&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_e)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft6&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_f)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft7&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_g)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft8&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_h)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft9&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_i)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_10&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_j)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_11&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_k)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_12&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_l)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_13&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_m)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_14&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_n)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_15&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_o)))
+      }
+      
+      if (str_detect(mft_boxes, &quot;mft_16&quot;)) { 
+        list.df=c(list.df,deparse(substitute(df_p)))
+      }
+      list.df
+    }
+    
+    list.df &lt;- list_df_fun()
+    
+    list.df = list.df[2:length(list.df)] #remove first element 
+    expression = paste0(&quot;df_combined = rbind(&quot;,paste0( list.df, collapse = &#39;,&#39;), paste0(&quot;)&quot;))
+    
+    eval(parse(text=expression))
+    
+    
+    # rename the combined object (just for recycling code)
+    #g2 &lt;- net_combined
+    g2 &lt;- df_combined
+    colnames(g2) &lt;- c(&quot;V1&quot;,&quot;V2&quot;,&quot;V3&quot;)
+    g3 &lt;- graph_from_data_frame(d=g2,directed = F)
+    #V(g3)$color &lt;- V(net_incs)$color
+    E(g3)$color &lt;- E(g3)$V3
+    # g4 &lt;- simplify(g3, remove.multiple = T, remove.loops = T)
+    
+    
+    plot(g3
+         #, vertex.label=NA
+         , layout_with_fr(g3)
+         
+         #       , layout = layout.auto()# = layout_with_fr()
+         , vertex.label.dist=.7
+         , vertex.size=3)
+  },height = 800, width = 1200)
+  
+  output$table2 &lt;- DT::renderDataTable({ 
+    a1 &lt;- make_a()
+    b1 &lt;- make_b()
+    
+    a &lt;- as.numeric(a1)
+    b &lt;- as.numeric(b1)
+    
+    df3 &lt;- df3[a:b,]
+    
+    tab &lt;- 
+      rbind(
+        table(df3$MFT2_1),
+        table(df3$MFT2_2),
+        table(df3$MFT2_3),
+        table(df3$MFT2_4),
+        table(df3$MFT2_5),
+        table(df3$MFT2_6),
+        table(df3$MFT2_7),
+        table(df3$MFT2_8),
+        table(df3$MFT2_9),
+        table(df3$MFT2_10),
+        table(df3$MFT2_11),
+        table(df3$MFT2_12),
+        table(df3$MFT2_13),
+        table(df3$MFT2_14),
+        table(df3$MFT2_15),
+        table(df3$MFT2_16)
+      )
+    
+    tab &lt;- cbind( c( &quot;1. Compassion for those who are suffering is the most crucial virtue.&quot;
+                     ,&quot;2. When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.&quot;
+                     ,&quot;3. I am proud of my country’s history.&quot;
+                     ,&quot;4. Respect for authority is something all children need to learn.&quot;
+                     ,&quot;5. People should not do things that are disgusting, even if no one is harmed. &quot;
+                     ,&quot;6. It is better to do good than to do bad.&quot;
+                     ,&quot;7. One of the worst things a person could do is hurt a defenseless animal.&quot;
+                     ,&quot;8. Justice is the most important requirement for a society.&quot;
+                     ,&quot;9. People should be loyal to their family members, even when they have done something wrong.  &quot;
+                     ,&quot;10. Men and women each have different roles to play in society.&quot;
+                     ,&quot;11. I would call some acts wrong on the grounds that they are unnatural.&quot;
+                     ,&quot;12. It can never be right to kill a human being.&quot;
+                     ,&quot;13. I think it’s morally wrong that rich children inherit a lot of money while poor children inherit nothing.&quot;
+                     ,&quot;14. It is more important to be a team player than to express oneself.&quot;
+                     ,&quot;15. If I were a soldier and disagreed with my commanding officer’s orders, I would obey anyway because that is my duty.&quot;
+                     ,&quot;16. Chastity is an important and valuable virtue.&quot;)
+                  ,tab,
+                  c(&quot;care_harm&quot;,&quot;fairness&quot;,&quot;loyalty&quot;,&quot;authority&quot;,&quot;purity&quot;,&quot;catch&quot;,&quot;care_harm&quot;,&quot;fairness&quot;,&quot;loyalty&quot;,&quot;authority&quot;,&quot;purity&quot;,&quot;care_harm&quot;,&quot;fairness&quot;,&quot;loyalty&quot;,&quot;authority&quot;,&quot;purity&quot;)
+    )
+    
+    colnames(tab) &lt;- c(&quot;Question&quot;,&quot;Disagree&quot;, &quot;Agree&quot;,&quot;Foundation&quot;)
+    
+    
+    tab
+  }, 
+  options = list(bPaginate=FALSE, lengthChange = FALSE, info = FALSE))
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+
+</code></pre>
+</div>
+<div id="mft-items" class="section level1">
+<h1>MFT Items</h1>
+<ol style="list-style-type: decimal">
+<li>Compassion for those who are suffering is the most crucial virtue.</li>
+<li>When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.</li>
+<li>I am proud of my country’s history.</li>
+<li>Respect for authority is something all children need to learn.</li>
+<li>People should not do things that are disgusting, even if no one is harmed.</li>
+<li>It is better to do good than to do bad.</li>
+<li>One of the worst things a person could do is hurt a defenseless animal.</li>
+<li>Justice is the most important requirement for a society.</li>
+<li>People should be loyal to their family members, even when they have done something wrong.</li>
+<li>Men and women each have different roles to play in society.</li>
+<li>I would call some acts wrong on the grounds that they are unnatural.</li>
+<li>It can never be right to kill a human being.</li>
+<li>I think it’s morally wrong that rich children inherit a lot of money while poor children inherit nothing.</li>
+<li>It is more important to be a team player than to express oneself.</li>
+<li>If I were a soldier and disagreed with my commanding officer’s orders, I would obey anyway because that is my duty.</li>
+<li>Chastity is an important and valuable virtue.</li>
+</ol>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/tomorrow-night-eighties.css">
+<script src="{{ .Site.BaseURL }}/js/highlight.pack.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+<div id="refs" class="references">
+<div id="ref-haidt_moral_2008">
+<p>Haidt, Jonathan, and Craig Joseph. 2008. “The Moral Mind: How Five Sets of Innate Intuitions Guide the Development of Many Culture-Specific Virtues, and Perhaps Even Modules.” In <em>The Innate Mind Volume 3: Foundations and the Future.</em>, 367–91. Evolution and Cognition. New York, NY, US: Oxford University Press. <a href="https://doi.org/10.1093/acprof:oso/9780195332834.003.0019" class="uri">https://doi.org/10.1093/acprof:oso/9780195332834.003.0019</a>.</p>
+</div>
+<div id="ref-ognyanova_network_2016">
+<p>Ognyanova, Katya. 2016. “Network Analysis with R and Igraph: NetSci X Tutorial.” <em>Katya Ognyanova</em>.</p>
+</div>
+</div>
+</div>

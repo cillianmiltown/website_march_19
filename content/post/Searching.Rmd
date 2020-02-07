@@ -49,9 +49,23 @@ library(desnum)
 #devtools::install_github("benmarwick/wordcountaddin",force=TRUE)
 library(wordcountaddin)
 
+#devtools::install_github("byzheng/rproject",force=TRUE)
+ 
+library(rproject)
+
+
+```
+
+```{r}
+
+#load(project_filepath("static/data/searching.RData"))
+#data(../../../static/data/searching.RData)
 load("../../static/data/searching.RData")
 #load("static/data/searching.RData")
 
+```
+
+```{r}
 df3 <- Interview3
 
 df5 <- searching_all #read.spss('Data_updated_april_18.sav', to.data.frame = TRUE)

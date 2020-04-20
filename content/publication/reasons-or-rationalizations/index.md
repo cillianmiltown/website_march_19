@@ -36,6 +36,63 @@ publication = "Journal of Behavioral Decision Making"
 
 +++
 
+
+<style>
+  /* toc style */
+
+  
+  .toc {
+    position: fixed;
+    top: 55%;
+    left: 3%;
+    width: 20%;
+    transform: translateY(-50%);
+    /*background-color: #f6f6f6;*/
+    /*border: solid 1px #c9c9c9;*/
+    border-radius: 5px;
+  }
+
+  .nav ul li a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #B10DC9;
+  }
+
+  
+
+  .toc-nav ul {
+    /* overflow: scroll; */
+    /* width: 80%; */
+    white-space: nowrap;
+    line-height: 1rem;
+  }
+
+  /* ignore h1 header */
+  .toc-nav ul ul ul {
+    margin-left: 2rem;
+  }
+
+  .toc-nav .nav-link {
+    text-overflow: ellipsis;
+    /* overflow: hidden; */
+    color: #333;
+  }
+
+
+
+  /* Media Queries */
+  @media (max-width: 1080px) {
+    main {
+      max-width: 100%;
+    }
+
+    .toc {
+      display: none;
+    }
+  }
+</style>
+
+<aside>
 <nav id="TableOfContents">
 <ul>
 <li><a href="#introduction">1 | Introduction</a>
@@ -74,6 +131,7 @@ publication = "Journal of Behavioral Decision Making"
 <ul></ul></li>
 </ul>
 </nav>
+</aside>
 
 <div id="introduction" class="section level1">
 <h1>1 | Introduction</h1>

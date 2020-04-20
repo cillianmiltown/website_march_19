@@ -1,0 +1,2726 @@
+---
+title: "Reasons or Rationalisations"
+author: "Cillian McHugh"
+date: "2020-3-02"
+slug: reasons-or-rationalisations
+bibliography: [../../static/bib/MyLibrary.bib]
+link-citations: true
+reading_time: true  # Show estimated reading time?
+share: true  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+
+ 
+
+```{r setup, include = FALSE}
+#knitr::opts_chunk$set(comment = NA, eval = FALSE)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+```{r load_libraries_cogload}
+rm(list = ls())
+
+
+library(viridis)
+
+library(citr)
+#install.packages("sjstats")
+library(plyr)
+library(foreign)
+library(car)
+library(desnum)
+library(ggplot2)
+library(extrafont)
+#devtools::install_github("crsh/papaja")
+library(papaja)
+#library("dplyr")
+library("afex")
+library("tibble")
+library(scales)
+#install.packages("metap")
+library(metap)
+library(pwr)
+library(lsr)
+#install.packages("sjstats")
+library(sjstats)
+library(DescTools)
+#inatall.packages("ggstatsplot")
+#library(ggstatsplot)
+library(VGAM)
+library(nnet)
+library(mlogit)
+library(reshape2)
+#install.packages("powerMediation")
+library("powerMediation")
+library(knitr)
+library(forestmangr)
+
+#source("load_all_data.R")
+
+#devtools::install_github("benmarwick/wordcountaddin")
+library(wordcountaddin)
+#wordcountaddin::text_stats("cogload_1to5.Rmd")
+getwd()
+
+```
+
+
+```{r colors1}
+
+r_slidetot <- 82
+
+
+#Color Format
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+
+#rgb(255, 0, 0);
+
+sentiment <- '#ff744e'
+rational1 <- '#2faace'
+rational <- '#248aa8'
+conflict1 <- '#7d0552'
+conflict <- '#2f8d2f'
+cogload <- '#a0522d'
+dual <- '#b93b8f'
+lightgrey <- '#c0c0c0'
+
+
+# \definecolor{sentiment}{RGB}{255, 115, 115} #ff7300 or #ff744e
+# 
+# % \definecolor{rational}{RGB}{47,170,206} #2faace
+# 
+# \definecolor{rational}{RGB}{36, 138, 168} #248aa8
+# 
+# % \definecolor{conflict}{RGB}{125, 5, 82} #7d0552
+# 
+# \definecolor{cogload}{RGB}{160, 82, 45} #a0522d
+# 
+# \definecolor{conflict}{RGB}{47,141,47} #2f8d2f
+# 
+# \definecolor{dual}{RGB}{185, 59, 143} #b93b8f
+# 
+# \definecolor{lightgrey}{RGB}{192,192,192} #c0c0c0
+
+
+# plotting:
+# red dumbfounded
+# yellow reasons
+# blue nothing wrong
+dumb_palette <- c('#ff3801','#ff4c1b','#ff6035','#ff744e','#ff8868','#ff9c81','#ffb09b','#ff744e') # https://www.colorhexa.com/ff744e
+reasons_palette <- c('#ffb701','#ffbf1b','#ffc635','#ffcd4e','#ffd468','#ffdb81','#ffe39b','#ffcd4e') #https://www.colorhexa.com/ffcd4e
+nothing_palette <- c('#0149ff','#1b5bff','#356eff','#4e80ff','#6892ff','#81a5ff','#9bb7ff','#4e80ff') # https://www.colorhexa.com/4e80ff
+
+
+
+
+```
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+```{r}
+
+#load(project_filepath("static/data/searching.RData"))
+#data(../../../static/data/searching.RData)
+load("../../static/data/searching.RData")
+#load("static/data/searching.RData")
+
+```
+
+
+
+
+
+### Study 1:
+
+```{r reasons set up data Study 1, include=FALSE}
+
+load("../../static/data/one.RData")
+df3 <- study_1
+
+x <- df3
+
+
+
+# code for word numbers below (no hyphen possible using numbers2words function)
+# numbers2words_cap1(length(df1$gender))
+# numbers2words_cap1(length(df2$gender))
+
+```
+
+- <font size=5>`r length(x$gender)` (`r sum(x$gender=="Female")` female, `r sum(x$gender=="Male")` male, `r sum(x$gender=="Other")` other; *M*~age~ = `r round(mean(x$age,na.rm=TRUE),digits=2)`, min = `r min(x$age,na.rm=TRUE)`, max = `r max(x$age,na.rm=TRUE)`, *SD* = `r round(sd(x$age,na.rm=TRUE),digits=2)`)</font>
+<font size=2.5> (MIC/UL: *N* = `r length(df2$gender)` (`r sum(df2$gender=="Female")` female, `r sum(df2$gender=="Male")` male; *M*~age~ = `r round(mean(df2$age,na.rm=TRUE),digits=2)`, min = `r min(df2$age,na.rm=TRUE)`, max = `r max(df2$age,na.rm=TRUE)`, *SD* = `r round(sd(df2$age,na.rm=TRUE),digits=2)`; MTurk: *N* = `r length(df2$gender)` (`r sum(df1$gender=="Female")` female, `r sum(df1$gender=="Male")` male, `r sum(df1$gender=="Other")` other; *M*~age~ = `r round(mean(df1$age,na.rm=TRUE),digits=2)`, min = `r min(df1$age,na.rm=TRUE)`, max = `r max(df1$age,na.rm=TRUE)`, *SD* = `r round(sd(df1$age,na.rm=TRUE),digits=2)`)</font>
+
+### Study 2:
+
+```{r reasons set up data Study 2, include=FALSE}
+
+load("../../static/data/two.RData")
+df3 <- study_2
+
+x <- df3
+
+
+
+# code for word numbers below (no hyphen possible using numbers2words function)
+# numbers2words_cap1(length(df1$gender))
+# numbers2words_cap1(length(df2$gender))
+
+```
+
+- <font size=5>`r length(x$gender)` (`r sum(x$gender=="Female")` female, `r sum(x$gender=="Male")` male, `r sum(x$gender=="Other")` other; *M*~age~ = `r round(mean(x$age,na.rm=TRUE),digits=2)`, min = `r min(x$age,na.rm=TRUE)`, max = `r max(x$age,na.rm=TRUE)`, *SD* = `r round(sd(x$age,na.rm=TRUE),digits=2)`) </font>
+<font size=2.5> (MIC/UL: *N* = `r length(df2$gender)` (`r sum(df2$gender=="Female")` female, `r sum(df2$gender=="Male")` male; *M*~age~ = `r round(mean(df2$age,na.rm=TRUE),digits=2)`, min = `r min(df2$age,na.rm=TRUE)`, max = `r max(df2$age,na.rm=TRUE)`, *SD* = `r round(sd(df2$age,na.rm=TRUE),digits=2)`; MTurk: *N* = `r length(df2$gender)` (`r sum(df1$gender=="Female")` female, `r sum(df1$gender=="Male")` male, `r sum(df1$gender=="Other")` other; *M*~age~ = `r round(mean(df1$age,na.rm=TRUE),digits=2)`, min = `r min(df1$age,na.rm=TRUE)`, max = `r max(df1$age,na.rm=TRUE)`, *SD* = `r round(sd(df1$age,na.rm=TRUE),digits=2)`)</font>
+
+### Study 3:
+
+```{r reasons set up data Study 3, include=FALSE}
+
+load("../../static/data/three.RData")
+df3 <- study_3
+
+x <- df3
+
+
+
+# code for word numbers below (no hyphen possible using numbers2words function)
+# numbers2words_cap1(length(df1$gender))
+# numbers2words_cap1(length(df2$gender))
+
+```
+
+- <font size=5>`r length(x$gender)` (`r sum(x$gender=="Female")` female, `r sum(x$gender=="Male")` male, `r sum(x$gender=="Other")` other; *M*~age~ = `r round(mean(x$age,na.rm=TRUE),digits=2)`, min = `r min(x$age,na.rm=TRUE)`, max = `r max(x$age,na.rm=TRUE)`, *SD* = `r round(sd(x$age,na.rm=TRUE),digits=2)`) </font>
+
+
+## Principles: Results: Study 1
+
+
+
+```{r reasonsprepfig1, include=FALSE}
+
+df3 <- study_1
+
+df_r1 <- rbind.data.frame(cbind(df3$InCS,
+                                rep(1,length(length(df3$InCS)))),
+                          
+                          cbind(df3$InCS[which(df3$Roz_fully_C==TRUE)],
+                              rep(2,length(sum(df3$Roz_fully_C==TRUE,na.rm = TRUE)))),
+                        
+                        cbind(df3$InCS[which(df3$eligible==TRUE)],
+                              rep(3,length(sum(df3$eligible==TRUE,na.rm = TRUE)))))
+
+colnames(df_r1) <- c("InCS", "convergence")
+variable.names(df_r1)
+y <- table(df_r1)
+y <- as.data.frame(y)
+
+z <- as.data.frame(table(df_r1$InCS,df_r1$convergence)/length(df3$InCS))
+perc <- z$Freq
+test <- cbind(y,perc)
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+
+
+test$sampleN <- c(rep(length(df3$gender),3),
+             rep(sum(df3$Roz_fully_C==TRUE,na.rm = TRUE),3),
+             rep(sum(df3$eligible==TRUE,na.rm = TRUE),3))
+             
+
+
+test$sample_perc <- test$Freq/test$sampleN
+
+
+test$convergence <- recode(test$convergence, '"1"="1total sample";"2"="2fully convergent";"3"="3revised convergence"')
+
+test
+test <- 
+  test %>% 
+  round_df(digits = 2)
+
+
+test
+#test1ab <- test
+#rm(test1ab)
+round(test$sample_perc,digits=2)
+
+scales::percent(round(test$sample_perc,digits=2),accuracy = 1)
+
+rm(z,y,df_r1,perc)
+```
+
+```{r reasonsfig1, fig.cap = "*Responses to critical slide and exclusion*", include=TRUE}
+
+# color for Study 2 "#B4B4B4"
+# Figure\ \@ref(fig:reasonsfig1)
+
+ggplot(test, aes(x = convergence, y = perc, fill = InCS)) +
+  scale_y_continuous(limits = c(-.1,1),
+                     labels = percent_format()
+  )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+  )+
+  geom_text(family = "Times", size=3.5,
+            aes( label = scales::percent(test$perc,accuracy = 1),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.5,
+            aes(label = format(Freq),
+                y= -3*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.3,
+            aes( label = paste0("(",scales::percent(round(test$sample_perc,digits=2),accuracy = 1),")"),
+                 y =  -.085),
+            stat= "identity",
+            vjust = -.03,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  labs(y = "% of Participants providing\nEach Response on Critical Slide",
+       x = "Measure of Convergence",
+       fill = "Response to\nCritical Slide"
+       )+
+  theme_apa()+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_manual(values = c("#989898", "#333333", "#E6E6E6"),
+  #                   labels=c("Nothing\nWrong",
+  #                          "Dumbfounded",
+  #                          "Reasons\nProvided"))+
+  # scale_fill_grey(labels=c("Study 4\nN=31",
+  #                          "Study 5\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("Full Sample\n \U1D441 = 110",
+                              "Endorsing Only\n \U1D45B = 14",
+                              "Endorsing and\nArticulating\n \U1D45B = 52")
+                   )+
+  theme_bw()+
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+# ggsave("spsp_graphs/reasonsfig1.png"
+#        , width = 16, height = 12
+#        , units = "cm", dpi = 300)
+
+#rm(test)
+
+
+```
+
+
+
+## Principles: Results: Study 2
+
+
+
+```{r reasonsprepfig2, include=FALSE}
+df6 <- study_2
+df_r1 <- rbind.data.frame(cbind(df6$InCS,
+                                rep(1,length(length(df6$InCS)))),
+                          
+                          cbind(df6$InCS[which(df6$Roz_fully_C==TRUE)],
+                              rep(2,length(sum(df6$Roz_fully_C==TRUE,na.rm = TRUE)))),
+                          
+                          cbind(df6$InCS[which(df6$eligible==TRUE)],
+                                rep(3,length(sum(df6$eligible==TRUE,na.rm = TRUE)))),
+                        
+                        cbind(df6$InCS[which(df6$all_harm_norm==TRUE)],
+                              rep(4,length(sum(df6$all_harm_norm==TRUE,na.rm = TRUE)))))
+
+
+colnames(df_r1) <- c("InCS", "convergence")
+variable.names(df_r1)
+y <- table(df_r1)
+y <- as.data.frame(y)
+
+z <- as.data.frame(table(df_r1$InCS,df_r1$convergence)/length(df6$InCS))
+perc <- z$Freq
+test <- cbind(y,perc)
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+
+test$sampleN <- c(rep(length(df6$gender),3),
+             rep(sum(df6$Roz_fully_C==TRUE,na.rm = TRUE),3),
+             rep(sum(df6$eligible==TRUE,na.rm = TRUE),3),
+             rep(sum(df6$all_harm_norm==TRUE,na.rm = TRUE),3)
+             )
+
+
+test$sample_perc <- test$Freq/test$sampleN
+
+test$convergence <- recode(test$convergence, '"1"="1total sample";"2"="2fully convergent";"3"="3study1";"4"="4study2"')
+
+test <- 
+  test %>% 
+  round_df(digits = 2)
+
+
+test
+rm(z,y,df_r1,perc)
+
+```
+
+
+```{r reasonsfig2, fig.cap = "*Responses to critical slide and exclusion*", include=TRUE}
+
+# color for Study 2 "#B4B4B4"
+# Figure\ \@ref(fig:reasonsfig2)
+
+ggplot(test, aes(x = convergence, y = perc, fill = InCS)) +
+   scale_y_continuous(limits = c(-.085,1),
+                      labels = percent_format()
+                      )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "Times", size=3.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=2.8,
+            aes( label = paste0("(",scales::percent(test$sample_perc),")"),
+                 y =  -.085),
+            stat= "identity",
+            vjust = -.03,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.5,
+            aes(label = format(Freq),
+                y= -3.0*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            )+
+  labs(y = "% of Participants providing\nEach Response on Critical Slide",
+       x = "Measure of Convergence",
+       fill = "Response to\nCritical Slide"
+       )+
+  theme_apa()+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_manual(values = c("#989898", "#333333", "#E6E6E6"),
+  #                   labels=c("Nothing\nWrong",
+  #                          "Dumbfounded",
+  #                          "Reasons\nProvided"))+
+  # scale_fill_grey(labels=c("Study 4\nN=31",
+  #                          "Study 5\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c(#expression("\n Full Sample", paste(italic("N"), " = 111      ")),
+                                 "\n Full Sample\n \U1D441 = 111",
+                              # bquote("\nEndorsing\nOnly", paste(italic("n"), " = 20      ")),
+                              #"\nEndorsing\nOnly",#, expression(italic("n"), " = 20      ")),
+                                 "\n Endorsing Only\n \U1D45B = 20",
+                              #expression(paste("\nEndorsing and\nArticulating\n", italic("n"), " = 61")),
+                              #expression("\nEndorsing,\nArticulating,and\nApplying", paste(italic("n"), " = 73        "))
+                                 "\nEndorsing and\nArticulating\n \U1D45B = 61",
+                                 "Endorsing,\nArticulating,and\nApplying\n \U1D45B = 73")
+  #)
+  )+
+  # scale_x_discrete(labels = c(expression(atop("\n Full Sample", paste(italic("N"), " = 111      "))),
+  #                             #   "\n Full Sample\n*N* = 111",
+  #                              bquote(atop("\nEndorsing\nOnly", paste(italic("n"), " = 20      "))),
+  #                             #"\nEndorsing\nOnly",#, expression(italic("n"), " = 20      ")),
+  #                             #   "\n Endorsing Only\nN = 20",
+  #                             expression(atop("\nEndorsing and\nArticulating", paste(italic("n"), " = 61        "))),
+  #                             expression(atop("\nEndorsing,\nArticulating,and\nApplying", paste(italic("n"), " = 73        ")))
+  #                             #   "\nEndorsing and\nArticulating\nN = 61",
+  #                             #   "Endorsing,\nArticulating,and\nApplying\nN=73")
+  # )
+  # )+
+  theme_bw()+
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          #axis.text.x = element_text(angle = 0, vjust = -5.5, hjust = .5),
+          axis.ticks.x = element_blank(),
+          #axis.title.x = element_text(vjust = -5),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right" #,
+        #plot.margin=unit(c(.1,.1,1,.1), "cm"
+#                         ),
+ #                  panel.margin=unit(c(0,0,6,0), "cm")
+                                     )
+
+# ggsave("spsp_graphs/reasonsfig2.png"
+#        , width = 16, height = 12
+#        , units = "cm", dpi = 300)
+
+#rm(test)
+
+```
+
+
+
+## Principles: Results: Study 3
+
+
+
+
+```{r S3reasonsprepfig2, include=FALSE}
+df6 <- study_3
+df_r1 <- rbind.data.frame(cbind(df6$InCS,
+                                rep(1,length(length(df6$InCS)))),
+                          
+                          cbind(df6$InCS[which(df6$Roz_fully_C==TRUE)],
+                              rep(2,length(sum(df6$Roz_fully_C==TRUE,na.rm = TRUE)))),
+                          
+                          cbind(df6$InCS[which(df6$eligible==TRUE)],
+                                rep(3,length(sum(df6$eligible==TRUE,na.rm = TRUE)))),
+                        
+                        cbind(df6$InCS[which(df6$all_harm_norm==TRUE)],
+                              rep(4,length(sum(df6$all_harm_norm==TRUE,na.rm = TRUE)))))
+
+
+colnames(df_r1) <- c("InCS", "convergence")
+variable.names(df_r1)
+y <- table(df_r1)
+y <- as.data.frame(y)
+
+z <- as.data.frame(table(df_r1$InCS,df_r1$convergence)/length(df6$InCS))
+perc <- z$Freq
+test <- cbind(y,perc)
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+
+test$sampleN <- c(rep(length(df6$gender),3),
+             rep(sum(df6$Roz_fully_C==TRUE,na.rm = TRUE),3),
+             rep(sum(df6$eligible==TRUE,na.rm = TRUE),3),
+             rep(sum(df6$all_harm_norm==TRUE,na.rm = TRUE),3)
+             )
+
+
+test$sample_perc <- test$Freq/test$sampleN
+
+test$convergence <- recode(test$convergence, '"1"="1total sample";"2"="2fully convergent";"3"="3study1";"4"="4study2"')
+
+test <- 
+  test %>% 
+  round_df(digits = 2)
+
+
+test
+#rm(z,y,df_r1,perc)
+
+```
+
+
+
+
+
+```{r S3reasonsfig2, fig.cap = "*Responses to critical slide and exclusion*", include=TRUE}
+
+# color for Study 2 "#B4B4B4"
+# Figure\ \@ref(fig:reasonsfig2)
+
+ggplot(test, aes(x = convergence, y = perc, fill = InCS)) +
+   scale_y_continuous(limits = c(-.085,1),
+                      labels = percent_format()
+                      )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "Times", size=3.2,
+            aes( label = scales::percent(test$perc),
+                 y= perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=2.8,
+            aes( label = paste0("(",scales::percent(test$sample_perc),")"),
+                 y =  -.085),
+            stat= "identity",
+            vjust = -.03,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.5,
+            aes(label = format(Freq),
+                y= -3.0*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            )+
+  labs(y = "% of Participants providing\nEach Response on Critical Slide",
+       x = "Measure of Convergence",
+       fill = "Response to\nCritical Slide"
+       )+
+  theme_apa()+
+  # scale_fill_manual(values = c("#989898", "#333333", "#E6E6E6"),
+  #                   labels=c("Nothing\nWrong",
+  #                          "Dumbfounded",
+  #                          "Reasons\nProvided"))+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  # scale_fill_grey(labels=c("Study 4\nN=31",
+  #                          "Study 5\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("\n Full Sample\n \U1D441 = 502",
+                              "\n Endorsing Only\n \U1D45B = 84",
+                              "\nEndorsing and\nArticulating\n \U1D45B = 294",
+                              "Endorsing,\nArticulating,and\nApplying\n \U1D45B = 345")
+                   )+
+  theme_bw()+
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+# ggsave("spsp_graphs/S3reasonsfig2.png"
+#        , width = 16, height = 12
+#        , units = "cm", dpi = 300)
+
+#rm(test)
+
+```
+
+
+
+```{r forBestExclusion}
+df3 <- study_1
+
+df_r1 <- rbind.data.frame(cbind(df3$InCS,
+                                rep(1,length(length(df3$InCS)))),
+                          
+                          cbind(df3$InCS[which(df3$Roz_fully_C==FALSE)],
+                              rep(2,length(sum(df3$Roz_fully_C==FALSE,na.rm = TRUE)))),
+                        
+                        cbind(df3$InCS[which(df3$eligible==FALSE)],
+                              rep(3,length(sum(df3$eligible==FALSE,na.rm = TRUE)))))
+
+#cbind.data.frame(df_r1a, rep("Study 1", length(df_r1a)))
+
+colnames(df_r1) <- c("InCS", "convergence")
+variable.names(df_r1)
+y <- table(df_r1)
+y <- as.data.frame(y)
+
+z <- as.data.frame(table(df_r1$InCS,df_r1$convergence)/length(df3$InCS))
+perc <- z$Freq
+test <- cbind(y,perc)
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+
+
+
+test$sampleN <- c(rep(length(df3$gender),3),
+             rep(sum(df3$Roz_fully_C==TRUE,na.rm = TRUE),3),
+             rep(sum(df3$eligible==TRUE,na.rm = TRUE),3))
+
+test$sampleN2 <- rep(sum(df3$InCS=="There is nothing wrong."), length(test$InCS))
+
+test$sample_perc <- test$Freq/test$sampleN
+
+test$sample_perc2 <- test$Freq/test$sampleN2
+
+
+test$convergence <- recode(test$convergence, '"1"="1total sample";"2"="2fully convergent";"3"="3study1"')
+
+test1 <- test
+
+df6 <- study_2
+df_r1 <- rbind.data.frame(cbind(df6$InCS,
+                                rep(1,length(length(df6$InCS)))),
+                          
+                          cbind(df6$InCS[which(df6$Roz_fully_C==FALSE)],
+                              rep(2,length(sum(df6$Roz_fully_C==FALSE,na.rm = TRUE)))),
+                          
+                          cbind(df6$InCS[which(df6$eligible==FALSE)],
+                                rep(3,length(sum(df6$eligible==FALSE,na.rm = TRUE)))),
+                        
+                        cbind(df6$InCS[which(df6$all_harm_norm==FALSE)],
+                              rep(4,length(sum(df6$all_harm_norm==FALSE,na.rm = TRUE)))))
+
+
+
+df_r1
+colnames(df_r1) <- c("InCS", "convergence")
+variable.names(df_r1)
+y <- table(df_r1)
+y <- as.data.frame(y)
+
+z <- as.data.frame(table(df_r1$InCS,df_r1$convergence)/length(df6$InCS))
+perc <- z$Freq
+test <- cbind(y,perc)
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+
+test$sampleN <- c(rep(length(df6$gender),3),
+             rep(sum(df6$Roz_fully_C==FALSE,na.rm = TRUE),3),
+             rep(sum(df6$eligible==FALSE,na.rm = TRUE),3),
+             rep(sum(df6$all_harm_norm==FALSE,na.rm = TRUE),3)
+             )
+
+test$sampleN2 <- rep(sum(df6$InCS=="There is nothing wrong."), length(test$InCS))
+
+test$sample_perc <- test$Freq/test$sampleN
+
+test$sample_perc2 <- test$Freq/test$sampleN2
+
+test$convergence <- recode(test$convergence, '"1"="1total sample";"2"="2fully convergent";"3"="3study1";"4"="4study2"')
+
+
+
+test2 <- test
+
+df6 <- study_3
+df_r1 <- rbind.data.frame(cbind(df6$InCS,
+                                rep(1,length(length(df6$InCS)))),
+                          
+                          cbind(df6$InCS[which(df6$Roz_fully_C==FALSE)],
+                              rep(2,length(sum(df6$Roz_fully_C==FALSE,na.rm = TRUE)))),
+                          
+                          cbind(df6$InCS[which(df6$eligible==FALSE)],
+                                rep(3,length(sum(df6$eligible==FALSE,na.rm = TRUE)))),
+                        
+                        cbind(df6$InCS[which(df6$all_harm_norm==FALSE)],
+                              rep(4,length(sum(df6$all_harm_norm==FALSE,na.rm = TRUE)))))
+
+
+
+
+df_r1
+colnames(df_r1) <- c("InCS", "convergence")
+variable.names(df_r1)
+y <- table(df_r1)
+y <- as.data.frame(y)
+
+z <- as.data.frame(table(df_r1$InCS,df_r1$convergence)/length(df6$InCS))
+perc <- z$Freq
+test <- cbind(y,perc)
+test$InCS <- recode(test$InCS, '"1"="1nothing wrong";"2"="2no reason";"3"="3reason"')
+
+test$sampleN <- c(rep(length(df6$gender),3),
+             rep(sum(df6$Roz_fully_C==FALSE,na.rm = TRUE),3),
+             rep(sum(df6$eligible==FALSE,na.rm = TRUE),3),
+             rep(sum(df6$all_harm_norm==FALSE,na.rm = TRUE),3)
+             )
+
+test$sampleN2 <- rep(sum(df6$InCS=="There is nothing wrong."), length(test$InCS))
+
+test$sample_perc <- test$Freq/test$sampleN
+
+test$sample_perc2 <- test$Freq/test$sampleN2
+
+test$convergence <- recode(test$convergence, '"1"="1total sample";"2"="2fully convergent";"3"="3study1";"4"="4study2"')
+
+
+
+test3 <- test
+length(test3$InCS)
+test3$Study <- rep("Study 3", length(test3$InCS))
+test2$Study <- rep("Study 2", length(test2$InCS))
+test1$Study <- rep("Study 1", length(test1$InCS))
+
+test_full <- rbind(test1,test2,test3)
+
+test <- 
+  as_tibble(test_full) %>% 
+  dplyr::filter(InCS=="1nothing wrong") %>% 
+  dplyr::filter(convergence!="1total sample") %>% 
+  rbind(list("1nothing wrong", "4study2",NA, 0,0,0,0,0 ,"Study 1")) %>% 
+  round_df(digits = 2)
+
+
+
+#test$sample_perc <- round(test$Freq/test$sampleN, digits=2)
+
+#rm(round_df)
+
+#install.packages("forestmangr")
+#library(forestmangr)
+round_df(test,digits=2)
+
+# test <-
+#   rbind.data.frame(test,
+#                    list("1nothing wrong", "4study2",NA, 0,0,0,0,0 ,"Study 1")
+#   )
+
+
+#test_full_t <- as_tibble(test_full)
+
+#test_full_t %>% filter
+
+#rm(z,y,df_r1,perc)
+
+```
+
+
+```{r S3reasonsfig3, fig.cap = "*Responses to critical slide and exclusion*", include=TRUE}
+
+# color for Study 2 "#B4B4B4"
+# Figure\ \@ref(fig:reasonsfig2)
+
+ggplot(test, aes(x = Study, y = sample_perc2, fill = convergence)) +
+   scale_y_continuous(limits = c(-.085,1),
+                      labels = percent_format()
+                      )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "Times", size=3.2,
+            aes( label = scales::percent(test$sample_perc2),
+                 y= sample_perc2 ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=2.8,
+            aes( label = paste0("(",scales::percent(test$perc),")"),
+                 y =  -.085),
+            stat= "identity",
+            vjust = -.03,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "Times", size=3.5,
+            aes(label = format(Freq),
+                y= -3.0*(..count../100)/(..count..)),
+            stat= "count",
+            position = position_dodge(0.9),
+            #vjust = -.05,
+            fontface='plain'
+            )+
+  labs(y = "% of Participants Excluded\n Based on Each Measure",
+       x = "",
+       fill = "Measure of\nConvergence"
+       )+
+  theme_apa()+
+  scale_fill_manual(values = c("#f05e23", "#1034a6", "#0080ff"),
+                    labels=c("Endorsing\nOnly\n",
+                              "Endorsing and\nArticulating\n",
+                              "Endorsing,Articulating,\nand Applying\n"))+
+  # scale_fill_manual(name="Response"
+  #                   ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+  #                   ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+  #                   )+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  # scale_fill_grey(labels=c("Study 4\nN=31",
+  #                          "Study 5\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("Study 1\n \U1D45B = 22",
+                              "Study 2\n \U1D45B = 36",
+                              #"\nEndorsing and\nArticulating\n \U1D45B = 294",
+                              "Study 3\n \U1D45B = 125")
+                   )+
+  theme_bw()+
+  theme(plot.title=element_text(family="Times",
+                                size=12
+                                ),
+        legend.text=element_text(family="Times",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="Times",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="Times",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="Times",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "Times",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+# ggsave("spsp_graphs/S3reasonsfig3.png"
+#        , width = 16, height = 12
+#        , units = "cm", dpi = 300)
+
+#rm(test)
+
+```
+
+
+
+
+#### end #### 
+```{r}
+df3 <- Interview3
+
+df5 <- searching_all #read.spss('Data_updated_april_18.sav', to.data.frame = TRUE)
+
+
+df4 <- df5[which(df5$Experiment=="Interview"),]
+
+df7 <- cbind(df3,df4$Dumb_response)
+names(df7)[names(df7) == 'df4$Dumb_response'] <- 'Dumb_response'
+
+df8 <- df7[which(df7$Dumb_response!="nothing wrong"),]
+df8$dumbVreason <- recode(df8$Dumb_response, "'admission'='dumbfounded';
+                          'unsupported declaration'='dumbfounded'")
+
+```
+
+
+```{r colors, include=FALSE}
+
+r_slidetot <- 82
+
+
+#Color Format
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+
+#rgb(255, 0, 0);
+
+sentiment <- '#ff744e'
+rational1 <- '#2faace'
+rational <- '#248aa8'
+conflict1 <- '#7d0552'
+conflict <- '#2f8d2f'
+cogload <- '#a0522d'
+dual <- '#b93b8f'
+lightgrey <- '#c0c0c0'
+
+
+# \definecolor{sentiment}{RGB}{255, 115, 115} #ff7300 or #ff744e
+# 
+# % \definecolor{rational}{RGB}{47,170,206} #2faace
+# 
+# \definecolor{rational}{RGB}{36, 138, 168} #248aa8
+# 
+# % \definecolor{conflict}{RGB}{125, 5, 82} #7d0552
+# 
+# \definecolor{cogload}{RGB}{160, 82, 45} #a0522d
+# 
+# \definecolor{conflict}{RGB}{47,141,47} #2f8d2f
+# 
+# \definecolor{dual}{RGB}{185, 59, 143} #b93b8f
+# 
+# \definecolor{lightgrey}{RGB}{192,192,192} #c0c0c0
+
+
+# plotting:
+# red dumbfounded
+# yellow reasons
+# blue nothing wrong
+dumb_palette <- c('#ff3801','#ff4c1b','#ff6035','#ff744e','#ff8868','#ff9c81','#ffb09b','#ff744e') # https://www.colorhexa.com/ff744e
+reasons_palette <- c('#ffb701','#ffbf1b','#ffc635','#ffcd4e','#ffd468','#ffdb81','#ffe39b','#ffcd4e') #https://www.colorhexa.com/ffcd4e
+nothing_palette <- c('#0149ff','#1b5bff','#356eff','#4e80ff','#6892ff','#81a5ff','#9bb7ff','#4e80ff') # https://www.colorhexa.com/4e80ff
+
+
+
+
+```
+
+This post provides a brief overview of a [paper](https://www.collabra.org/article/10.1525/collabra.79/) where we developed methods for measuring and testing moral dumbfounding [@mchugh_searching_2017a].
+
+# What is Moral Dumbfounding
+
+Moral dumbfounding occurs when people stubbornly maintain a moral judgement, even though they can provide no reason to support their judgements [@haidt_emotional_2001; @haidt_moral_2000; @prinz_passionate_2005]. Dumbfounded responses may include: (a) an admission of not having a reason for a judgement, (b) the use of an unsupported declarations (*"It's just wrong!"*) to defend a judgement.
+
+
+# Influence of Moral Dumbfounding
+
+```{r,include=FALSE}
+r_curent_slide <- 7
+r_slidenum <- (r_curent_slide/r_slidetot)*100
+```
+
+Moral Dumbfounding is cited as evidence for ***intuitionist*** or ***dual-process*** theories of moral judgement [e.g., @crockett_models_2013; @cushman_action_2013; @greene_secret_2008; @haidt_emotional_2001], over more ***rationalist*** approaches [e.g., @kohlberg_stages_1969; @topolski_choosing_2013].  Its discovery [@haidt_moral_2000] coincided with (and arguably contributed to) the recent rise in ***intuitionist*** theories of moral judgements [@haidt_emotional_2001].
+
+# Evidence for Moral Dumbfounding
+
+Empirical evidence for dumbfounding limited to a single study with a total sample of *N* = 30 [@haidt_moral_2000]. @haidt_moral_2000 is widely discussed but it has not been published in peer reviewed form, and has not been directly replicated. In recent years, the existence of moral dumbfounding has been contested by some authors [e.g., @gray_myth_2014; @jacobson_moral_2012; @royzman_curious_2015; @sneddon_social_2007; @wielenberg_robust_2014; @guglielmo_unfounded_2018; @stanley_reasonbased_2019a]
+
+# Defining and Measuring Moral Dumbfounding
+
+In addition to the limited evidence for moral dumbfounding, it is also apparent that there is no single agreed definition of moral dumbfounding.  It was originally defined as “the stubborn and puzzled maintenance of a judgment without supporting reasons” [@haidt_moral_2000, p. 2; see also, @haidt_sexual_2001, p. 194; @haidt_social_2008, p. 197] but the use of this full definition varies. From surveying the literature we identified the "maintenance of a judgement in the absence of supporting reasons" as essential elements of dumbfounding.
+
+Using this definition we proposed two possible measurable indicators of moral dumbfounding. Firstly, participants may become aware that they do not have reasons and acknowledge this (admissions of not having reasons).  Secondly, participants may fail to provide reasons. The use of unsupported declarations or tautological reasons as justifications for a judgement may be viewed as evidence of a a failure to provide reasons.  Stating “it’s just wrong” or “because it’s wrong” does not answer the question “do you have a reason for your judgement?” [@mallon_dual_2011, p. 285].
+
+# Our Studies
+
+Due to the weak evidence for moral dumbfounding we set out to investigate if the phenomenon is real, and if it can be measured.
+
+We conducted 3 studies:
+
+- **Study 1**: Interview - replication of @haidt_moral_2000
+- **Study 2**: Computer task 1
+- **Study 3**: Computer task 2 (college sample: 3a; MTurk Sample: 3b)
+  
+
+
+```{r,include=FALSE}
+r_curent_slide <- 10
+r_slidenum <- (r_curent_slide/r_slidetot)*100
+
+x <- Interview
+
+```
+
+
+# Study 1 (Interview)
+Study 1 was a video recorded interview.
+
+`r length(x$gender)/4` participants (MIC/UL students and alumni) (`r sum(x$gender=="female")/4` female, `r sum(x$gender=="male")/4` male, `r sum(x$gender=="Other")` other; *M*~age~ = `r round(mean(x$age,na.rm=TRUE),digits=2)`, min = `r min(x$age,na.rm=TRUE)`, max = `r max(x$age,na.rm=TRUE)`, *SD* = `r round(sd(x$age,na.rm=TRUE),digits=2)`) took part.
+
+
+- Participants presented with 4 scenarios and asked to judge the behaviour of the characters in the scenarios (*Heinz, Cannibal, Incest, Trolley* see end of this post for full text)
+- The Experimenter challenged the judgement 
+- Videos were coded for key responses of interest:
+  - `r colFmt("Admissions of not having reasons",dumb_palette[3])`
+  - `r colFmt("Unsupported declarations",dumb_palette[3])`
+
+
+## Results
+
+`r numbers2words_cap1(sum(table(Interview$Dumb_response=="unsupported declaration"|Interview$Dumb_response=="admission",Interview$Participant)[2,]>0))` of the `r length(Interview$gender)/4` participants (`r round(((sum(table(Interview$Dumb_response=="unsupported declaration"|Interview$Dumb_response=="admission",Interview$Participant)[2,]>0)/(length(Interview$gender)/4))*100), digits=2)`%) produced a `r colFmt("dumbfounded",dumb_palette[3])` response at least once. (`r colFmt("admissions of not having reasons",dumb_palette[3])`; or the use of an `r colFmt("unsupported declaration",dumb_palette[3])` as a justification)
+
+- Examples of such responses included:
+  - "It just seems wrong and I cannot explain why, I don’t know"
+  - "because I just think it’s wrong, oh God, I don’t know why, it’s just [pause] wrong".
+  
+The rates of each type of response for each Scenario are displayed in Figure\ \@ref(fig:figdumb1Interview)
+
+```{r prepfigdumbInterview, include=FALSE}
+
+
+df5 <- searching_all
+#df5$graph <- df5$critical_slide=="dumbfounded"
+df5$graph <- df5$Experiment=="Interview"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+library(car)
+recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$critical_slide, df5$Scenario_code)
+y <- table(df3$critical_slide, df3$Scenario_code)
+y <- as.data.frame(y)
+x <- table(df3$critical_slide, df3$Scenario_code)/((length(df3$gender)/4))
+#x <- table(df3$critical_slide, df3$Scenario_code)/table(df5$critical_slide, df5$Scenario_code)
+test <- as.data.frame(x)
+
+test <- cbind(test,y$Freq)
+
+names(test) <- c("response","Scenario", "perc","total")
+
+#test$Study <- recode(test$Study,'"1st computer task" = "2_comp1";"2nd computer task" = "3_comp2";"Interview" = "1_Interview";"online (2nd computer replication)" = "4_online"')
+
+
+table(df5$Scenario_code, df5$graph)
+table(df5$Scenario_code, df5$graph)
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+#rm(x,y,df5,df3)
+
+
+```
+
+```{r figdumb1Interview, fig.cap = "*Rates of each type of response for each scenario*", include=TRUE}
+ggplot(test, aes(x = Scenario, y = perc, fill = response)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = +.8,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying each type of response",
+       x = "Scenario"
+       )+
+  theme_apa()+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("Heinz",
+                           "Trolley",
+                           "Incest",
+                           "Cannibal")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+rm(test)
+
+
+```
+
+
+## Behavioural Responses
+
+In addition to coding the videos for dumbfounded responding, we investigated a range of verbal and non-verbal behavioural responses.  We found significant differences between dumbfounded participants and non-dumbfounded participants across a small number of variables.  There were significant differences in time spent
+
+  - Laughing
+  - Smiling 
+  - in Silence 
+
+(with higher rates of each in `r colFmt("dumbfounded",dumb_palette[3])` participants)
+
+We found no differences in
+
+  - verbal hesitations; non-verbal hesitations
+  - changing posture; fidgeting/hands on the self
+  - frowning
+
+Importantly, there were no differences depending on which measure of `r colFmt("dumbfounding",dumb_palette[3])` was used <br> (`r colFmt("Admissions of not having reasons",dumb_palette[3])` / `r colFmt("Unsupported declarations",dumb_palette[3])`)
+
+
+
+# Study 2 (Computer Task)
+
+```{r}
+
+x <- comp1
+
+```
+
+The aim of Study 2 was to address limitations of Study 1. Study 1 suffered from a very low *N*.  Interviews require a lot of time/resources. In Study 2 we attempted to develop standardised materials to study moral dumbfounding on a larger scale.
+
+`r length(x$gender)/4` participants (MIC/UL students and alumni; `r sum(x$gender=="female")/4` female, `r sum(x$gender=="male")/4` male, `r sum(x$gender=="Other")` other; *M*~age~ = `r round(mean(x$age,na.rm=TRUE),digits=2)`, min = `r min(x$age,na.rm=TRUE)`, max = `r max(x$age,na.rm=TRUE)`, *SD* = `r round(sd(x$age,na.rm=TRUE),digits=2)`) took part.
+
+
+- Computer based task: Same scenarios (*Heinz, Cannibal, Incest, Trolley*)
+- Series of `r colFmt("counter-arguments",rational)` challenged judgements
+- Dumbfounding measured using `r colFmt("Critical Slide",conflict)`
+  - The critical slide contained a statement defending the behaviour and a question as to how the behaviour could be wrong 
+
+#### Sample Critical Slide
+
+"Julie and Mark’s actions did not harm anyone or negatively affect anyone.
+How can there be anything wrong with what they did?"
+
+
+1. There is nothing wrong<br/>
+2. Incest is just wrong<br/>
+3. It’s wrong and I can provide a valid reason
+
+
+(The selecting of option 2, the `r colFmt("unsupported declaration",dumb_palette[3])`, was taken to be a `r colFmt("dumbfounded",dumb_palette[3])` response)
+
+## Results
+
+Extremely high rates of `r colFmt("dumbfounded responding",dumb_palette[3])` were recorded, see Figure\ \@ref(fig:figdumb1comp1).
+
+```{r prepfigdumbcomp1, include=FALSE}
+
+
+df5 <- searching_all
+#df5$graph <- df5$critical_slide=="dumbfounded"
+df5$graph <- df5$Experiment=="1st computer task"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+library(car)
+recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$critical_slide, df5$Scenario_code)
+y <- table(df3$critical_slide, df3$Scenario_code)
+y <- as.data.frame(y)
+x <- table(df3$critical_slide, df3$Scenario_code)/((length(df3$gender)/4))
+#x <- table(df3$critical_slide, df3$Scenario_code)/table(df5$critical_slide, df5$Scenario_code)
+test <- as.data.frame(x)
+
+test <- cbind(test,y$Freq)
+
+names(test) <- c("response","Scenario", "perc","total")
+
+#test$Study <- recode(test$Study,'"1st computer task" = "2_comp1";"2nd computer task" = "3_comp2";"Interview" = "1_Interview";"online (2nd computer replication)" = "4_online"')
+
+
+table(df5$Scenario_code, df5$graph)
+table(df5$Scenario_code, df5$graph)
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+#rm(x,y,df5,df3)
+
+
+```
+
+```{r figdumb1comp1, fig.cap = "*Rates of each type of response for each scenario*", include=TRUE}
+ggplot(test, aes(x = Scenario, y = perc, fill = response)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes( label = scales::percent(test$perc),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = +.8,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying each type of response",
+       x = "Scenario"
+       )+
+  theme_apa()+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("Heinz",
+                           "Trolley",
+                           "Incest",
+                           "Cannibal")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+rm(test)
+
+
+```
+
+
+# Study 3 (Revised Computer Task)
+
+```{r load data set searching Study 3}
+
+#rm(list = ls())
+
+#load("loaded_data/searching/searching.RData")
+df3 <- comp2
+x <- df3
+
+df5 <- searching_all
+df5$graph <- df5$Experiment=="2nd computer task"|df5$Experiment=="online (2nd computer replication)"
+
+df5$graph[df5$graph==FALSE] <- NA
+#df5$graph
+
+
+###
+
+
+df3 <- df5[which(df5$graph==TRUE),]
+
+x <- df3
+# 
+# rm(df)
+# df1 <- df3[which(df3$Experiment=="2nd computer task"),]
+#                  |df5$Experiment=="online (2nd computer replication)"
+
+df1 <- comp2
+df2 <- online
+
+```
+
+The aim of Study 3 was to address limitations in Study 2. Extremely high rates of observed `r colFmt("dumbfounded responding",dumb_palette[3])` not representative of the phenomenon. We hypothesised that selecting an unsupported declaration was a *lazy* response.
+
+
+`r length(x$gender)/4` participants <br/>(`r sum(x$gender=="female")/4` female, `r sum(x$gender=="male")/4` male, `r sum(x$gender=="0")/4` other; *M*~age~ = `r round(mean(x$age,na.rm=TRUE),digits=2)`, min = `r min(x$age,na.rm=TRUE)`, max = `r max(x$age,na.rm=TRUE)`, *SD* = `r round(sd(x$age,na.rm=TRUE),digits=2)`) <br/> MIC/UL students and alumni, *N* = `r length(df1$gender)/4` <br/>(`r sum(df1$gender=="female")/4` female, `r sum(df1$gender=="male")/4` male, `r sum(df1$gender=="Other")` other; *M*~age~ = `r round(mean(df1$age,na.rm=TRUE),digits=2)`, min = `r min(df1$age,na.rm=TRUE)`, max = `r max(df1$age,na.rm=TRUE)`, *SD* = `r round(sd(df1$age,na.rm=TRUE),digits=2)`) <br/> MTurk *N* = `r length(df2$gender)/4` <br/>(`r sum(df2$gender=="female")/4` female, `r sum(df2$gender=="male")/4` male, `r sum(df2$gender=="0")/4` other; *M*~age~ = `r round(mean(df2$age,na.rm=TRUE),digits=2)`, min = `r min(df2$age,na.rm=TRUE)`, max = `r max(df2$age,na.rm=TRUE)`, *SD* = `r round(sd(df2$age,na.rm=TRUE),digits=2)`)
+
+- Same procedure as Study 2 with:
+  - Change to `r colFmt("Critical Slide",conflict)`
+      - `r colFmt("Explicit admissions",dumb_palette[3])` replaced `r colFmt("Unsupported Declarations",dumb_palette[3])`
+  - 'Open-ended response' option after `r colFmt("Critical Slide",conflict)`
+      - Responses coded for  `r colFmt("Unsupported Declarations",dumb_palette[3])`
+
+
+#### Sample Critical Slide
+
+"Julie and Mark’s actions did not harm anyone or negatively affect anyone.
+How can there be anything wrong with what they did?"
+
+1. There is nothing wrong<br/>
+2. It’s wrong but I can’t think of a reason<br/>
+3. It’s wrong and I can provide a valid reason
+
+(Again, the selecting of option 2, this time the `r colFmt("admission of not having a reason",dumb_palette[3])`, was taken to be a `r colFmt("dumbfounded",dumb_palette[3])` response)
+
+
+## Results - Admissions Only
+
+We have provided two sets of results below, firstly the results with just the responses to the critical slide.  Following this we include the open-ended responses coded for unsupported declarations.  Figure\ \@ref(fig:figdumb1comp2) shows the rate of each response to the critical slide for each scenario.
+
+
+
+```{r prepfigdumbcomp2, include=FALSE}
+
+
+df5 <- searching_all
+#df5$graph <- df5$critical_slide=="dumbfounded"
+df5$graph <- df5$Experiment=="2nd computer task"|df5$Experiment=="online (2nd computer replication)"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+library(car)
+recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$critical_slide, df5$Scenario_code)
+y <- table(df3$critical_slide, df3$Scenario_code)
+y <- as.data.frame(y)
+x <- table(df3$critical_slide, df3$Scenario_code)/((length(df3$gender)/4))
+#x <- table(df3$critical_slide, df3$Scenario_code)/table(df5$critical_slide, df5$Scenario_code)
+test <- as.data.frame(x)
+
+test <- cbind(test,y$Freq)
+
+names(test) <- c("response","Scenario", "perc","total")
+
+#test$Study <- recode(test$Study,'"1st computer task" = "2_comp1";"2nd computer task" = "3_comp2";"Interview" = "1_Interview";"online (2nd computer replication)" = "4_online"')
+
+
+table(df5$Scenario_code, df5$graph)
+table(df5$Scenario_code, df5$graph)
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+#rm(x,y,df5,df3)
+
+
+```
+
+```{r figdumb1comp2, fig.cap = "*Rates of each type of response for each scenario*", include=TRUE}
+ggplot(test, aes(x = Scenario, y = perc, fill = response)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes( label = scales::percent(round(test$perc,digits=2)),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = +.8,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying each type of response",
+       x = "Scenario"
+       )+
+  theme_apa()+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("Heinz",
+                           "Trolley",
+                           "Incest",
+                           "Cannibal")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+rm(test)
+
+
+```
+
+## Results - *including open-ended responses*
+
+Figure\ \@ref(fig:figdumb1comp2string) shows the rates of each type of response, when the coded open-ended responses are included.
+
+```{r prepfigdumbcomp2string, include=FALSE}
+
+
+df5 <- searching_all
+#df5$graph <- df5$critical_slide=="dumbfounded"
+df5$graph <- df5$Experiment=="2nd computer task"|df5$Experiment=="online (2nd computer replication)"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+library(car)
+recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$Dumb_incl_string, df5$Scenario_code)
+y <- table(df3$Dumb_incl_string, df3$Scenario_code)
+y <- as.data.frame(y)
+x <- table(df3$Dumb_incl_string, df3$Scenario_code)/((length(df3$gender)/4))
+#x <- table(df3$critical_slide, df3$Scenario_code)/table(df5$critical_slide, df5$Scenario_code)
+test <- as.data.frame(x)
+
+test <- cbind(test,y$Freq)
+
+names(test) <- c("response","Scenario", "perc","total")
+
+#test$Study <- recode(test$Study,'"1st computer task" = "2_comp1";"2nd computer task" = "3_comp2";"Interview" = "1_Interview";"online (2nd computer replication)" = "4_online"')
+
+
+table(df5$Scenario_code, df5$graph)
+table(df5$Scenario_code, df5$graph)
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+#rm(x,y,df5,df3)
+
+
+```
+
+```{r figdumb1comp2string, fig.cap = "*Rates of each type of response for each scenario*", include=TRUE}
+ggplot(test, aes(x = Scenario, y = perc, fill = response)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes( label = scales::percent(round(test$perc,digits=2)),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3.5,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = +.8,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying each type of response",
+       x = "Scenario"
+       )+
+  theme_apa()+
+  scale_fill_manual(name="Response"
+                    ,values = c(nothing_palette[3],dumb_palette[3],reasons_palette[3])
+                    ,labels=c("Nothing Wrong","Dumbfounded","Reasons")
+                    )+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_x_discrete(labels = c("Heinz",
+                           "Trolley",
+                           "Incest",
+                           "Cannibal")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=10
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+rm(test)
+
+
+```
+
+```{r}
+
+df5 <- searching_all
+
+```
+
+# Discussion
+The goal of this research was to examine the replicability of dumbfounded responding following a moral judgement task, and identify specific measurable responses that may be viewed as indicators of moral dumbfounding.  Three studies, with a combined total sample of *N* = `r length(df5$gender)/4`, were conducted in an attempt to replicate and extend the original demonstration (*N* = 30) of moral dumbfounding by @haidt_moral_2000.  We predicted that dumbfounded responses would be evoked when participants were required to provide justification for their moral judgements, when their basic intuitive justifications had been refuted.  Two measures of moral dumbfounding were taken, an explicit acknowledgement of the absence of reasons, and a failure to provide reasons when pushed.  Rates of observed dumbfounding vary depending on which measure is being employed.
+
+# Conclusion
+Moral dumbfounding can be reliably elicited using standardised methods.  Rates of dumbfounded responding are generally low, with the majority of participants providing reasons for their judgements. Future research is required to establish why this occurs.
+
+
+# Additional Material
+
+### Moral Scenarios
+
+#### Heinz
+
+> In Europe, a woman was near death from a very bad disease, a special kind of cancer. There was one drug that the doctors thought might save her. It was a form of radium for which a druggist was charging ten times what the drug cost him to make. The sick woman's husband, Heinz, went to everyone he knew to borrow the money, but he could only get together about half of what it cost. He told the druggist that his wife was dying, and asked him to sell it cheaper or let him pay later. But the druggist said, "No, I discovered the drug and I'm going to make money from it." So, Heinz got desperate and broke into the man's store to steal the drug for his wife. The druggist had Heinz arrested and charged.
+
+#### Trolley
+
+> A Trolley is hurtling down a track towards five people. It will kill them all on impact. Paul is on a bridge under which it will pass. He can stop it by putting something very heavy in front of it. As it happens, there is a very fat man next to him – Paul's only way to stop the trolley is to push him over the bridge and onto the track, killing him to save five. Paul decides to push the man.
+
+#### Cannibal
+
+> Jennifer works in a medical school pathology lab as a research assistant. The lab prepares human cadavers that are used to teach medical students about anatomy. The cadavers come from people who had donated their body for the general use of the researchers in the lab. The bodies are normally cremated, however, severed cuts may be disposed of at the discretion of lab researchers, One night Jennifer is leaving the lab when she sees a body that is going to be discarded the next day. Jennifer was a vegetarian, for moral reasons. She thought it was wrong to kill animals for food. But then, when she saw a body about to be cremated, she thought it was irrational to waste perfectly edible meat. So she cut off a piece of flesh, and took it home and cooked it. The person had died recently of a heart attack, and she cooked the meat thoroughly, so there was no risk of disease.
+
+#### Incest
+
+> Julie and Mark, who are brother and sister, are travelling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other.
+
+
+### Combined Figures
+
+
+```{r prepfigdumb1, include=FALSE}
+
+
+df5 <- searching_all #read.spss('Data_updated_april_18.sav', to.data.frame = TRUE)
+df5$graph <- df5$critical_slide=="dumbfounded"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+car::recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$Experiment, df5$Scenario_code)
+y <- table(df3$Experiment, df3$Scenario_code)
+y <- as.data.frame(y)
+x <- table(df3$Experiment, df3$Scenario_code)/table(df5$Experiment, df5$Scenario_code)
+test <- as.data.frame(x)
+
+test <- cbind(test,y$Freq)
+
+names(test) <- c("Study","Scenario", "perc","total")
+
+test$Study <- car::recode(test$Study,'"1st computer task" = "2_comp1";"2nd computer task" = "3_comp2";"Interview" = "1_Interview";"online (2nd computer replication)" = "4_online"')
+
+
+table(df5$Scenario_code, df5$graph)
+table(df5$Scenario_code, df5$graph)
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+rm(x,y,df5,df3)
+
+
+```
+
+```{r figdumb1, fig.cap = "Rates of observed dumbfounding for each scenario across each study (all reported percentages are rounded to nearest whole number)."}
+
+ggplot(test, aes(x = Scenario, y = perc, fill = Study)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3,
+            aes( label = scales::percent(round(test$perc,digits=2),accuracy = 5L),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = -.2,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying responses\nconsistent with dumbfounding",
+       fil = ""
+       )+
+  theme_apa()+
+  # scale_fill_brewer(#values = c("#333333", "#989898", "#B4B4B4", "#E6E6E6"),
+  #                   palette = "RdBu",
+  #                   labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101"))+
+  # 
+  # scale_fill_discrete(#values = c("#333333", "#989898", "#B4B4B4", "#E6E6E6"),
+  #                   #palette = "RdBu",
+  #                   labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101"))+
+  # scale_fill_grey(labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 )+
+  scale_fill_viridis(discrete=TRUE, option="D",
+                       labels=c("Study 1\nN=31",
+                           "Study 2\nN=72",
+                           "Study 3a\nN=72",
+                           "Study 3b\nN=101"))+
+  scale_x_discrete(limits = c("Heinz","Cannibal","Incest","Trolley")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+        #panel.background = element_rect(fill = 'green', colour = 'red'),
+          legend.position="right")
+
+```
+
+```{r, include=FALSE}
+
+rm(test)
+
+
+```
+
+
+```{r prepfigdumb2, include=FALSE}
+
+#rm(list=ls())
+
+df5 <- searching_all # read.spss('Data_updated_april_18.sav', to.data.frame = TRUE)
+df5$graph <- df5$Dumb_incl_string =="dumbfounded"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$Experiment, df5$Scenario_code)
+y <- table(df3$Experiment, df3$Scenario_code)
+
+#y <- rbind(Haidt,y[c(2,3,4),])
+
+
+y <- as.data.frame(y)
+x <- table(df3$Experiment, df3$Scenario_code)/table(df5$Experiment, df5$Scenario_code)
+perc <- c(2,23,11)/c(30)
+Study <- rep("Haidt",3)
+Scenario <- c("Heinz","Incest","Cannibal")
+total <- c(2,23,11)
+Haidt <- cbind.data.frame(Study, Scenario, perc, total)
+#x <- rbind(Haidt,x[c(2,3,4),])
+y
+#as.data.frame(table(x))
+Haidt
+test <- as.data.frame(x)
+test
+test <- cbind(test,y$Freq)
+
+names(test) <- c("Study","Scenario", "perc","total")
+test <- rbind(test,Haidt)
+test <- test[which(test$Study!="1st computer task"),]
+test$Study <- recode(test$Study,'"Haidt" = "1_haidt";
+                     "2nd computer task" = "3_comp2";
+                     "Interview" = "2_Interview";
+                     "online (2nd computer replication)" = "4_online"')
+
+
+
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+rm(x,y,df5,df3,Haidt,perc,Scenario,Study,total)
+
+
+```
+
+```{r figdumb2, fig.cap = "Rates of observed dumbfounding for each scenario across Original Study, and Studies 1, 3a, and 3b, including coded string responses (all reported percentages are rounded to nearest whole number)."}
+ggplot(test, aes(x = Scenario, y = perc, fill = Study)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3,
+            aes( label = scales::percent(round(test$perc,digits=2),accuracy = 5L),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = -.2,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying responses\nconsistent with dumbfounding",
+       fil = ""
+       )+
+  theme_apa()+
+  scale_fill_manual(values = c("#ea384d", "#440154", "#35b779", "#fde725"),
+                    labels=c("Original study\nN=30",
+                             "Study 1\nN=31",
+                             "Study 3a\nN=72",
+                             "Study 3b\nN=101"))+
+  # scale_fill_viridis(discrete=TRUE, option="D",
+  #                      labels=c("Study 1\nN=31",
+  #                          "Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101"))+
+  # scale_fill_grey(labels=c("Original study\nN=31",
+  #                          "Study 1\nN=31",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 
+  #                 )+
+  scale_x_discrete(limits = c("Heinz","Cannibal","Incest","Trolley")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+#rm(test)
+
+
+
+
+```
+
+```{r prepfigdumb3, include=FALSE}
+
+
+df5 <- searching_all #read.spss('Data_updated_april_18.sav', to.data.frame = TRUE)
+df5 <- df5[which(df5$Dumb_incl_string!="nothing wrong"),]
+df5$graph <- df5$Dumb_incl_string =="dumbfounded"
+
+df5$graph[df5$graph==FALSE] <- NA
+df5$graph
+
+recode(df5$graph, '"TRUE"="dumbfounded"')
+is.na(df5$graph==TRUE)
+
+
+###
+
+test <- as.data.frame(prop.table(table(df5$Scenario_code, df5$graph)))
+df3 <- df5[which(df5$graph==TRUE),]
+table(df5$Experiment, df5$Scenario_code)
+y <- table(df3$Experiment, df3$Scenario_code)
+
+#y <- rbind(Haidt,y[c(2,3,4),])
+
+
+y <- as.data.frame(y)
+x <- table(df3$Experiment, df3$Scenario_code)/table(df5$Experiment, df5$Scenario_code)
+
+y
+#as.data.frame(table(x))
+
+test <- as.data.frame(x)
+test
+test <- cbind(test,y$Freq)
+
+names(test) <- c("Study","Scenario", "perc","total")
+
+test <- test[which(test$Study!="1st computer task"),]
+test$Study <- recode(test$Study,'"2nd computer task" = "3_comp2";
+                     "Interview" = "2_Interview";
+                     "online (2nd computer replication)" = "4_online"')
+
+
+
+#names(test) <- c("Scenario", "dumbfounded", "perc")
+rm(x,y,df5,df3)
+
+
+
+```
+
+```{r figdumb3, fig.cap = "Percentage of dumbfounded responses when “nothing wrong” is excluded (all reported percentages are rounded to nearest whole number)."}
+ggplot(test, aes(x = Scenario, y = perc, fill = Study)) +
+  scale_y_continuous(limits = c(-.03,1),
+                     labels = percent_format()
+                     )+ 
+  geom_col(position = "dodge",
+           color="black",
+           size=.2
+           )+
+  geom_text(family = "ubuntu", size=3,
+            aes( label = scales::percent(round(test$perc, digits=2)),
+                 y= test$perc ),
+            stat= "identity",
+            vjust = -.5,
+            position = position_dodge(.9),
+            fontface='plain'
+            )+
+  geom_text(family = "ubuntu", size=3,
+            aes(label = format(total),
+                y= -3*(..count../100)/..count..),
+            stat= "count",
+            position = position_dodge(0.9),
+            vjust = -.2,
+            fontface='plain'
+            )+
+  labs(y = "% of participants displaying responses\nconsistent with dumbfounding",
+       fil = ""
+       )+
+  theme_apa()+
+  scale_fill_manual(values = c("#440154", "#35b779", "#fde725"),
+                    labels=c("Study 1\nN=31",
+                             "Study 3a\nN=72",
+                             "Study 3b\nN=101"))+
+  # scale_fill_viridis(discrete=TRUE, option="D",
+  #                      labels=c("Study 1\nN=31",
+  #                          #"Study 2\nN=72",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101"))+
+  # scale_fill_grey(labels=c("Original study\nN=31",
+  #                          "Study 1\nN=31",
+  #                          "Study 3a\nN=72",
+  #                          "Study 3b\nN=101")
+  #                 
+  #                 )+
+  scale_x_discrete(limits = c("Heinz","Cannibal","Incest","Trolley")
+                   )+
+  theme_bw() +
+  theme(plot.title=element_text(family="ubuntu",
+                                size=12
+                                ),
+        legend.text=element_text(family="ubuntu",
+                                 size=8
+                                 ),
+          legend.title=element_text(family="ubuntu",
+                                    size=10
+                                    ),
+          axis.text=element_text(family="ubuntu",
+                                 colour = "black",
+                                 size=8
+                                 ),
+          axis.ticks.x = element_blank(),
+          axis.title=element_text(family="ubuntu",
+                                  size=12
+                                  ),
+          strip.text=element_text(family = "ubuntu",
+                                  size = 12
+                                  ),
+          strip.background = element_rect(fill = "white"),
+          legend.position="right")
+
+
+```
+
+```{r}
+rm(test)
+
+
+```
+
+
+<br>
+
+## Combined Tables
+
+```{r prep tab1 judge, echo=FALSE, include=FALSE}
+
+
+ju_table <- function(v){
+x <- v
+
+rows <- c("Initial: Wrong", "Initial: Neutral", "Initial: OK")
+
+hi <- c(table(x$Initial_reaction_binned1,x$Scenario_code
+              )[,1])[c(2,3,1)]
+
+hip <- c(round(table(x$Initial_reaction_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,1])[c(2,3,1)] # ammended 5th October 2017
+hip <- c(paste0(hip[1],"%"),
+          paste0(hip[2],"%"),
+          paste0(hip[3],"%"))
+
+ti <- c(table(x$Initial_reaction_binned1,x$Scenario_code
+              )[,2])[c(2,3,1)]
+
+tip <- c(round(table(x$Initial_reaction_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,2])[c(2,3,1)]
+tip <- c(paste0(tip[1],"%"),
+          paste0(tip[2],"%"),
+          paste0(tip[3],"%"))
+
+ii <- c(table(x$Initial_reaction_binned1,x$Scenario_code
+              )[,3])[c(2,3,1)] # ammended 5th october 2017
+
+iip <- c(round(table(x$Initial_reaction_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,3])[c(2,3,1)]
+iip <- c(paste0(iip[1],"%"),
+          paste0(iip[2],"%"),
+          paste0(iip[3],"%"))
+
+
+ci <- c(table(x$Initial_reaction_binned1,x$Scenario_code
+              )[,4])[c(2,3,1)]
+
+cip <- c(round(table(x$Initial_reaction_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,4])[c(2,3,1)]
+cip <- c(paste0(cip[1],"%"),
+          paste0(cip[2],"%"),
+          paste0(cip[3],"%"))
+
+cp <- unname(cbind(rows,hi,hip,ci,cip,ii,iip,ti,tip))
+cp
+}
+
+rev_table <- function(v){
+x <- v
+
+rows <- c("Revised: Wrong", "Revised: Neutral", "Reviesd: OK")
+
+hi <- c(table(x$new_judgement_binned1 ,x$Scenario_code
+              )[,1])[c(2,3,1)]
+
+hip <- c(round(table(x$new_judgement_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,1])[c(2,3,1)]
+hip <- c(paste0(hip[1],"%"),
+          paste0(hip[2],"%"),
+          paste0(hip[3],"%"))
+
+ti <- c(table(x$new_judgement_binned1,x$Scenario_code
+              )[,2])[c(2,3,1)]
+
+tip <- c(round(table(x$new_judgement_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,2])[c(2,3,1)]
+tip <- c(paste0(tip[1],"%"),
+          paste0(tip[2],"%"),
+          paste0(tip[3],"%"))
+
+ii <- c(table(x$new_judgement_binned1,x$Scenario_code
+              )[,3])[c(2,3,1)]
+
+iip <- c(round(table(x$new_judgement_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,3])[c(2,3,1)]
+iip <- c(paste0(iip[1],"%"),
+          paste0(iip[2],"%"),
+          paste0(iip[3],"%"))
+
+
+ci <- c(table(x$new_judgement_binned1,x$Scenario_code
+              )[,4])[c(2,3,1)] # changed from c(1,2,3) on 5th October 2017
+
+cip <- c(round(table(x$new_judgement_binned1,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,4])[c(2,3,1)]
+cip <- c(paste0(cip[1],"%"),
+          paste0(cip[2],"%"),
+          paste0(cip[3],"%"))
+
+cp <- unname(cbind(rows,hi,hip,ci,cip,ii,iip,ti,tip))
+cp
+}
+
+#blank <- c("","","","","","","","","")
+# left_rows <- c("Study 1","","","","","",
+#                "Study 2","","","",
+#                "Study 3a","(critical slide)","","",
+#                "Study 3a","(coded)","","",
+#                "Study 3b","(critical slide)","","",
+#                "Study 3b","(coded)","")
+
+left_rows <- c("Study 1","","","","","",
+               "Study 2","","","","","",
+               "Study 3a","","","","","",
+               "Study 3b","","","","",""
+               )
+
+
+int_t <- ju_table(Interview)
+int_tr <- rev_table(Interview)
+cp1 <- ju_table(comp1)
+cp1_tr <- rev_table(comp1)
+cp2 <- ju_table(comp2)
+cp2_tr <- rev_table(comp2)
+#cp2str <- compstr_table(comp2)
+ol <- ju_table(online)
+ol_tr <- rev_table(online)
+#olstr <- compstr_table(online)
+
+#test1 <- unname(rbind(int_t,blank,cp1,blank,cp2,blank,cp2str,blank,ol,blank,olstr))
+test1 <- unname(rbind(int_t,int_tr,cp1,cp1_tr, cp2, cp2_tr, ol, ol_tr))
+rm(int_t,int_tr,cp1,cp1_tr, cp2, cp2_tr, ol, ol_tr)
+test1 <- cbind(unname(left_rows),test1)
+#unname(rbind(int_t,blank))
+
+
+
+#cols <- c("Study","Judgement","N","percent","N","percent","N","percent","N","percent")
+cols <- c("Study","Judgement"," ","Heinz"," ","Cannibal"," ","Incest"," ","Trolley")
+test1 <- `colnames<-`(test1, cols)
+test1
+Heinz <- c(3,4)
+Cannibal <- c(5,6)
+Incest <- c(7,8)
+Trolley <- c(9,10)
+
+spans_all <- list(Heinz,Cannibal,Incest,Trolley)
+rm(Heinz,Cannibal,Incest,Trolley,cols,left_rows,ju_table,rev_table)
+names(spans_all) <- c("Heinz","Cannibal","Incest","Trolley")
+
+#write.table(test1,"CMcHugh_table1_ammended.csv",sep = ",", row.names = F)
+#write.table()
+
+
+```
+
+
+```{r tab1judge,results = 'asis', include=TRUE}
+
+
+apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Ratings of each scenario for each study"
+   , added_stub_head = "Response to critical slide"
+   , col_spanners = spans_all
+   , small = TRUE
+   
+)
+
+rm(spans_all,test1)
+
+
+
+```
+
+
+```{r prep tab2 dumb, echo=FALSE, include=FALSE}
+
+x <- comp2
+
+int_table <- function(v){
+  
+  x <- v
+
+
+table(x$critical_slide,x$Scenario_code)
+
+table(x$Dumb_response,x$Scenario_code)
+
+rows <- c("Nothing wrong",
+          "Dumbfounded",
+          "(admissions)",
+          "(unsupported\ndeclarations)",
+          "reasons")
+
+hi <- c(table(x$Dumb_response,x$Scenario_code
+              )[,1])[c(1,3,4,2)]
+hi <- c(hi, c(table(x$critical_slide,
+                   x$Scenario_code)[2,])[1])
+hi <- hi[c(1,5,2,3,4)]
+
+
+hip <- c(round(table(x$Dumb_response,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,1])[c(1,3,4,2)]
+hip <- c(hip,c(round((table(x$critical_slide,
+                           x$Scenario_code)/
+                       (length(x$gender)/
+                          4)*100),digits = 2)[2,])[1])
+hip <- hip[c(1,5,2,3,4)]
+hip <- c(paste0(hip[1],"%"),
+         paste0(hip[2],"%"),
+         paste0(hip[3],"%"),
+         paste0(hip[4],"%"),
+         paste0(hip[5],"%"))
+
+
+ti <- c(table(x$Dumb_response,x$Scenario_code
+              )[,2])[c(1,3,4,2)]
+ti <- c(ti, c(table(x$critical_slide,
+                   x$Scenario_code)[2,])[2])
+ti <- ti[c(1,5,2,3,4)]
+
+tip <- c(round(table(x$Dumb_response,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,2])[c(1,3,4,2)]
+tip <- c(tip,c(round((table(x$critical_slide,
+                           x$Scenario_code)/
+                       (length(x$gender)/
+                          4)*100),digits = 2)[2,])[2])
+tip <- tip[c(1,5,2,3,4)]
+tip <- c(paste0(tip[1],"%"),
+         paste0(tip[2],"%"),
+         paste0(tip[3],"%"),
+         paste0(tip[4],"%"),
+         paste0(tip[5],"%"))
+
+
+
+ii <- c(table(x$Dumb_response,x$Scenario_code
+              )[,3])[c(1,3,4,2)]
+ii <- c(ii, c(table(x$critical_slide,
+                   x$Scenario_code)[2,])[3])
+ii <- ii[c(1,5,2,3,4)]
+
+iip <- c(round(table(x$Dumb_response,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,3])[c(1,3,4,2)]
+iip <- c(iip,c(round((table(x$critical_slide,
+                           x$Scenario_code)/
+                       (length(x$gender)/
+                          4)*100),digits = 2)[2,])[3])
+iip <- iip[c(1,5,2,3,4)]
+iip <- c(paste0(iip[1],"%"),
+         paste0(iip[2],"%"),
+         paste0(iip[3],"%"),
+         paste0(iip[4],"%"),
+         paste0(iip[5],"%"))
+
+
+ci <- c(table(x$Dumb_response,x$Scenario_code
+              )[,4])[c(1,3,4,2)]
+ci <- c(ci, c(table(x$critical_slide,
+                   x$Scenario_code)[2,])[4])
+ci <- ci[c(1,5,2,3,4)]
+
+cip <- c(round(table(x$Dumb_response,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,4])[c(1,3,4,2)]
+cip <- c(cip,c(round((table(x$critical_slide,
+                           x$Scenario_code)/
+                       (length(x$gender)/
+                          4)*100),digits = 2)[2,])[4])
+cip <- cip[c(1,5,2,3,4)]
+cip <- c(paste0(cip[1],"%"),
+         paste0(cip[2],"%"),
+         paste0(cip[3],"%"),
+         paste0(cip[4],"%"),
+         paste0(cip[5],"%"))
+rows <- c("Nothing wrong","Dumbfounded","(admissions)","(declarations)","Reasons")
+
+inttt <- unname(cbind(rows,hi,hip,ci,cip,ii,iip,ti,tip))
+
+#as.matrix(test1)
+
+
+
+
+inttt
+}
+
+comp_table <- function(v){
+x <- v
+
+rows <- c("Nothing wrong", "Dumbfounded", "Reasons")
+
+hi <- c(table(x$critical_slide,x$Scenario_code
+              )[,1])
+
+hip <- c(round(table(x$critical_slide,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,1])
+hip <- c(paste0(hip[1],"%"),
+          paste0(hip[2],"%"),
+          paste0(hip[3],"%"))
+
+ti <- c(table(x$critical_slide,x$Scenario_code
+              )[,2])
+
+tip <- c(round(table(x$critical_slide,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,2])
+tip <- c(paste0(tip[1],"%"),
+          paste0(tip[2],"%"),
+          paste0(tip[3],"%"))
+
+ii <- c(table(x$critical_slide,x$Scenario_code
+              )[,3])
+
+iip <- c(round(table(x$critical_slide,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,3])
+iip <- c(paste0(iip[1],"%"),
+          paste0(iip[2],"%"),
+          paste0(iip[3],"%"))
+
+
+ci <- c(table(x$critical_slide,x$Scenario_code
+              )[,4])
+
+cip <- c(round(table(x$critical_slide,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,4])
+cip <- c(paste0(cip[1],"%"),
+          paste0(cip[2],"%"),
+          paste0(cip[3],"%"))
+
+cp <- unname(cbind(rows,hi,hip,ci,cip,ii,iip,ti,tip))
+cp
+}
+
+compstr_table <- function(v){
+x <- v
+
+rows <- c("Nothing wrong", "Dumbfounded", "Reasons")
+
+hi <- c(table(x$Dumb_incl_string,x$Scenario_code
+              )[,1])
+
+hip <- c(round(table(x$Dumb_incl_string,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,1])
+hip <- c(paste0(hip[1],"%"),
+          paste0(hip[2],"%"),
+          paste0(hip[3],"%"))
+
+ti <- c(table(x$Dumb_incl_string,x$Scenario_code
+              )[,2])
+
+tip <- c(round(table(x$Dumb_incl_string,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,2])
+tip <- c(paste0(tip[1],"%"),
+          paste0(tip[2],"%"),
+          paste0(tip[3],"%"))
+
+ii <- c(table(x$Dumb_incl_string,x$Scenario_code
+              )[,3])
+
+iip <- c(round(table(x$Dumb_incl_string,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,3])
+iip <- c(paste0(iip[1],"%"),
+          paste0(iip[2],"%"),
+          paste0(iip[3],"%"))
+
+
+ci <- c(table(x$Dumb_incl_string,x$Scenario_code
+              )[,4])
+
+cip <- c(round(table(x$Dumb_incl_string,
+                   x$Scenario_code)/
+               (length(x$gender)/
+                  4)*100,
+             digits=2)[,4])
+cip <- c(paste0(cip[1],"%"),
+          paste0(cip[2],"%"),
+          paste0(cip[3],"%"))
+
+cp <- unname(cbind(rows,hi,hip,ci,cip,ii,iip,ti,tip))
+cp
+}
+
+#blank <- c("","","","","","","","","")
+# left_rows <- c("Study 1","","","","","",
+#                "Study 2","","","",
+#                "Study 3a","(critical slide)","","",
+#                "Study 3a","(coded)","","",
+#                "Study 3b","(critical slide)","","",
+#                "Study 3b","(coded)","")
+
+left_rows <- c("Study 1","","","","",
+               "Study 2","","",
+               "Study 3a","(critical slide)","",
+               "Study 3a","(coded)","",
+               "Study 3b","(critical slide)","",
+               "Study 3b","(coded)","")
+
+
+int_t <- int_table(Interview)
+cp1 <- comp_table(comp1)
+cp2 <- comp_table(comp2)
+cp2str <- compstr_table(comp2)
+ol <- comp_table(online)
+olstr <- compstr_table(online)
+
+#test1 <- unname(rbind(int_t,blank,cp1,blank,cp2,blank,cp2str,blank,ol,blank,olstr))
+test1 <- unname(rbind(int_t,cp1,cp2,cp2str,ol,olstr))
+rm(int_t,cp1,cp2,cp2str,ol,olstr)
+test1 <- cbind(unname(left_rows),test1)
+#unname(rbind(int_t,blank))
+
+
+#cols <- c(" "," ","N","percent","N","percent","N","percent","N","percent")
+cols <- c(" "," "," ","Heinz"," ","Cannibal"," ","Incest"," ","Trolley")
+
+test1 <- `colnames<-`(test1, cols)
+test1
+Heinz <- c(3,4)
+Cannibal <- c(5,6)
+Incest <- c(7,8)
+Trolley <- c(9,10)
+
+spans_all <- list(Heinz,Cannibal,Incest,Trolley)
+
+names(spans_all) <- c("Heinz","Cannibal","Incest","Trolley")
+
+rm(Heinz,Cannibal,Incest,Trolley,cols,left_rows,int_table,comp_table,compstr_table)
+
+# table(x$critical_slide,x$Scenario_code
+#               )[,2]
+# 
+# cbind(levels(Interview$Dumb_response),levels(comp1$critical_slide),levels(comp2$Dumb_incl_string))
+
+```
+
+
+```{r tab2dumb,results = 'asis', include=TRUE}
+
+
+apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c", "c", "c", "c", "c")
+   , caption = "Observed frequency and percentage of each of the responses: dumbfounded, nothing wrong, and reasons provided"
+   , added_stub_head = "Response to critical slide"
+   , col_spanners = spans_all
+   , small = TRUE
+   
+)
+
+rm(spans_all,test1)
+
+```
+
+
+```{r prep tab3 Qs, echo=FALSE, include=FALSE}
+df5 <- searching_all #read.spss('Data_updated_april_18.sav', to.data.frame = TRUE)
+
+# create separate data frames for each experiment (long)
+Interview <- df5[which(df5$Experiment=='Interview'),]
+comp1 <- df5[which(df5$Experiment=='1st computer task'),]
+comp2 <- df5[which(df5$Experiment=='2nd computer task'),]
+online <- df5[which(df5$Experiment=='online (2nd computer replication)'),]
+
+
+Qs_table <- function(){
+mean1 <- function(x){
+  mean(x,na.rm=TRUE)
+}
+
+
+comp1$new_confidence[which(comp1$new_confidence=="0")] <- NA
+
+Qs <- function(df){
+x <- df
+
+
+y <- round(rbind(
+  tapply(x$changed, x$Scenario_code,mean1),
+  tapply(x$new_confidence, x$Scenario_code,mean1),
+  tapply(x$confused, x$Scenario_code,mean1),
+  tapply(x$Irritated, x$Scenario_code,mean1),
+  tapply(x$gut, x$Scenario_code,mean1),
+  tapply(x$reason, x$Scenario_code,mean1),
+  tapply(x$gut_minus_reason, x$Scenario_code,mean1)
+),digits=2)
+#y <- sprintf("%.2f",y)
+
+z <- c("Changed mind",
+       "Confidence",
+       "Confused",
+       "Irritated",
+       "'Gut'",
+       "'Reason'",
+       "Gut minus Reason")
+cbind.data.frame(z,y)
+}
+
+Qs_cp1 <- function(df){
+x <- df
+
+y <- round(rbind(
+  #tapply(x$changed, x$Scenario_code,mean1),
+  tapply(x$new_confidence, x$Scenario_code,mean1),
+  tapply(x$confused, x$Scenario_code,mean1),
+  tapply(x$Irritated, x$Scenario_code,mean1),
+  tapply(x$gut, x$Scenario_code,mean1),
+  tapply(x$reason, x$Scenario_code,mean1),
+  tapply(x$gut_minus_reason, x$Scenario_code,mean1)
+),digits=2)
+#y <- print(sprintf("%.2f",y))
+z <- c("Confidence",
+       "Confused",
+       "Irritated",
+       "'Gut'",
+       "'Reason'",
+       "Gut minus Reason")
+cbind.data.frame(z,y)
+}
+Qs(comp2)
+Int <- Qs(Interview)
+cp1 <- Qs_cp1(comp1)
+cp2 <- Qs(comp2)
+onl <- Qs(online)
+
+y <- rbind(Int,cp1,cp2,onl)
+
+rows_left <- c("Study 1","","","","","","",
+               "Study 2","","","","","",
+               "Study 3a","","","","","","",
+               "Study 3b","","","","","","")
+
+t <- unname(cbind.data.frame(rows_left,y[,1],y[,2],y[,5],y[,4],y[,3]))
+
+
+t
+}
+
+test1 <- Qs_table()
+cols <- c("Study","Question","Heinz","Cannibal","Incest","Trolley")
+test1 <- `colnames<-`(test1, cols)
+
+
+```
+
+```{r tab3Qs,results = 'asis', include=TRUE}
+
+
+apa_table(
+   test1
+   , align = c("l", "l", "c", "c", "c", "c")
+   , caption = "Responses to post-discussion questionnaire questions"
+   #, added_stub_head = "Response to critical slide"
+   , small = TRUE
+   
+)
+
+rm(test1)
+
+```
+
+<html>
+<style> 
+
+.references {
+  padding-left: 42px ;
+  text-indent: -42px ;
+  font-size: 10pt    ;
+} 
+
+</style>
+</html>
+
+
+## References
+

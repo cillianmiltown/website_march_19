@@ -36,8 +36,48 @@ publication = "Journal of Behavioral Decision Making"
 
 +++
 
+<nav id="TableOfContents">
+<ul>
+<li><a href="#introduction">1 | Introduction</a>
+<ul>
+<li><a href="#the-influence-of-moral-dumbfounding">1.1 | The Influence of Moral Dumbfounding</a></li>
+<li><a href="#challenging-the-dumbfounding-paradigm">1.2 | Challenging the Dumbfounding Paradigm</a></li>
+<li><a href="#evidence-for-judgments-based-on-reasons-or-principles">1.3 | Evidence for Judgments Based on Reasons or Principles</a></li>
+<li><a href="#reasons-or-rationalisations">1.4 | Reasons or Rationalisations</a></li>
+<li><a href="#the-current-studies">1.5 | The Current Studies</a></li>
+</ul></li>
+<li><a href="#study-1-articulating-and-endorsing">2 | Study 1: Articulating and Endorsing</a>
+<ul>
+<li><a href="#method">2.1 | Method</a></li>
+<li><a href="#results-and-discussion">2.2 | Results and Discussion</a></li>
+</ul></li>
+<li><a href="#study-2-applying-moral-principles-across-contexts">3 | Study 2: Applying Moral Principles Across Contexts</a>
+<ul>
+<li><a href="#method-1">3.1 | Method</a></li>
+<li><a href="#results-and-discussion-1">3.2 | Results and Discussion</a></li>
+</ul></li>
+<li><a href="#study-3-replication-and-extension">4 | Study 3: Replication and Extension</a>
+<ul>
+<li><a href="#method-1">3.1 | Method</a></li>
+<li><a href="#results-and-discussion-1">3.2 | Results and Discussion</a></li>
+</ul></li>
+<li><a href="#general-discussion">5 | General Discussion</a>
+<ul>
+<li><a href="#the-norm-principle-and-unsupported-declarations">5.1 | The Norm Principle and Unsupported Declarations</a></li>
+<li><a href="#consistency-between-endorsed-principles-and-expressed-judgments-3">5.2 | Consistency Between Endorsed Principles and Expressed Judgments</a></li>
+<li><a href="#implications">5.3 | Implications</a></li>
+<li><a href="#limitations-and-future-directions">5.4 | Limitations and Future Directions</a></li>
+</ul></li>
+<li><a href="#conclusion">6 | Conclusion</a>
+<ul></ul></li>
+<li><a href="#data-accessibility-statement">7 | Data Accessibility Statement</a>
+<ul></ul></li>
+</ul>
+</nav>
+
 <div id="introduction" class="section level1">
 <h1>1 | Introduction</h1>
+
 <p>Moral dumbfounding occurs when people maintain a moral judgment even though they cannot provide a reason in support of this judgment <span class="citation">(Haidt, Björklund, and Murphy 2000; Haidt 2001)</span>. It is typically evoked when people encounter taboo behaviors that do not result in any harm <span class="citation">(Haidt, Björklund, and Murphy 2000; Haidt 2001; see also McHugh et al. 2017)</span>. One example of such a behavior can be found in the widely discussed <em>Incest</em> scenario, which reads as follows:</p>
 <blockquote>
 <p>Julie and Mark, who are brother and sister are traveling together in France. They are both on summer vacation from college. One night they are staying alone in a cabin near the beach. They decide that it would be interesting and fun if they tried making love. At very least it would be a new experience for each of them. Julie was already taking birth control pills, but Mark uses a condom too, just to be safe. They both enjoy it, but they decide not to do it again. They keep that night as a special secret between them, which makes them feel even closer to each other. <span class="citation">(Haidt, Björklund, and Murphy 2000, 22)</span></p>
@@ -59,6 +99,7 @@ publication = "Journal of Behavioral Decision Making"
 </div>
 <div id="evidence-for-judgments-based-on-reasons-or-principles" class="section level2">
 <h2>1.3 | Evidence for Judgments Based on Reasons or Principles</h2>
+
 <p>A recent series of studies by <span class="citation">Royzman, Kim, and Leeman (2015)</span>, investigating the <em>Incest</em> scenario specifically, aimed to identify if participants presenting as dumbfounded genuinely had no reasons to support their judgments. In line with <span class="citation">Jacobson (2012)</span>, they claim that dumbfounding occurs as a result of social pressure to adhere to conversational norms, arguing that dumbfounded participants do have reasons for their judgments and that these reasons are incorrectly dismissed as invalid by the experimenter. They argue that dumbfounded responding occurs as a result of social pressure to avoid appearing “uncooperative” <span class="citation">(Royzman, Kim, and Leeman 2015, 299)</span>, “inattentive” or “stubborn” <span class="citation">(2015, 300)</span>. In addition to this claim, <span class="citation">Royzman, Kim, and Leeman (2015)</span> identify two justifying principles that may be guiding participants’ judgments: the harm principle and the norm principle. They argue that when excluding from analysis participants who endorse either of these principles, incidences of dumbfounding are negligible.</p>
 <p>In identifying the <em>harm principle</em>, <span class="citation">Royzman, Kim, and Leeman (2015)</span> draw on the work of <span class="citation">Gray, Schein, and Ward (2014)</span>. They hypothesised that participants may not believe the scenario to be harm free even in the face of repeated assurances from the experimenter that it is harm free. If a participant does not believe that an act is truly harm free then this provides them with a perfectly valid reason to judge it as morally wrong <span class="citation">(Gray, Schein, and Ward 2014; Royzman, Kim, and Leeman 2015)</span>. They devised two questions which served as a “credulity check” <span class="citation">(Royzman, Kim, and Leeman 2015, 309)</span>, to assess whether or not participants believed that the <em>Incest</em> scenario was harm-free. The questions read as follows: (i) “Having read the story and considering the arguments presented, are you able to believe that Julie and Mark’s having sex with each other will not negatively affect the quality of their relationship or how they feel about each other later on?”; (ii) “Having read the story and considering the arguments presented, are you able to believe that Julie and Mark’s having sex with each other will have no bad consequences for them personally and/or for those close to them?” <span class="citation">(Royzman, Kim, and Leeman 2015, 302–3)</span>. If participants responded “No” to either of these questions, their judgments were attributed to harm-based reasons, and therefore they could not be identified as dumbfounded.</p>
 <p>The second principle identified by <span class="citation">Royzman, Kim, and Leeman (2015)</span> is the <em>norm principle</em>. They argue that if people believe that committing a particular act is wrong, regardless of the circumstances, then, for these people, this belief may be sufficient to serve as a reason to condemn the behavior of the characters in the scenario. <span class="citation">Royzman, Kim, and Leeman (2015)</span> presented participants with two statements: (a) “violating an established moral norm just for fun or personal enjoyment is wrong only in situations where someone is harmed as a result, but is acceptable otherwise”; (b) “violating an established moral norm just for fun or personal enjoyment is inherently wrong even in situations where no one is harmed as a result” (Royzman et al., 2015, p. 305). If participants endorsed (b) over (a) they reasoned that a judgment could be legitimately defended using a normative statement. They suggest that the “unsupported declarations” <span class="citation">(Haidt, Björklund, and Murphy 2000, 12)</span> identified by <span class="citation">Haidt, Björklund, and Murphy (2000)</span> are statements of a normative position, and that, rather than being a viewed as a dumbfounded response, they may be viewed as reasons for judgments.</p>
@@ -880,7 +921,7 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-  window.buildTabsets("TOC");
+  window.buildTabsets("TableOfContents");
 });
 
 $(document).ready(function () {

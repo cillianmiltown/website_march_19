@@ -18,8 +18,9 @@ caption = ""
 Check out [Cillian Mc Hugh](https://open.spotify.com/artist/4YrhGzeBXwDn6FM4WfI8b1) on Spotify. Have a listen to the new album below.
 
 
-<iframe name="mini" style="border:0px;width:100%;height:100px;" src="//widget.cdbaby.com/9ec66339-2f89-48c1-a6b8-a5b4d4debee8/mini/dark/opaque"></iframe>
+<br>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=OLAK5uy_mYaYyP7L_Zq72SMK54b7lnV3nFXMDiHmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br><br>
 
 (follow one of the links below for more information)

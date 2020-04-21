@@ -10,14 +10,46 @@ share: true  # Show social sharing links?
 profile: false  # Show author profile?
 comments: false  # Show comments?
 output:
-  blogdown::html_page:
-    toc: true
+  blogdown::html_page
 editor_options: 
   chunk_output_type: console
 ---
 
-{{% toc %}}
-
+<nav id="TableOfContents">
+<ul>
+<li><a href="#what-is-moral-dumbfounding">What is Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#influence-of-moral-dumbfounding">Influence of Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#evidence-for-moral-dumbfounding">Evidence for Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#defining-and-measuring-moral-dumbfounding">Defining and Measuring Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#our-studies">Our Studies</a>
+<ul></ul></li>
+<li><a href="#study-1-interview">Study 1 (Interview)</a><ul>
+<li><a href="#results">Results</a></li>
+<li><a href="#behavioural-responses">Behavioural Responses</a></li>
+</ul></li>
+<li><a href="#study-2-computer-task">Study 2 (Computer Task)</a><ul>
+<li><a href="#results-1">Results</a></li>
+</ul></li>
+<li><a href="#study-3-revised-computer-task">Study 3 (Revised Computer Task)</a><ul>
+<li><a href="#results---admissions-only">Results - Admissions Only</a></li>
+<li><a href="#results---including-open-ended-responses">Results - <em>including open-ended responses</em></a></li>
+</ul></li>
+<li><a href="#discussion">Discussion</a>
+<ul></ul></li>
+<li><a href="#conclusion">Conclusion</a>
+<ul></ul></li>
+<li><a href="#additional-material">Additional Material</a><ul>
+<li><a href="#moral-scenarios">Moral Scenarios</a></li>
+<li><a href="#combined-figures">Combined Figures</a></li>
+<li><a href="#combined-tables">Combined Tables</a></li>
+<li><a href="#references">References</a></li>
+</ul></li>
+</ul>
+</nav>
 
  
 

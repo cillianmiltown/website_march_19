@@ -37,6 +37,48 @@ publication = "Collabra: Psychology"
 
 +++
 
+<nav id="TableOfContents">
+<ul>
+<li><a href="#defining-and-measuring-moral-dumbfounding">Defining and Measuring Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#the-short-history-of-moral-dumbfounding">(The Short) History of Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#moral-dumbfounding-and-moral-intuitions">Moral Dumbfounding and Moral Intuitions</a>
+<ul></ul></li>
+<li><a href="#challenges-to-moral-dumbfounding">Challenges to Moral Dumbfounding</a>
+<ul></ul></li>
+<li><a href="#the-current-research">The Current Research</a>
+<ul></ul></li>
+<li><a href="#study-1-interview">Study 1: Interview</a><ul>
+<li><a href="#method">Method</a></li>
+<li><a href="#results-and-discussion">Results and Discussion</a></li>
+</ul></li>
+<li><a href="#study-2-initial-computerised-task">Study 2: Initial Computerised Task</a><ul>
+<li><a href="#method-1">Method</a></li>
+<li><a href="#results-and-discussion-1">Results and Discussion</a></li>
+</ul></li>
+<li><a href="#study-3a-revised-computerised-task-college-sample">Study 3a: Revised Computerised Task – College sample</a><ul>
+<li><a href="#method-2">Method</a></li>
+<li><a href="#results-and-discussion-2">Results and Discussion</a></li>
+</ul></li>
+<li><a href="#study-3b-revised-computerised-task-mturk">Study 3b: Revised Computerised Task – MTurk</a><ul>
+<li><a href="#method-3">Method</a></li>
+<li><a href="#results-and-discussion-3">Results and Discussion</a></li>
+</ul></li>
+<li><a href="#combined-results-and-discussion">Combined Results and Discussion</a><ul>
+<li><a href="#evaluating-each-measure-of-dumbfounding">Evaluating each Measure of Dumbfounding</a></li>
+<li><a href="#differences-between-scenarios">Differences between Scenarios</a></li>
+<li><a href="#differences-between-the-samples">Differences between the Samples</a></li>
+</ul></li>
+<li><a href="#general-discussion">General Discussion</a><ul>
+<li><a href="#intuition-versus-reasoning">Intuition versus Reasoning</a></li>
+<li><a href="#implications">Implications</a></li>
+<li><a href="#responding-to-criticisms">Responding to Criticisms</a></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion</a>
+<ul></ul></li>
+</ul>
+</nav>
 
 <p>Moral dumbfounding occurs when people stubbornly maintain a moral judgement, even though they can provide no reason to support their judgements <span class="citation">(Haidt 2001; Haidt, Björklund, and Murphy 2000; Prinz 2005)</span>. It typically manifests as a state of confusion or puzzlement coupled with ( a ) an admission of not having reasons or ( b ) the use of unsupported declarations (“It’s just wrong!”) as justification for a judgement <span class="citation">(Haidt, Björklund, and Murphy 2000; Haidt and Hersh 2001)</span>, particularly, when people encounter taboo behaviours that do not result in any harm. The classic and most commonly cited example involves an act of consensual incest between a brother and sister with the use of contraceptive (<em>Incest</em>). Another example (<em>Cannibal</em>) involves an act of cannibalism with a body that is already dead and is due to be incinerated the next day <span class="citation">(Haidt, Björklund, and Murphy 2000)</span>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div id="defining-and-measuring-moral-dumbfounding" class="section level1">

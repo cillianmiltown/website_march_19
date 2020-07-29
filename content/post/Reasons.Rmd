@@ -20,7 +20,7 @@ editor_options:
 <li><a href="#background">Background</a>
 <ul></ul></li>
 <li><a href="#challenges-to-moral-dumbfounding">Challenges to Moral Dumbfounding</a><ul>
-<li><a href="evidence-for-judgements-based-on-principles-or-reasons">Evidence for Judgements based on Principles or Reasons</a></li>
+<li><a href="#evidence-for-judgements-based-on-principles-or-reasons">Evidence for Judgements based on Principles or Reasons</a></li>
 </ul></li>
 <ul></ul></li>
 <li><a href="#reasons-or-rationalizations">Reasons or Rationalizations</a><ul>

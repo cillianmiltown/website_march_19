@@ -22,7 +22,7 @@ shorttitle = "MJAC"
 #url = "/post/searching-for-dumbfounding/"
 doi = "10.31234/osf.io/72dzp"
 
-abstract = "Observed variability and complexity of judgments of ‘right’ and ‘wrong’ cannot be readily accounted for within extant approaches to understanding moral judgment. In response to this challenge, we present a novel perspective on categorization in moral judgment. Moral judgment as categorization (MJAC) incorporates principles of category formation research while addressing key challenges of existing approaches to moral judgment. People develop skills in making context-relevant categorizations. They learn that various objects (events, behaviors, people, etc.) can be categorized as morally ‘right’ or ‘wrong’. Repetition and rehearsal results in reliable, habitualized categorizations. According to this skill formation account of moral categorization, the learning and the habitualization of the forming of moral categories, occurs within goal-directed activity that is sensitive to various contextual influences. By allowing for the complexity of moral judgments, MJAC offers greater explanatory power than existing approaches while also providing opportunities for a diverse range of new research questions."
+abstract = "Observed variability and complexity of judgments of 'right' and 'wrong' cannot be readily accounted for within extant approaches to understanding moral judgment. In response to this challenge, we present a novel perspective on categorization in moral judgment. Moral judgment as categorization (MJAC) incorporates principles of category formation research while addressing key challenges of existing approaches to moral judgment. People develop skills in making context-relevant categorizations. They learn that various objects (events, behaviors, people, etc.) can be categorized as morally 'right' or 'wrong'. Repetition and rehearsal results in reliable, habitualized categorizations. According to this skill formation account of moral categorization, the learning and the habitualization of the forming of moral categories, occurs within goal-directed activity that is sensitive to various contextual influences. By allowing for the complexity of moral judgments, MJAC offers greater explanatory power than existing approaches while also providing opportunities for a diverse range of new research questions."
 
 publication = "Perspectives on Psychological Science"
 
@@ -34,8 +34,8 @@ publication = "Perspectives on Psychological Science"
 #image = "20181101_080705.jpg"
 #caption = ""
 
-
 +++ 
+
 
 <style>
   /* toc style */

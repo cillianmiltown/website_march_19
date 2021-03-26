@@ -92,7 +92,7 @@ publication = "Perspectives on Psychological Science"
   }
 </style>
 
-
+<aside>
 <nav id="TableOfContents">
 <ul>
 <li><a href="#moral-judgment-as-categorization-mjac">Moral Judgment as Categorization (MJAC)</a>
@@ -124,6 +124,8 @@ publication = "Perspectives on Psychological Science"
 <ul></ul></li>
 </ul>
 </nav>
+</aside>
+
 
 <div id="moral-judgment-as-categorization-mjac" class="section level1">
 <h1>Moral Judgment as Categorization (MJAC)</h1>

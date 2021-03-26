@@ -18,7 +18,7 @@ publication_types = ["2"]
 
 shorttitle = "MJAC"
 
-url_source = " "
+# url_source = " "
 #url = "/post/searching-for-dumbfounding/"
 doi = "10.31234/osf.io/72dzp"
 

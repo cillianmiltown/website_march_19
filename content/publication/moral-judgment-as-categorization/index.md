@@ -1,6 +1,6 @@
 +++
 title = "Moral Judgment as Categorization (MJAC)"
-date = 2021-03-03T00:00:00
+date = 2021-03-04T00:00:00
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = ["Cillian McHugh", "Marek McGann", "Eric R. Igou", "Elaine L. Kinsella"]

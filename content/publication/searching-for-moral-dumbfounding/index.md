@@ -1540,4 +1540,14 @@ $(document).ready(function () {
   })();
 </script>
 
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.0/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#3f51b5',
+  textColor: '#fff'
+})</script>
+
+
+
 </body>

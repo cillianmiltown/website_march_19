@@ -3,14 +3,14 @@
 title = "Individual differences"
 
 # Date this page was created.
-date = 2020-06-01T00:00:00
+date = 2020-11-01T00:00:00
 
 # Project summary to display on homepage.
-summary = "Complete a long survey"
+summary = "Complete a longer survey"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["covid19", "bayesian", "stan"]`
-tags = ["statistics", "stan", "R"]
+tags = ["Personality", "Morality", "Thinking Styles", "Religiosity"]
 
 # Optional external URL for project (replaces project detail page).
 external_link = "https://unioflimerick.eu.qualtrics.com/jfe/form/SV_39Hz8GlPQD63tPv"

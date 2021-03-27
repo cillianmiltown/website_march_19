@@ -13,12 +13,13 @@ editor_options:
   chunk_output_type: console
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>(This post originally appeared on my <a href="https://cillianmacaodh.blogspot.com/2017/07/writing-functions-part-one-codewhite.html">R blog</a>)</p>
 <div id="writing-functions" class="section level2">
 <h2>Writing functions</h2>
-<p>This post outlines the writing of a basic function. Writing functions in R <span class="citation">(R Core Team <a href="#ref-R-base">2017</a>)</span> is fairly simple, and the usefulness of function writing cannot be conveyed in a single post. I have included “Part one” in the title, and I will add follow-up posts in time.</p>
+<p>This post outlines the writing of a basic function. Writing functions in R <span class="citation">(R Core Team <a href="#ref-R-base" role="doc-biblioref">2017</a>)</span> is fairly simple, and the usefulness of function writing cannot be conveyed in a single post. I have included “Part one” in the title, and I will add follow-up posts in time.</p>
 <p>The basic code to write a function looks like this:</p>
 <pre><code>function_name &lt;- function(){}</code></pre>
 <p>The code for the task you want your function to perform goes inside the curly brackets <code>{}</code>, and the object you wish the function to work on goes inside the parenthesis<code>()</code>.</p>
@@ -73,11 +74,17 @@ editor_options:
 <h3>Conclusion</h3>
 <p>I find myself writing functions regularly, for various tasks. Often a function may be specific to a particular task, or even to a particular dataset. One example of such a function builds on the previous post, in which I described how to create a dataframe from multiple files. In practice, I rarely create data frames exactly as described. I usually nest the “read.csv” function within a larger function that also sorts the data, creating a more manageable dataframe, better suited to my purposes; e.g., removing variables that are of no interest or computing/recoding variables. I can then run this function to build my dataframe at the start of a session.</p>
 </div>
-<div id="references" class="section level3 unnumbered">
+<div id="references" class="section level3">
 <h3>References</h3>
-<div id="refs" class="references">
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.0/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#3f51b5',
+  textColor: '#fff'
+})</script>
+<div id="refs" class="references hanging-indent">
 <div id="ref-R-base">
-<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing.</p>
 </div>
 </div>
 </div>
@@ -85,6 +92,6 @@ editor_options:
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Most of what <code>descriptives()</code> does can also be achieved by the <code>summary()</code> function, however <code>sd()</code> and <code>length()</code> are missing.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Most of what <code>descriptives()</code> does can also be achieved by the <code>summary()</code> function, however <code>sd()</code> and <code>length()</code> are missing.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

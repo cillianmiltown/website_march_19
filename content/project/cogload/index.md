@@ -3,14 +3,14 @@
 title = "Moral Judgements"
 
 # Date this page was created.
-date = 2020-06-01T00:00:00
+date = 2020-03-10T00:00:00
 
 # Project summary to display on homepage.
-summary = "Complete a 5 min on Moral Judgments"
+summary = "Complete a short 5 min survey"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["covid19", "bayesian", "stan"]`
-tags = ["statistics", "stan", "R"]
+tags = ["Morality", "Attention", "Memory"]
 
 # Optional external URL for project (replaces project detail page).
 external_link = "https://6aqcxoaxdw.cognition.run"

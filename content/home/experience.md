@@ -20,8 +20,6 @@ date_format = "January 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 
-
-
 [[experience]]
   title = "Postdoctoral Researcher and Editorial Manager at [*Political Psychology*](https://onlinelibrary.wiley.com/journal/14679221?tabActivePane=)"
   company = "University of Limerick"

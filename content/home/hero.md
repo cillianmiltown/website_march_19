@@ -23,7 +23,7 @@ hero_media = ""
   #gradient_end = "#2b94c3"
   
   # Background image.
-   image = "20181101_080705.jpg"  # Name of image in `static/img/`.
+   image = "20210214_162331.jpg"  # Name of image in `static/img/`.
    image_darken = 0.5  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
 
   # Text color (true=light or false=dark).

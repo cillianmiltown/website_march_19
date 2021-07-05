@@ -111,7 +111,7 @@ Will come again, will come again...<br>
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
-Walking home across the city from the train to the plane<br>
+Walking home, across the city from the train to the plane<br>
 You're on your own, there's no pity there's no pain in vain<br>
 When you said good-bye on the platform this time<br>
 Like you said good-bye the first time<br>

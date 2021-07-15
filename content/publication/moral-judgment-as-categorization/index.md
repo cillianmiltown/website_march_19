@@ -1,6 +1,6 @@
 +++
 title = "Moral Judgment as Categorization (MJAC)"
-date = 2021-03-04T00:00:00
+date = 2021-07-15T00:00:00
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = ["Cillian McHugh", "Marek McGann", "Eric R. Igou", "Elaine L. Kinsella"]
@@ -18,15 +18,15 @@ publication_types = ["2"]
 
 shorttitle = "MJAC"
 
-# url_source = " "
-#url = "/post/searching-for-dumbfounding/"
-doi = "10.31234/osf.io/72dzp"
+url_source = "https://journals.sagepub.com/doi/full/10.1177/1745691621990636"
+#url = "https://journals.sagepub.com/doi/full/10.1177/1745691621990636"
+doi = "10.1177%2F1745691621990636"
 
 abstract = "Observed variability and complexity of judgments of 'right' and 'wrong' cannot be readily accounted for within extant approaches to understanding moral judgment. In response to this challenge, we present a novel perspective on categorization in moral judgment. Moral judgment as categorization (MJAC) incorporates principles of category formation research while addressing key challenges of existing approaches to moral judgment. People develop skills in making context-relevant categorizations. They learn that various objects (events, behaviors, people, etc.) can be categorized as morally 'right' or 'wrong'. Repetition and rehearsal results in reliable, habitualized categorizations. According to this skill formation account of moral categorization, the learning and the habitualization of the forming of moral categories, occurs within goal-directed activity that is sensitive to various contextual influences. By allowing for the complexity of moral judgments, MJAC offers greater explanatory power than existing approaches while also providing opportunities for a diverse range of new research questions."
 
 publication = "Perspectives on Psychological Science"
 
-#url_pdf = ""
+url_pdf = "https://journals.sagepub.com/doi/pdf/10.1177/1745691621990636"
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.

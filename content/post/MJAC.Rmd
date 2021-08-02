@@ -1,0 +1,338 @@
+---
+title: "Moral Judgment as Categorization (MJAC) - Explanation and Development"
+author: "Cillian McHugh"
+date: "2020-08-02"
+slug: mjac
+bibliography: [../../static/bib/MyLibrary.bib]
+csl: [../../static/bib/apa.csl]
+link-citations: true
+reading_time: true  # Show estimated reading time?
+share: true  # Show social sharing links?
+profile: false  # Show author profile?
+comments: false  # Show comments?
+dark_mode: false
+editor_options: 
+  chunk_output_type: console
+---
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#background">Background</a>
+<ul></ul></li>
+<li><a href="#moral-categorization">Moral Categorization</a><ul>
+</ul></li>
+<ul></ul></li>
+<li><a href="#understanding-mjac">Understanding MJAC</a><ul>
+<li><a href="#applying-mjac">Applying MJAC</a></li>
+<li><a href="#contrasting-mjac-with-existing-approaches">Contrasting MJAC with Existing Approaches</a></li>
+</ul></li>
+<ul></ul></li>
+<li><a href="#developing-and-publishing-mjac">Developing and Publishing MJAC</a><ul>
+<li><a href="#rejections">Rejections</a></li>
+<li><a href="#revisions">Revisions</a></li>
+</ul></li>
+<ul></ul></li>
+<li><a href="#references">References</a>
+<ul></ul></li>
+</ul>
+</nav>
+
+
+```{r setup, include = FALSE}
+#knitr::opts_chunk$set(comment = NA, eval = FALSE)
+knitr::opts_chunk$set(echo = FALSE, include = FALSE)
+```
+
+
+
+```{r load_libraries_cogload}
+rm(list = ls())
+
+
+
+#source("load_all_data.R")
+
+#devtools::install_github("benmarwick/wordcountaddin")
+#library(wordcountaddin)
+#wordcountaddin::text_stats("cogload_1to5.Rmd")
+getwd()
+
+```
+
+
+```{r colors1}
+
+r_slidetot <- 82
+
+
+#Color Format
+colFmt = function(x,color){
+  outputFormat = knitr::opts_knit$get("rmarkdown.pandoc.to")
+  if(outputFormat == 'latex')
+    paste("\\textcolor{",color,"}{",x,"}",sep="")
+  else if(outputFormat == 'html')
+    paste("<font color='",color,"'>",x,"</font>",sep="")
+  else
+    x
+}
+
+#rgb(255, 0, 0);
+
+sentiment <- '#ff744e'
+rational1 <- '#2faace'
+rational <- '#248aa8'
+conflict1 <- '#7d0552'
+conflict <- '#2f8d2f'
+cogload <- '#a0522d'
+dual <- '#b93b8f'
+lightgrey <- '#c0c0c0'
+
+
+# \definecolor{sentiment}{RGB}{255, 115, 115} #ff7300 or #ff744e
+# 
+# % \definecolor{rational}{RGB}{47,170,206} #2faace
+# 
+# \definecolor{rational}{RGB}{36, 138, 168} #248aa8
+# 
+# % \definecolor{conflict}{RGB}{125, 5, 82} #7d0552
+# 
+# \definecolor{cogload}{RGB}{160, 82, 45} #a0522d
+# 
+# \definecolor{conflict}{RGB}{47,141,47} #2f8d2f
+# 
+# \definecolor{dual}{RGB}{185, 59, 143} #b93b8f
+# 
+# \definecolor{lightgrey}{RGB}{192,192,192} #c0c0c0
+
+
+# plotting:
+# red dumbfounded
+# yellow reasons
+# blue nothing wrong
+dumb_palette <- c('#ff3801','#ff4c1b','#ff6035','#ff744e','#ff8868','#ff9c81','#ffb09b','#ff744e') # https://www.colorhexa.com/ff744e
+reasons_palette <- c('#ffb701','#ffbf1b','#ffc635','#ffcd4e','#ffd468','#ffdb81','#ffe39b','#ffcd4e') #https://www.colorhexa.com/ffcd4e
+nothing_palette <- c('#0149ff','#1b5bff','#356eff','#4e80ff','#6892ff','#81a5ff','#9bb7ff','#4e80ff') # https://www.colorhexa.com/4e80ff
+
+
+
+
+```
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+```{r}
+
+#load(project_filepath("static/data/searching.RData"))
+#data(../../../static/data/searching.RData)
+#load("../../static/data/searching.RData")
+#load("static/data/searching.RData")
+
+```
+
+
+In what follows I will attempt to provide an overview of my [recently published theoretical work](https://journals.sagepub.com/doi/full/10.1177/1745691621990636), covering the main ideas behind the theory, while also describing the process of its development, from initial conception to final publication.
+
+# Background
+
+I never intended to develop a new theory of moral judgement, it just sort of happened. When I started my PhD I wanted to understand ***how*** people make moral judgements, and when I studied the available approaches they didn't quite provide the answers I was looking for. For example @prinz_passionate_2005 over-stated the role of emotion in moral judgements: *'Emotions, I will suggest are perceptions of our bodily states. To recognise the moral value of an event is, thus, to perceive the perturbation that it causes'* [@prinz_passionate_2005, p. 99]. @haidt_emotional_2001 draws on analogy rather than providing an account for the underlying cognitive mechanisms, e.g., describing intuitions as phonemes [@haidt_emotional_2001, p. 827], *‘brain has a kind of gauge’*, a *‘like-ometer’* [@haidt_social_2008, p. 187]. @greene_secret_2008 distinguishes between *cognition* and *emotion*, though these are not well defined. The Theory of Dyadic Morality [@gray_mind_2012; @schein_theory_2018] provides an account that is based on the content of moral judgements, rather than the underlying cognitive mechanisms.
+
+So having failed to find the answers I was looking for in the morality literature, I broadened my reading, looking at the emotion literature, and research on learning and knowledge acquisition. This led me to the works of Lisa Feldman Barrett, and Lawrence Barsalou [@barrett_psychological_2014; @barsalou_situated_2003]. Initially I thought this provided a potential framework for understanding the role of emotions in moral judgement, however when I attempted to apply this framework, it became apparent that it also provided a framework for understanding moral judgment more generally. This realization came from an extensive survey of both the categorization and morality literatures. @barsalou_situated_2003 defended his theory of categorization by highlighting the dynamic and context dependent nature of categorization, the same kinds of variability and context dependency were present in the morality literature, these parallels are shown in Table 1.
+
+
+|                |                 |                     |                    |
+|----------------|-----------------|:-------------------:|:------------------:|
+|**Phenomenon**  |                 | **Categorization**  |   **Morality**     |
+|Variability     |Interpersonal    |      &#x2713;       |      &#x2713;      |
+|                |Intrapersonal    |      &#x2713;       |      &#x2713;      |
+|Context         |Culture          |      &#x2713;       |      &#x2713;      |
+|                |Social           |      &#x2713;       |      &#x2713;      |
+|                |Development      |      &#x2713;       |      &#x2713;      |
+|                |Emotion          |      &#x2713;       |      &#x2713;      |
+|                |Framing          |      &#x2713;       |      &#x2713;      |
+|                |Order/recency    |      &#x2713;       |      &#x2713;      |
+|Other           |Skill            |      &#x2713;       |      &#x2713;      |
+|                |Typicality       |      &#x2713;       |      &#x2713;*     |
+|                |Dumbfounding     |      &#x2713;**     |      &#x2713;      |
+
+
+Table: Table 1: Parallels between Morality and Categorization<br>
+*Note:*<br>
+*At the time of development we had only hypothesized that typicality in moral judgments would be observed, but more recent work has confirmed this hypothesis [@gray_impure_2015; @schein_theory_2018].<br>
+** While not directly referred to as *dumbfounding*, a similiar phenomenon has been observed in non-moral contexts [@boyd_what_1989; @boyd_realism_1991; @keil_concepts_1989; @keil_what_2004].
+
+
+# Moral Categorization
+
+The idea behind Moral Judgement as Categorization (MJAC - pronounced *em*-jack), is that making moral judgements involves the same cognitive processes as categorization more generally. There are three core premises and two core predictions of the approach as follows:
+
+### Premises
+
+- Making of a moral judgment is a process of ***categorizing*** something as *morally right* or *morally wrong* (or indeed *not morally relevant*).
+
+- The process of categorization involved in the making of a moral judgment is a domain-general one (not unique or specific to the moral domain).
+
+- Moral categorization occurs as part of ongoing goal-directed behavior and thus is highly dynamic and sensitive to a range of contextual influences.
+
+### Core Predictions
+
+- *Stability* emerges through continued and consistent repetition and rehearsal
+
+- *Robustness* emerges through consistency across multiple contexts
+
+According to MJAC, what others describe as moral 'intuitions' [e.g., @haidt_emotional_2001] are categorizations that have become highly skilled or automatic, through practice.
+
+# Understanding MJAC
+
+There are two examples that help to illustrate the assumptions of the categorization processes that MJAC is grounded in.
+
+### Things to Pack Into a Suitcase
+
+Consider the formation of the category *Things to Pack Into a Suitcase* [@barsalou_deriving_1991]. Items that fall into this category (toothbrush, spare clothes, etc.) are not generally categorized as such on a day-to-day basis. The category emerges as required: when a person needs to pack things into a suitcase. A person who travels frequently will be able to form the category things to pack into a suitcase more readily because of repetition and the emerging skill. @barsalou_situated_2003 argued that categorization more generally occurs through the same process. What we think of as *'Stable'* categories, are categorizations that have become habitualized or skilled, as part of goal-directed activity.
+
+![Figure 1: *Things to Pack Into a Suitcase*](/img/suitcase.jpg)
+
+
+### Fruit
+
+To illustrate how our every-day categorizations are shaped by goal-directed activity, consider the category *Fruit*. Typical members of the category include items such as *apples*, and *oranges*. *Fruit* is defined as *containing the seeds*, and by this definition, items such as *tomato* also fall into this category. However, we do not generally interact with tomatoes in the same way as we interact with other *Fruit*, so while it is defined as *Fruit*, we generally don't think of it as *Fruit*.
+
+![Figure 2: *Fruit*](/img/fruit.png)
+
+
+We extend this basic process to moral categories. When people encounter a behavior in certain circumstances, they may learn that it is *morally wrong*, and this behavior becomes associated with the category *morally wrong*. Each subsequent time this behavior is encountered in a context in which its moral value is relevant or it is identified as a member of the category *morally wrong* (either explicitly or implicitly), the person’s skill in deploying this category is strengthened. This same process holds for *morally right*. With the increasing frequency of such categorizations, they become increasingly habitual and automatic [see @barsalou_situated_2003].
+
+## Applying MJAC
+This approach to understanding moral judgements provides a novel perspective on how we understand particular moral phenomena.
+
+### Moral Dumbfounding
+
+Moral dumbfounding occurs when people defend a moral judgment even though they cannot provide a reason to support it [@haidt_moral_2000; @haidt_emotional_2001; @mchugh_searching_2017a; @mchugh_reasons_2020]. Moral dumbfounding is most frequently obeserved for harmless taboo behaviors (consensual incest, cannibalism involving a body that is already dead). The taboo nature of these topics means that they are consistently identified as *morally wrong* without much discussion [the Scottish public petitions committee notably dismissed a call to legalize incest with no discussion at all; see @sim_msps_2016]. This leads to a high degree of *stability* in categorizing them as *wrong.* However, the taboo nature of these behaviors prevents them from being discussed. This means that a typical encounter with such behavior involves little more than identifying it as *wrong*, possibly with an expression of disgust, and changing the subject. Because of this combination of *stability* and  This process logically leads to moral dumbfounding.
+
+### Categorizing people versus categorizing actions
+
+MJAC predicts people's judgements will focus on the *actor* or on the *action* depending on the situation. Consider the following two scenarios:
+
+> 1. You find out that a colleague has been fired for stealing from your employer—they have been bringing home office equipment for their own personal use, and they have been exaggerating their expense claims.
+
+> 2. A close friend of yours reveals to you that they have been stealing from their employer—they have been bringing home office equipment for their own personal use, and they have been exaggerating their expense claims.
+
+MJAC predicts that people will be more lenient in their judgments of the person in the second scenario than the in first scenario. Indeed this is consistent with what is found in the literature [@heiphetz_dehumanization_2020; @forbes_when_2018; @lee_he_2020; @hofmann_morality_2014; @weidman_punish_2020].
+
+A further prediction is that for the second scenario, people will focus on the *action* rather than the *actor*. People are motivated to see close others positively [@forbes_when_2018; @murray_benefits_1996; @murray_selffulfilling_1996]. If faced with a situation in which a close other did something wrong, people would try to avoid making a negative judgment of the person [@ditto_motivated_2009; @murray_benefits_1996; @murray_selffulfilling_1996]. One way to avoid this is to focus on the *action* rather than the *actor*. Relatedly, for favorable judgments, we expect the opposite effect. If a close other does something praiseworthy, people are likely to focus on the *actor* rather than the *action*, helping to maintain a positive view of the close other [@forbes_when_2018; @murray_benefits_1996; @murray_selffulfilling_1996].
+
+A key goal of moral categorization is to distinguish *'good'* people from *'bad'* people, to help us navigate the social world, and effectively guide our social interactions. Learning about people's moral character or moral 'essence', enables us to establish relationships with *'good'* people, and to limit our interactions with *'bad'* people (or at least treat interactions with *'bad'* people with caution). This means that for strangers, we are likely to show a bias for categorizing the *actor* rather than the *action* [@uhlmann_personcentered_2015; @dunlea_children_2020; @siegel_inferences_2017; @siegel_beliefs_2018].
+
+## Contrasting MJAC with Existing Approaches
+
+Perhaps the most important difference between MJAC and existing approaches is that the focus of MJAC is on the *cognitive* *processes*, rather than on the *content* of moral judgements. According to the dominant dual-process approaches, different types of moral judgements are grounded in different types of cognitive processes. *Deontological* (principled or rule based) moral judgements are grounded in intuitive/automatic/emotional/model-free processes, while *utilitarian* or *consequentialist* judgements  (where the aim is to maximise positive outcomes), are grounded in deliberative/controlled/cognitive/model-based processes. These different processes mean that our judgements are susceptible to specific kinds of contexual influences, e.g., how persona/impersonal an action is [@greene_secret_2008; @greene_why_2016], the relative amount of emotionality [@byrd_not_2019; @conway_sacrificial_2018; @conway_deontological_2013; @goldstein-greenwood_how_2020], or whether the focus is on the *action* or the *outcome* [@cushman_action_2013; @crockett_models_2013]. An overview of these approaches is displayed in Figure 3. Despite these important insights, there are a range of other context effects known to influence moral judgements that are not accounted for by these models. These *other* context effects are detailed in the green boxes in Figure 3.^[The reader is referred to the wealth of literature examining such factors as emotional influences, @cameron_morality_2013; intentionality, evitability, benefit recipient, @christensen_moral_2014; @christensen_moral_2012; action-outcome distinction @crockett_models_2013; cushman_action_2013; trustworthiness and social evaluation @everett_inference_2016; @everett_costs_2018; personal-impersonal distinction, @greene_fmri_2001; doctrine of double effect, @mikhail_rawls_2000; level of physical contact, @valdesolo_manipulations_2006; order effects, @wiegmann_order_2012]
+
+![Figure 3: *A sketch of dual-process approaches (contextual influences not directly addressed by these approaches highlighted in green)*](/img/context7.png)
+
+
+MJAC does not make assumptions based on the *content* of moral judgements. However, MJAC predicts a distinction between *habitual* (or skilled, or *intuitive*) responses, and *deliberative* (or controlled) responses. This distinction does not make assumptions about specific content of moral judgments. However, thinking about the contexts in which deontological vs utilitarian judgements are generally made, it makes sense that deontological rules might become more habitual (think *It's wrong to hurt people*, *Thou shalt not kill*, *You shouldn't hit your sister*), while utilitarian judgements may require more deliberation (e.g., *how should we divide these resources in the fairest manner?*). MJAC therefore integrates the insights of dual-process accounts, while also allowing for greater variability, and a more diverse range of context effects. Figure 4 outlines the various influences on moral judgement according to MJAC.
+
+![Figure 4: *Influences on moral judgements according to MJAC*](/img/mjac13.png)
+
+These differences in assumptions between MJAC and other approaches lead to differences in explanations and predictions. Above I have outlined moral dumbfounding as an example of such an explanation. The differences in assumptions and explanations are listed in Table 2. To avoid making this post too long and drawn out, I will not go into detail on these differences, however I point you to the [relevant section](https://journals.sagepub.com/doi/full/10.1177/1745691621990636#_i11) in the main article for more detailed discussion on this. 
+
+
+
+| |Greene’s Dual-process theory | "Soft" dual-process theory | Model-based accounts | TDM | MJAC |
+|-|-|-|-|-|-|
+| **Assumptions**: | | | | | |
+| *Content*| Deontology-utilitarianism / personal-impersonal | Deontology-utilitarianism | Action-outcome | Harm-based, dyadic | Dynamical Context-dependent Goal-directed |
+| *Moral "Essence"* | (Implicit) | (Not discussed) | (Implicit) | Explicit | Rejected |
+| *Processes* | Dual-processes | Dual-processes | Dual-processes | (implicitly dual-process) | Continuum |
+| *Mechanisms* | Intuition (emotion) / cognition | Emotion / cognition | Model-based / model-free | Categorization (unspecified) | Type-token interpretation |
+| **Phenomena Explained**: | | | | | |
+| *Dumbfounding (harmless wrongs)* | (Not discussed) | (Not discussed) | Explained | Denied | Explained: learning history |
+| *Wrongless harms* | (Not discussed) | (Not discussed) | (Not discussed) | Denied | Explained: learning history |
+| *Typicality* | (Not discussed) | (Not discussed) | (Not discussed) | Matching of "prototype" | Context-dependent |
+| *Contextual influences* | Specific: Personal-impersonal | Specific: Emotion / cognition | | Specific: Action-outcome | Specific: Harm-based | General: Goal-directed activity, learning history
+
+Table: Table 2: Contrasting MJAC with other approaches
+
+
+In the opening sections I outlined two general predictions of MJAC. We have also identified various specific predictions (e.g., the categorizing of *actors* vs *actions* described above). For brevity I do not go into detail on these specific predictions, but point you to the main article for this more detailed discussion ([here is probably a good place to start](https://journals.sagepub.com/doi/full/10.1177/1745691621990636#_i24)).
+
+
+
+# Developing and Publishing MJAC
+
+The road from initial conception, to publication of MJAC was quite long. The initial idea was formed by the Autumn of 2014. I presented this at my upgrade panel for my PhD in the Spring of 2015, and at a morality Summer School in Rotterdam in August 2015. It soon became apparent that the ideas behind MJAC were too broad to form the basis of a PhD, so it was shelved for a while, in favour of something more concrete. My PhD thesis ended up focusing on Moral Dumbfounding (though I was able to include an overview of MJAC in a final Epilogue chapter). I graduated from my PhD in 2018, and that winter I revisited MJAC to try and get it published.
+
+## Rejections
+
+By July 2019 it was ready for submission. It received a fairly quick desk reject from the first outlet.
+
+It went to review in the second journal we tried. I've had some difficult rejections, and rejections that I disagreed with, but this one was really rough. Reviewer 1 *really* did not like the idea. The review from Reviewer 1 contained some of the harshest review comments I have seen. A few excerpts from the (very long) review are below.
+
+
+> The authors compile a great deal of research findings. They argue that moral judgment is about categorization, a position that flies in the face of and does not account for the decades of research on moral judgment in developmental and educational psychology. <br><br>
+The paper is incoherent in narrative, inadequate and misleading in explanation, and overall does not advance the field. <br><br>
+The paper seems to bounce from one thing to another without a clear, coherent story. Perhaps their thin version of moral judgment is a type of categorization, one based on perceiver making the other into a dead object. But so what? What does it buy the field? How does it contribute to scholarship?
+
+
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">.... And rejected...some good constructive feedback, and some fairly harsh words... Skin is getting thicker with each paper <a href="https://twitter.com/hashtag/AcademicTwitter?src=hash&amp;ref_src=twsrc%5Etfw">#AcademicTwitter</a> <a href="https://twitter.com/hashtag/rejected?src=hash&amp;ref_src=twsrc%5Etfw">#rejected</a> ... I guess I&#39;ll try again tomorrow, for now I&#39;m going to watch The Deuce <a href="https://twitter.com/hashtag/thedeuce?src=hash&amp;ref_src=twsrc%5Etfw">#thedeuce</a> <a href="https://t.co/VDKDwORhev">https://t.co/VDKDwORhev</a> <a href="https://t.co/I6wGjajslL">pic.twitter.com/I6wGjajslL</a></p>&mdash; Cillian McHugh (@CillianMacAodh) <a href="https://twitter.com/CillianMacAodh/status/1192560032799428613?ref_src=twsrc%5Etfw">November 7, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+
+The experience with Reviewer 1 was a bit of a blow to the confidence. We brought it to our lab and made some fairly minor changes before sending it out again. Just before the Christmas break in 2019 I submitted it to *Perspectives on Psychological Science* (fully expecting to receive another reject). In February 2020 I went to SPSP in New Orleans, where I also was due to present MJAC as a poster at the Justice and Morality pre-conference. Upon landing I checked my email, and was very surprised to have received an R&R.
+
+## Revisions
+
+The reviews were really fair, but extensive. The original framing relied heavily on the parallels provided in Table 1 above. The reviewers were not convinced by this argument. We were encouraged to clearly differentiate MJAC from existing approaches, with instructions to identify and better engage with specific dual-process accounts, and with the Theory of Dyadic Morality [@schein_theory_2018].
+
+So the revisions were really quite tough. I approached them systematically, addressing each comment as well as was possible, and documenting *how* the changes made addressed each comment. Many of the comments addressed fairly deep conceptual questions, requiring extensive reading before I could begin attempting to address them. And, naturally, I shared my progress on social media:
+
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Yup! Starting to see progress!<br>Green is done ✅ <br>lighter green is done, but not sure if it&#39;s good enough 🤷‍♂️ <br>Blue means there was nothing to be done 👌🏼 <br>red.... well there&#39;s still time 😬🙈 <a href="https://t.co/zPehbIWlYr">https://t.co/zPehbIWlYr</a> <a href="https://t.co/YVNVtonRfW">pic.twitter.com/YVNVtonRfW</a></p>&mdash; Cillian McHugh (@CillianMacAodh) <a href="https://twitter.com/CillianMacAodh/status/1260377657063211012?ref_src=twsrc%5Etfw">May 13, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+I was also able to call on social media for help in addressing specific issues that came up while doing the revisions. The replies came in quickly, and really provided excellent resources to help with the revisions.
+
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">Simpson et al. (2016) look at third-party observers who witnessed a transgression between two targets who share a relationship, and Hofmann et al. (2018) look at social closeness and differences in desire to punish (2/2)</p>&mdash; Rachel Forbes (@rc_forbes) <a href="https://twitter.com/rc_forbes/status/1259272376719638531?ref_src=twsrc%5Etfw">May 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+
+Following weeks of work, we had finally addressed all the reviewer comments. I was sick of it at this stage, and ready to submit. Unfortunately, the extent of the revisions meant that the manuscript was too long to submit. I noted that there is technically no word limit for submissions at *Perspectives on Psychological Science*, but my co-authors wisely convinced me to ask for an extension so we could cut down the words to something more manageable.
+
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">So working on major revisions of a manuscript, all comments are pretty much addressed...<br>but now we&#39;re facing the problem of length...<br>Original submission between 8,000 and 9,000 words<br>Current version is 20,000 words...<br>Aaaaaah <br> 😫😖<a href="https://twitter.com/hashtag/AcademicTwitter?src=hash&amp;ref_src=twsrc%5Etfw">#AcademicTwitter</a> <a href="https://twitter.com/hashtag/AcademicChatter?src=hash&amp;ref_src=twsrc%5Etfw">#AcademicChatter</a><br>✂️🤔</p>&mdash; Cillian McHugh (@CillianMacAodh) <a href="https://twitter.com/CillianMacAodh/status/1263108737839046659?ref_src=twsrc%5Etfw">May 20, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+
+So we spent another few weeks cutting words, and restructuring sections to be more streamlined (huge credit to coauthors in this endeavour). And eventually we submitted the revised manuscript. It was unrecognisable from the original submission. 
+
+
+
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">And revised manuscript submitted! 12,037 in the end!<br><br>That was exhausting! 😂 <a href="https://t.co/c56NeW51Cr">https://t.co/c56NeW51Cr</a></p>&mdash; Cillian McHugh (@CillianMacAodh) <a href="https://twitter.com/CillianMacAodh/status/1275153113691889665?ref_src=twsrc%5Etfw">June 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+
+
+
+We submitted the revised version in June 2020, and received a decision of Conditional Accept (with minor revisions) in September. It was fully accepted in November 2020, and published online in July 2021 (almost 7 years after the original idea was formed)
+
+### Key Points in the Revisions
+
+I think one of the most important changes that came from the review process was the clarity in the argument. The original submission simply presented the approach, but we didn't articulate a clear *problem* the approach was solving. This was a tough question to address. The range of existing approaches available means that trying to go into detail on the relative strengths and weaknesses is not feasible. In contrast, a more general approach risks over-generalizing and potentially mis-representing some approaches. As the revisions progressed this core argument presented itself. We identified the variability and context dependency of moral judgements as a challenge that is not well addressed in the existing literature. Because dynamism and context dependency are core assumptions of MJAC, this means that MJAC is well positioned to address this challenge.
+
+
+![[@whedon_lie_1997]](/img/buffy.png)
+
+## References
+
+<html>
+<style> 
+
+.references {
+  padding-left: 42px ;
+  text-indent: -42px ;
+  font-size: 10pt    ;
+} 
+
+</style>
+</html>
+
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.0/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#3f51b5',
+  textColor: '#fff'
+})</script>
+

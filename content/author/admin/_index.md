@@ -146,3 +146,10 @@ I am an Experimental Psychologist specialising in cognitive and social psycholog
 My empirical work has largely focused on the phenomenon of [moral dumbfounding](https://www.cillianmchugh.com/publication/searching-for-moral-dumbfounding/); when a person defends a moral judgement in the absence of reasons. The dumbfounding paradigm has been influential in moral psychology; however, there has been limited empirical work investigating it. This has meant that the main focus of my work to date has been testing, and attempting to understand the phenomenon.
 
 My interests extend beyond the moral domain to include learning and knowledge acquisition, categorisation, skill/expertise, meaning, motivation, and memory. My theoretical interests include Ecological Psychology, Embodiment, and Dynamical Systems.
+
+<h2>Featured Video:</h2>
+
+Moral Judgment as Categorization (MJAC): presentation to IMP seminar series 31st May 2021
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VZahP87TCqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+

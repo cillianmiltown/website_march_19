@@ -126,8 +126,12 @@ url_pdf = "https://journals.sagepub.com/doi/pdf/10.1177/1745691621990636"
 </nav>
 </aside>
 
-
 <div id="moral-judgment-as-categorization-mjac" class="section level1">
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VZahP87TCqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+(presentation to IMP seminar series 31st May 2021)
+
 <h1>Moral Judgment as Categorization (MJAC)</h1>
 <blockquote>
 <p>It’s terribly simple. The good-guys are stalwart and true. The bad-guys are easily distinguished by their pointy horns or black hats and we always defeat them and save the day. Nobody ever dies…and everybody lives happily ever after. <span class="citation">(Whedon <a href="#ref-whedon_lie_1997" role="doc-biblioref">1997</a>, 41:55)</span></p>

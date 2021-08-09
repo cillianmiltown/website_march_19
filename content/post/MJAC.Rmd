@@ -129,8 +129,11 @@ nothing_palette <- c('#0149ff','#1b5bff','#356eff','#4e80ff','#6892ff','#81a5ff'
 
 ```
 
-
 In what follows I will attempt to provide an overview of my [recently published theoretical work](https://journals.sagepub.com/doi/full/10.1177/1745691621990636), covering the main ideas behind the theory, while also describing the process of its development, from initial conception to final publication.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VZahP87TCqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+(presentation to IMP seminar series 31st May 2021)
 
 # Background
 

@@ -129,7 +129,7 @@ url_pdf = "https://journals.sagepub.com/doi/pdf/10.1177/1745691621990636"
 <div id="moral-judgment-as-categorization-mjac" class="section level1">
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VZahP87TCqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<br>
 (presentation to IMP seminar series 31st May 2021)
 
 <h1>Moral Judgment as Categorization (MJAC)</h1>

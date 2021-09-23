@@ -13,7 +13,7 @@ summary = "Complete a 10-15 min survey"
 tags = ["statistics", "stan", "R"]
 
 # Optional external URL for project (replaces project detail page).
-external_link = "https://unioflimerick.eu.qualtrics.com/jfe/form/SV_0Vamp0iOZGP8WG2"
+external_link = "https://unioflimerick.eu.qualtrics.com/jfe/form/SV_0OPGGAJ8TplGZD0"
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your project's folder.

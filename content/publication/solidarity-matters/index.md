@@ -3,7 +3,7 @@ title = "Solidarity Matters: Prototypicality and Minority and Majority Adherence
 date = 2021-09-14T00:00:00
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Aoife-Marie Foran", "Jenny Roth", "Sarah Jay", "Siobhan M. Griffin", "Paul J. Maher", "Cillian McHugh", "Daragh Bradshaw", "Megan Ryan", "Michael Quayle", "Orla T. Muldoon"]
+authors = ["Aoife-Marie Foran", "Jenny Roth", "Sarah Jay", "Siobhán M. Griffin", "Paul J. Maher", "Cillian McHugh", "Daragh Bradshaw", "Megan Ryan", "Michael Quayle", "Orla T. Muldoon"]
 
 # Publication type.
 # Legend:

@@ -1,19 +1,19 @@
 +++
 # Project title.
-title = "Moral Judgements"
+title = "Categorization"
 
 # Date this page was created.
 date = 2020-03-10T00:00:00
 
 # Project summary to display on homepage.
-summary = "Complete a short 5 min survey"
+summary = "Complete a 10 min study"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["covid19", "bayesian", "stan"]`
-tags = ["Morality", "Attention", "Memory"]
+tags = ["Categories", "Sentences", "Memory"]
 
 # Optional external URL for project (replaces project detail page).
-external_link = "https://6aqcxoaxdw.cognition.run"
+external_link = "https://unioflimerick.eu.qualtrics.com/jfe/form/SV_daIWsvgjKOATBoF"
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your project's folder.

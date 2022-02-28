@@ -135,6 +135,12 @@ In what follows I will attempt to provide an overview of my [recently published 
 <br>
 (presentation to IMP seminar series 31st May 2021)
 
+<br>
+
+<iframe width="560" height="315" src="https://youtu.be/RmloHLgPlfk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+(Poster presentation to SPSP 2022)
+
 # Background
 
 I never intended to develop a new theory of moral judgement, it just sort of happened. When I started my PhD I wanted to understand ***how*** people make moral judgements, and when I studied the available approaches they didn't quite provide the answers I was looking for. For example @prinz_passionate_2005 over-stated the role of emotion in moral judgements: *'Emotions, I will suggest are perceptions of our bodily states. To recognise the moral value of an event is, thus, to perceive the perturbation that it causes'* [@prinz_passionate_2005, p. 99]. @haidt_emotional_2001 draws on analogy rather than providing an account for the underlying cognitive mechanisms, e.g., describing intuitions as phonemes [@haidt_emotional_2001, p. 827], *‘brain has a kind of gauge’*, a *‘like-ometer’* [@haidt_social_2008, p. 187]. @greene_secret_2008 distinguishes between *cognition* and *emotion*, though these are not well defined. The Theory of Dyadic Morality [@gray_mind_2012; @schein_theory_2018] provides an account that is based on the content of moral judgements, rather than the underlying cognitive mechanisms.

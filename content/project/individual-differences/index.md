@@ -10,7 +10,7 @@ summary = "Complete a longer survey"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["covid19", "bayesian", "stan"]`
-tags = ["Personality", "Morality", "Thinking Styles", "Religiosity"]
+tags = ["Personality", "Morality", "Thinking Styles", "Beliefs"]
 
 # Optional external URL for project (replaces project detail page).
 external_link = "https://unioflimerick.eu.qualtrics.com/jfe/form/SV_39Hz8GlPQD63tPv"

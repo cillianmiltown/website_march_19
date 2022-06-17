@@ -1,9 +1,9 @@
 +++
-title = "The Political Psychology of COVID-19"
+title = "Moral Identity Predicts Adherence to COVID-19 Mitigation Procedures Depending on Political Ideology: A Comparison Between the USA and New Zealand"
 date = 2021-07-30T00:00:00
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Orla T. Muldoon", "James H. Liu", "Cillian McHugh"]
+authors = ["Cillian McHugh", "Siobhán M. Griffin", "Melanie J. McGrath", "Joshua J. Rhee", "Paul J. Maher", "Darragh McCashin", "Jenny Roth"]
 
 # Publication type.
 # Legend:
@@ -16,17 +16,17 @@ authors = ["Orla T. Muldoon", "James H. Liu", "Cillian McHugh"]
 # 6 = Book chapter
 publication_types = ["2"]
 
-shorttitle = "Political Psychology of COVID-19"
+shorttitle = "Moral Identity and COVID-19"
 
-url_source = "https://onlinelibrary.wiley.com/doi/10.1111/pops.12775"
+url_source = "https://onlinelibrary.wiley.com/doi/abs/10.1111/pops.12838"
 #url = "/post/searching-for-dumbfounding/"
-doi = "10.1111/pops.12775"
+doi = "10.1111/pops.12838"
 
-abstract = "The COVID-19 pandemic has given rise to unprecedented and extraordinary conditions. It represents a profound threat to health and political and economic stability globally. It is the pressing issue of the current historical moment and is likely to have far-reaching social and political implications over the next decade. Political psychology can inform our preparedness for the next phase of the pandemic as well as our planning for a post COVID-19 world. We hope that this special issue will play its part in helping us to think how we manage and live with COVID-19 over the coming decade. In this editorial, we review the key themes arising from the contributions to our special issue and, alongside existing knowledge highlight the relevance of political psychology to finding solutions during this time of crisis. The contributions to this special issue and the pandemic raise many classic topics of central interest to political psychology: leadership, solidarity and division, nationalism, equality, racism, and international and intergroup relations. In our editorial, we offer an analysis that highlights three key themes. First, the importance of sociopolitical factors in shaping behavior during this pandemic. Second, the relevance of political leadership and rhetoric to collective efforts to tackle SARS-COV-2. And third, how sociopolitical cohesion and division has become increasingly relevant during this time of threat and crisis."
+abstract = "Reducing the spread of infectious viruses (e.g., COVID-19) can depend on societal compliance with effective mitigations. Identifying factors that influence adherence can inform public policy. In many cases, public health messaging has become highly moralized, focusing on the need to act for the greater good. In such contexts, a person's moral identity may influence behavior and serve to increase compliance through different mechanisms: if a person sees compliance as the right thing to do (internalization) and/or if a person perceives compliance as something others will notice as the right thing to do (symbolization). We argue that in societies that are more politically polarized, people's political ideology may interact with their moral identity to predict compliance. We hypothesized that where polarization is high (e.g., USA), moral identity should positively predict compliance for liberals to a greater extent than for conservatives. However, this effect would not occur where polarization is low (e.g., New Zealand). Moral identity, political ideology, and support for three different COVID-19 mitigation measures were assessed in both nations (N = 1,980). Results show that while moral identity can influence compliance, the political context of the nation must also be taken into account."
 
 publication = "Political Psychology"
 
-#url_pdf = ""
+url_pdf = "https://onlinelibrary.wiley.com/doi/epdf/10.1111/pops.12838"
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
@@ -36,3 +36,12 @@ publication = "Political Psychology"
 
 
 +++
+
+
+## Highlights
+
+- People's moral identity is related to their attitudes toward, and adherence to, COVID-19 mitigation measures.
+- In a context where polarization is high (USA), this relationship is moderated by political ideology; the relationship between moral identity and support for COVID-19 mitigation measures is observed for liberals, but it is less strong (or even reversed) for conservatives.
+- In a context where polarization is lower (New Zealand), this relationship between moral identity and support for COVID-19 mitigation measures is not moderated by political ideology.
+- The results point to the relevance of the national sociopolitical context in shaping how public health messaging advice is received and acted upon, and a consideration of this context may be important in future messaging on societal issues.
+

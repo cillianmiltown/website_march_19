@@ -76,6 +76,11 @@ user_groups = ["Researchers", "Visitors"]
 #   link = "#contact"  # For a direct email link, use "mailto:test@example.org".
 
 [[social]]
+  icon = "mastodon"
+  icon_pack = "fab"
+  link = "https://mastodon.ie/@cillianmchugh"
+
+[[social]]
   icon = "twitter"
   icon_pack = "fab"
   link = "https://twitter.com/CillianMacAodh"
@@ -147,7 +152,7 @@ My empirical work has largely focused on the phenomenon of [moral dumbfounding](
 
 My interests extend beyond the moral domain to include learning and knowledge acquisition, categorisation, skill/expertise, meaning, motivation, and memory. My theoretical interests include Ecological Psychology, Embodiment, and Dynamical Systems.
 
-I can be found by following any of the social links above/on the left, and I am also on <a rel="me" href="https://mastodon.ie/@cillianmchugh">Mastodon</a>.
+<a rel="me" href="https://mastodon.ie/@cillianmchugh"></a>
 
 <h2>Featured Video:</h2>
 

@@ -23,6 +23,6 @@ Check out [Cillian Mc Hugh](https://open.spotify.com/artist/4YrhGzeBXwDn6FM4WfI8
 <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=OLAK5uy_mYaYyP7L_Zq72SMK54b7lnV3nFXMDiHmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br><br>
 
-(follow one of the links below for more information)
+(follow any of the links below for more information)
 
 <br>

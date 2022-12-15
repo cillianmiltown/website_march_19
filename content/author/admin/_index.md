@@ -158,5 +158,10 @@ My interests extend beyond the moral domain to include learning and knowledge ac
 
 Moral Judgment as Categorization (MJAC): presentation to IMP seminar series 31st May 2021
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VZahP87TCqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div>
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/VZahP87TCqE" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
 

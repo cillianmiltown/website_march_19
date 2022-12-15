@@ -1,7 +1,7 @@
 ---
 title: Launch Gig (photos and videos)
 author: Cillian
-date: '2019-05-17'
+date: '2022-12-09'
 slug: launch-gig
 summary: 'A collection of photos and videos from the official launch of "It will pass..." in The Commercial on the 12th of April.'
 categories: []

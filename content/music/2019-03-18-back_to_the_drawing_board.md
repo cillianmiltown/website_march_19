@@ -29,7 +29,13 @@ output:
 
 Back to the Drawing Board is a 13 track album released in 2012. The official launch was in September 2012.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=OLAK5uy_mi0VaUBTlt-KA5J4po0EKInKU-EQdn__U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div>
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/videoseries?list=OLAK5uy_mi0VaUBTlt-KA5J4po0EKInKU-EQdn__U" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
 
 ## Rain
 **Vocals**: Ciara McHugh<br>

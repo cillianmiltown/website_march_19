@@ -20,7 +20,14 @@ A collection of photos from the official launch of *It will pass...* in The Comm
 
 The Artwork by *Celina Buckley* <br>
 
-<iframe width="720" height="405" src="https://www.youtube.com/embed/FeJLejjCWls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<div>
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/FeJLejjCWls" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
 
 **Full set**: Writer's Block (With CLEF Choir);
 Counting the Days;
@@ -36,7 +43,14 @@ The Last Flight Home;
 Bigness;
 Another Goodbye (With CLEF Choir)  <br>
 
-<iframe width="720" height="405" src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<div>
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/eqv_HIa3mfE" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
 
 *Another Goodbye* with Clef Choir <br>
 

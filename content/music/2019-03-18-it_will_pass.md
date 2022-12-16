@@ -1,5 +1,5 @@
 ---
-title: It Will Pass
+title: It will pass...
 author: Cillian McHugh
 date: '2022-12-13'
 slug: it_will_pass
@@ -24,7 +24,7 @@ Track information for the album *It Will Pass...*. Listen to the full album belo
 
 
 
-# It Will Pass...
+# It will pass...
 
 <div>
   <div style="position:relative;padding-top:56.25%;">

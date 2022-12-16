@@ -20,6 +20,7 @@ output:
 
 {{% toc %}}
 
+Track information for the album *It Will Pass...*. Listen to the full album below (or on [youtube music](https://music.youtube.com/playlist?list=OLAK5uy_l9jItlYhFouJPhALQciwkFUCLiEPKUxPA&feature=share), [Spotify](https://open.spotify.com/album/19BDO0YFKBzXs18wAvGKYS?si=kvd9LDnURtScrRx_8d4Fww), or [itunes](https://music.apple.com/ie/album/it-will-pass/1455690979))
 
 
 
@@ -33,9 +34,21 @@ output:
 </div>
 
 
+&nbsp;<br>
+
 ## The Race 
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
+
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/u8k5oktNsyY" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 What if you, if you were in my shoes?<br>
 Would they fit? And would they keep you warm?<br>
@@ -57,6 +70,8 @@ No more...<br>
 is caught up, is made up<br>
 
 
+&nbsp;<br>
+
 ## Another Goodbye
 **Vocals**: Maggie McHugh<br>
 **Backing Vocals**: Donal McHugh, Cillian McHugh<br>
@@ -65,6 +80,15 @@ is caught up, is made up<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Simon O'Donnell
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/OXZYyYpU5wY" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
 
 ```{results=asis}
   Verse:
@@ -113,10 +137,20 @@ And you have to say goodbye<br>
 And you have to say goodbye<br>
 And you have to say goodbye<br>
 
+&nbsp;<br>
 
 ## There Are No Words
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/oH4XFmC-a90" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 There are no words, there are no words, there's just hanging on <br>
 And holding out, and holding on, until it's gone<br>
@@ -131,6 +165,8 @@ And every time, and every time, no matter what you try<br>
 Will come again, will come again...<br>
 
 
+&nbsp;<br>
+
 ## Unknown Arms
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -139,12 +175,54 @@ Will come again, will come again...<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/Yx3XwRwnCEA" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
+
+Chances that I blew<br>
+And candles that I knew<br>
+And all now, as I see<br>
+Is all<br>
+
+People said, and tears were shed<br>
+We both knew it could only ever be<br>
+as unknown arms wrapped around me<br>
+unknown arms wrapped around me<br>
+unknown arms wrapped around me<br>
+
+Chances that I blew<br>
+and candles that I knew,<br>
+And all<br>
+Is all<br>
+
+All night tears were shed<br>
+We both knew it could only ever be<br>
+as unknown arms wrapped around me<br>
+unknown arms wrapped around me<br>
+unknown arms wrapped around me<br>
 
 
+
+
+&nbsp;<br>
 
 ## Summer Rain
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/3Y-4htLDq-4" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 ```{results=asis}
 
@@ -186,10 +264,72 @@ Will come again, will come again...<br>
 
 ```
 
+Smells like summer rain<br>
+Smells like summer rain<br>
+The path is wet<br>
+But the air is warm<br>
+
+Feels like summer rain<br>
+Feels like summer rain<br>
+My clothes are damp<br>
+but my skin is warm<br>
+
+-
+
+Memories of the past<br>
+Memories of the past<br>
+What I've learned<br>
+And what didn't last<br>
+
+*Chorus 1*<br>
+And I know I'm too young to know<br>
+But I've asked those questions long ago<br>
+And April rain<br>
+Still falls<br>
+
+And I know<br>
+She's right but she's wrong<br>
+And passing showers<br>
+Only last so long<br>
+
+-
+
+Memories of the past<br>
+Of games on the path<br>
+Memories of the past<br>
+What's changed and what can last<br>
+
+Smells like summer rain<br>
+Smells like summer rain<br>
+What I've learned<br>
+And what's the same<br>
+
+*Chorus 2*<br>
+And I know what I want to know<br>
+And I've seen it happen, I've seen it grow<br>
+While April rain<br>
+Still falls<br>
+
+And I know<br>
+It's right but it's wrong<br>
+And passing showers<br>
+Only last so long<br>
+
+
+&nbsp;<br>
 
 ## Counting the Days
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/zTjv5g6L6U0" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 Walking home across the city from the train to the plane<br>
 You're on your own, there's no pity there's no pain in vain<br>
@@ -211,9 +351,22 @@ You're almost home, just the drive and in your mind<br>
 You count the days till the next time<br>
 Like you count the days each time
 
+
+&nbsp;<br>
+
+
 ## If I Care
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/WGdK6guj4Lg" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 ```{results=asis}
 
@@ -259,9 +412,21 @@ Coz if I care.......<br>
 I'd care<br>
 
 
+&nbsp;<br>
+
+
 ## It Will Pass
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/VorAwtSzFzs" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 Too many times,<br>
 But it will pass and come again,<br>
@@ -277,6 +442,7 @@ And the band sings your heart, drawing distractions<br>
 Too many times,<br>
 But it will pass and come again.
 
+&nbsp;<br>
 
 ## The Last Flight Home
 **Vocals**: Cillian McHugh<br>
@@ -288,6 +454,14 @@ But it will pass and come again.
 **Drums**: Donal McHugh<br>
 **Bass**: Simon O'Donnell
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/bYkPdSiiGYM" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
 
 ```{results=asis}
   
@@ -330,10 +504,47 @@ and what we had.<br>
 Two months on, the time you bought is gone,<br>
 Today’s flight home, the last flight home<br>
 
+&nbsp;<br>
+
 ## Three Cars Back
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/Nm2NOUmhURI" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+<br>
+
+Sitting three cars back from the red light<br>
+The fan's on full, and the windows are down<br>
+The light's change as you wipe the sweat from your face<br>
+
+But the oncoming cars<br>
+Mean nothing is going right<br>
+And you're stuck three cars back<br>
+And you're going nowhere<br>
+
+Take out your phone and glance at the screen<br>
+Still no reply, or answer to be see<br>
+And you know that it's worth waiting for<br>
+But you know that you've been here before<br>
+
+And is that all this is?<br>
+Just another drunken kiss?<br>
+And you're three cars back<br>
+And you're going nowhere<br>
+
+
+
+
+
+
+&nbsp;<br>
 
 ## Writer's Block
 **Vocals**: Cillian McHugh<br>
@@ -346,6 +557,37 @@ Today’s flight home, the last flight home<br>
 
 
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/5w3r6ADw3M8" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
 
+<br>
+
+He tries to speak his mind and he finds the line but the words that he chose don't fit,<br>
+He tries to hide behind the disguise but he's blind in the maze that he built himself,<br>
+And he knows he shouldn't worry<br>
+And he knows that its only a song and that<br>
+There really is no hurry<br>
+But at the same time<br>
+
+It's been a long long time and he's falling behind and he feels he's losing touch<br>
+It's been a long long time and its on his mind and he knows that that's enough<br>
+It's been a long time he knows<br>
+It's been a long time he knows<br>
+
+He tries to sing his song but its been so long, the chords sound wrong and the melody's gone<br>
+He's forgotten the lines that were in his mind, he can't shake the feeling that he's stealing from someone<br>
+And he knows there's something better<br>
+And he knows that a reason will come<br>
+And the next time will sound better<br>
+But at the same time<br>
+
+It's been a long long time and he's falling behind and he feels he's losing touch<br>
+It's been a long long time and its on his mind and he knows that that's enough<br>
+It's been a long time he knows<br>
+It's been a long time he knows<br>
 
 

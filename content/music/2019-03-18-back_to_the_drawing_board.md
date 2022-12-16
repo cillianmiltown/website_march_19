@@ -20,14 +20,23 @@ output:
 
 
 
-
 {{% toc %}}
 
 
+Track information for the album *Back to the Drawing Board*. Listen to the full album below (or on [youtube music](https://music.youtube.com/playlist?list=OLAK5uy_mAlQPWGykP4bg17olx62xIjT4ljvxiAko&feature=share), [Spotify](https://open.spotify.com/album/6KyhptdTED359G2PCJ3fFk?si=FQizNHCvSN-s_BJPsTmz0Q), or [itunes](https://music.apple.com/ie/album/back-to-the-drawing-board/485620902))
 
-# Back to the Drawing Board 
+<br>
 
-Back to the Drawing Board is a 13 track album released in 2012. The official launch was in September 2012.
+<style>
+pre {
+  white-space: pre-wrap;
+  background: #F5F5F5;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+</style>
+
 
 <div>
   <div style="position:relative;padding-top:56.25%;">
@@ -37,10 +46,55 @@ Back to the Drawing Board is a 13 track album released in 2012. The official lau
 </div>
 
 
+# Back to the Drawing Board 
+
+Back to the Drawing Board is a 13 track album released in 2012. The official launch was in September 2012.
+
+&nbsp;<br>
+
+
+
 ## Rain
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/Xk3JpKZbtYU" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+The sky is grey, it's raining today <br>
+Pearls on the grass <br>
+It's always the same, drops of rain <br>
+But the tears keep falling down
+
+Tears in your eyes, misty skies <br>
+Vision is blurred<br>
+Where is the pain, you can't explain<br>
+Tears in the rain
+
+Why do we cry?<br>
+Love or loss?
+
+Drops on the glass trace a path<br>
+Of patterns and maps<br>
+Trickling down, from your frown<br>
+It tickles your cheek
+
+It's always the same, drops of rain<br>
+On the window pane<br>
+You wipe your eyes but continue to cry<br>
+And the rain falls
+
+&nbsp;<br>
+
+
 
 ## Bigness
 **Vocals**: Cillian McHugh<br>
@@ -50,8 +104,39 @@ Back to the Drawing Board is a 13 track album released in 2012. The official lau
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/AEIlDvf64Ao" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
 
-```{results=asis}
+
+<br>
+
+Look up to see, to see how high<br>
+can we ever reach the sky<br>
+what'll i be before i die<br>
+and should i wonder why<br>
+
+start with one, another makes two<br>
+are the numbers really true<br>
+it can't be done, if we only knew<br>
+to count them all: impossible to do<br>
+
+time goes on and on, every day we're here<br>
+adds up to pass the year<br>
+when it's done and gone you can't go back<br>
+to change the past it doesn't work like that<br>
+
+the universe expands that's what they say<br>
+getting bigger every day<br>
+the big bang blew it all away<br>
+far and wide past the milky way<br>
+
+
+
+```{results=asis, class.output="scroll-100",}
   Verse:
         C       G(1)    C       G(1)    Am      G(2)    Am      G(2)
   E||---0---|---0---|---0---|---0---|---0---|---0---|---0---|---0---|
@@ -90,25 +175,9 @@ Back to the Drawing Board is a 13 track album released in 2012. The official lau
 
 ```
 
-Look up to see, to see how high<br>
-can we ever reach the sky<br>
-what'll i be before i die<br>
-and should i wonder why<br>
+&nbsp;<br>
 
-start with one, another makes two<br>
-are the numbers really true<br>
-it can't be done, if we only knew<br>
-to count them all: impossible to do<br>
 
-time goes on and on, every day we're here<br>
-adds up to pass the year<br>
-when it's done and gone you can't go back<br>
-to change the past it doesn't work like that<br>
-
-the universe expands that's what they say<br>
-getting bigger every day<br>
-the big bang blew it all away<br>
-far and wide past the milky way<br>
 
 ## Stars
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
@@ -117,6 +186,45 @@ far and wide past the milky way<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/CGbVHCXMx0E" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+I watch the sun go down:<br>
+Purple and red through the scattered clouds.<br>
+Golden light fills the sky.<br>
+
+Do you remember by the water?<br>
+Clouds in the way, sky was grey,<br>
+It didn’t matter.<br>
+
+I watch the darkness fall and surround us all.<br>
+Warmth and light<br>
+Are faded and gone.<br>
+
+Cold bite on a lonely night.<br>
+Chill in the air as I sit and stare
+
+
+Stare at the sky for hours trying to count the stars.<br>
+So far away, so long ago<br>
+Does it matter?<br>
+
+
+Standing alone, under the moon’s glow<br>
+Empty night and the starlight.<br>
+Silver streak shines on your cheek as a star winks out.<br>
+
+&nbsp;<br>
+
+
+
 ## Faith
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -124,8 +232,15 @@ far and wide past the milky way<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/pHWnFRprADo" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
 
 
+<br>
 
 What if I told you that everyone was wrong?<br>
 wrong in what they believe...<br>
@@ -144,12 +259,43 @@ And live your life 'cause it's all that you can know... take good with bad and l
 
 Would you call me mad if I told you that I knew...?...and didn't know...because I know...?..<br>
 
+&nbsp;<br>
+
 
 ## 24
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/ALZN9BPAvbM" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+*Verse 1*<br>
+Reverse the answer, It’s 24<br>
+But what is the question? No one cares anymore<br>
+God is Forgotten, Who needs heaven’s door<br>
+We’ve got money<br>
+
+*Chorus*<br>
+And the more we learn, Learn about the earth<br>
+The more we seem to forget<br>
+Technologies and good careers, we try to beat our peer<br>
+And 24 is all the time we get<br>
+
+*Verse 2*<br>
+The edge of the rainbow goes up to 24<br>
+On the other side we’re getting fried, more than ever before<br>
+Chainsaws and trucks expose the forest floor<br>
+And we let it happen<br>
+
 
 ```{results=asis}
 
@@ -182,23 +328,8 @@ Would you call me mad if I told you that I knew...?...and didn't know...because 
 
 
 ```
-*Verse 1*<br>
-Reverse the answer, It’s 24<br>
-But what is the question? No one cares anymore<br>
-God is Forgotten, Who needs heaven’s door<br>
-We’ve got money<br>
 
-*Chorus*<br>
-And the more we learn, Learn about the earth<br>
-The more we seem to forget<br>
-Technologies and good careers, we try to beat our peer<br>
-And 24 is all the time we get<br>
-
-*Verse 2*<br>
-The edge of the rainbow goes up to 24<br>
-On the other side we’re getting fried, more than ever before<br>
-Chainsaws and trucks expose the forest floor<br>
-And we let it happen<br>
+&nbsp;<br>
 
 
 
@@ -206,10 +337,65 @@ And we let it happen<br>
 **Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/D4BahEdOHWM" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+
+to love is to catch a rainbow<br>
+the sun and the rain, the joy and the pain<br>
+
+chase a rainbow<br>
+'till you catch the wind<br>
+and it carries you off<br>
+over the sky<br>
+washed up<br>
+left on the moon<br>
+broken hearts<br>
+chase rainbows<br>
+
+swirl for a while with a surface smile<br>
+but bubbles burst or float away on a breeze<br>
+
+chase a rainbow<br>
+'till you catch the wind<br>
+and it carries you off<br>
+over the sky<br>
+washed up<br>
+left on the moon<br>
+broken hearts<br>
+chase rainbows<br>
+
+&nbsp;<br>
+
+
 ## Passing Days
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/WDAvlXZ7-h4" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+The days pass.<br>
+But your heart still cries<br>
+(But inside, inside it still rains)
+
+&nbsp;<br>
+
 
 ## Back to the Drawing Board
 **Vocals**: Ciara McHugh<br>
@@ -218,6 +404,16 @@ And we let it happen<br>
 **Piano**: Donal McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/iO7EDuaq53o" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
 
 ```{results=asis}
 
@@ -277,6 +473,9 @@ chuir sa tine é<br>
 bris é go dtí píosaí beag<br>
 is tosaigh arís, tosaigh arís<br>
 
+&nbsp;<br>
+
+
 ## The Price Of Love
 **Vocals**: Cillian McHugh<br>
 **Acoustic Guitar**: Cillian McHugh<br>
@@ -286,11 +485,72 @@ is tosaigh arís, tosaigh arís<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/v2kpOONkefM" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+Waiting... Holding out<br>
+Hoping time won't run out<br>
+Torn between a rock and a hard place<br>
+Torn between love and happiness<br>
+
+Neither is enough, neither will suffice<br>
+Carry on the same - that's the best advice<br>
+Hide from the shame, hide from your heart<br>
+Cause no pain, break no-one's heart<br>
+
+&nbsp;<br>
+
+
 ## Broken Words
 **Vocals**: Ciara McHugh, Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh
+
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/hJBC3X8bryk" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+
+You mean it. You say it’s true.<br>
+I believe it. I feel it too.<br>
+You said to me, I said to you.<br>
+
+Words pick me up and carry me.<br>
+The thrill, the rush, the waves under me.<br>
+(Surfing the waves)<br>
+
+But waves break words are lost.<br>
+Crashing truths of changing tides,<br>
+Washed ashore and left behind.<br>
+
+Words are washed out ripples on the shore.<br>
+(Washed out waves)<br>
+Broken words can’t carry me anymore.<br>
+(Broken, broken words)<br>
+
+You said it then.<br>
+Means nothing now.<br>
+Meaning lost.<br>
+(From your) Broken words.<br>
+
+&nbsp;<br>
+
 
 ## The Happy Song
 **Vocals**: Cillian McHugh<br>
@@ -299,6 +559,18 @@ is tosaigh arís, tosaigh arís<br>
 **Drums**: Donal McHugh<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
+
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/ZSJ7tTRVacc" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+
 
 ```{results=asis}
 
@@ -348,6 +620,10 @@ when i’m happy i’m with friends<br>
 and when i’m with friends i’m happyv
 and i believe<br>
 
+
+&nbsp;<br>
+
+
 ## Too Close
 **Vocals**: Cillian McHugh<br>
 **Guitars**: Cillian McHugh<br>
@@ -356,11 +632,64 @@ and i believe<br>
 **Bass**: Cillian McHugh<br>
 **Harmonica**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/gWsc5f_48QM" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+Listening to the silence of chords that were never played<br>
+Humming through the lines of mistakes we made<br>
+Listening while we wait is it too late<br>
+
+The final words he spoke still echoed in your mind<br>
+Oh as a song comes to a close for a second time<br>
+True for you now, wondering how<br>
+
+
+&nbsp;<br>
+
 ## Sun
 **Vocals**: Ciara McHugh<br>
 **Backing Vocals**: Cillian McHugh<br>
 **Guitar**: Cillian McHugh
 
+<div style="width:25%;height:25%;">
+  <div style="position:relative;padding-top:56.25%;">
+    <iframe src="https://www.youtube.com/embed/GBUXLnN12Ug" frameborder="0" allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</div>
+
+
+<br>
+
+Kids are playin’ on the grass,<br>
+The sun is out, the rain has passed.<br>
+But the sun can’t warm the void inside<br>
+When you’re all alone.<br>
+
+Outside the window, bright and blue,<br>
+The empty sky is reflected through.<br>
+Through your eyes and into you,<br>
+Just the same.<br>
+
+The sun shines.<br>
+Burning inside.
+
+A gentle breeze shakes the leaves<br>
+As it blows through the trees.<br>
+From deep inside you breathe a sigh,<br>
+Wondering why.<br>
+
+The sun is bright the sky is clear.<br>
+You’re all alone, there’s no one here.<br>
+Hurting inside you fight the tears,<br>
+And the sun shines.<br>
 
 
 <script src="https://unpkg.com/vanilla-back-to-top@7.2.0/dist/vanilla-back-to-top.min.js"></script>

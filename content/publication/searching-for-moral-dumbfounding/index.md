@@ -18,7 +18,7 @@ publication_types = ["2"]
 
 shorttitle = "Searching for Moral Dumbfounding"
 
-url_source = "http://www.collabra.org/article/10.1525/collabra.79/"
+url_source = "https://online.ucpress.edu/collabra/article/3/1/23/112379/Searching-for-Moral-Dumbfounding-Identifying"
 #url = "/post/searching-for-dumbfounding/"
 doi = "10.1525/collabra.79"
 

@@ -1,6 +1,6 @@
 +++
 title = "Pandemic threat and group cohesion: national identification in the wake of COVID-19 is associated with authoritarianism"
-date = 2022-02-09T00:00:00
+date = 2022-01-01T00:00:00
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = ["Paul J. Maher", "Jenny Roth", "Siobhán M. Griffin", "Aoife Marie Foran", "Sarah Jay", "Cillian McHugh", "Megan Ryan", "Daragh Bradshaw", "Michael Quayle", "Orla T Muldoon"]
